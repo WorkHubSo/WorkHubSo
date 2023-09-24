@@ -33,6 +33,10 @@ const jobSchema = new mongoose.Schema({
         type: String,
         required: false
     },
+    aboutMe: {
+        type: String,
+        required: false
+    },
     createAt: {
         type: Date,
         default: () => Date.now()
@@ -43,4 +47,4 @@ const jobSchema = new mongoose.Schema({
     }
 });
 
-export const jobSeekerModel = mongoose.model('jobSeeker', jobSchema);
+export const jobSeekerModel = mongoose.model('jobSeekers', jobSchema);
