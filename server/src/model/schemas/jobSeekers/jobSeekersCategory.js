@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
-const languageSchema = mongoose.Schema({
-    language: {
+const categoryShema = mongoose.Schema({
+    category: {
         type: String,
         required: false
     },
@@ -18,5 +18,4 @@ const languageSchema = mongoose.Schema({
         default: () => Date.now()
     }
 })
-
-export const languageModel = mongoose.model('languageSchema', languageSchema);
+export const categoryModel = mongoose.model('categoryShema', categoryShema)
