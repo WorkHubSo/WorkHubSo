@@ -1,35 +1,71 @@
 import { jobSeekerModel } from "../../model/schemas/jobSeekers/jobSeekers.js";
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import { jwt_secret } from "../../config/config.js";
 
 export const register_job_seekers = async(req, res) => {
     try {
-        const { email, fullName, password } = req.body;
-        const findUser = await jobSeekerModel.findOne({
-            email: email,
-        })
-        if (findUser) {
-            return res.json({
-                message: ' User Already Exists '
-            })
-        }
-        const user = await new jobSeekerModel({
-            fullName,
-            email,
-            password
+        const { fullName, email, password } = req.body;
+
+        const user_exist = await jobSeekerModel.findOne({
+            email: email
         })
 
-        user.save();
+        if (user_exist) {
+            return res.status(404).json({
+                message: 'user already exists',
+            })
+        }
+        const hassedPassword = await bcrypt.hash(password, 10);
+        const user = new jobSeekerModel({
+            fullName: fullName,
+            email: email,
+            password: hassedPassword
+        })
+
+        await user.save();
+
+        res.json({
+            message: 'successfully registered'
+        })
+
+    } catch (error) {
+        console.log('error', error.message);
+    }
+}
+
+export const login_job_seekers = async(req, res) => {
+    try {
+
+        const { email, password } = req.body;
+
+        const user = await jobSeekerModel.findOne({
+            email: email,
+        })
 
         if (!user) {
             return res.status(404).json({
                 status: false,
-                message: 'User Not Registered'
+                message: 'incorrect email and password'
             })
-        };
+        }
 
-        res.json('successfull registered');
-
+        const compare_password = bcrypt.compare(password, user.password)
+        if (!compare_password) {
+            return res.status(404).json({
+                status: false,
+                message: 'incorrect email and password'
+            })
+        }
+        const token = jwt.sign({ _id: user._id }, jwt_secret)
+        res.cookie('jobSeekerToken', token, {
+            httpOnly: true,
+            secure: false,
+            maxAge: 7 * 24 * 60 * 60 * 1000
+        })
+        res.json(token)
     } catch (error) {
-        console.log(`error`, error);
+        console.log('error', error);
     }
 }
 

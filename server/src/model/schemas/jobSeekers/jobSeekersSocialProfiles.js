@@ -17,7 +17,7 @@ const socailProfileSchema = mongoose.Schema({
         type: String,
         required: false
     },
-    github: {
+    linkTree: {
         type: String,
         required: false
     },
