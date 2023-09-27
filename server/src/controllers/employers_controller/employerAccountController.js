@@ -1,12 +1,12 @@
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import { companyAccountModel } from '../../model/schemas/employers/companyAccount.js';
 import { jwt_secret } from '../../config/config.js';
+import { employerAccountModel } from '../../model/schemas/employers/employerAccount.js';
 export const register_company_account = async(req, res) => {
     try {
         const { companyName, email, password } = req.body;
         const hassedpassword = await bcrypt.hash(password, 10);
-        const create_company_account = await new companyAccountModel({
+        const create_company_account = await new employerAccountModel({
             companyName: companyName,
             email: email,
             password: hassedpassword,
@@ -35,7 +35,7 @@ export const login_company_account = async(req, res) => {
 
         const { email, password } = req.body;
 
-        const login_company = await companyAccountModel.findOne({
+        const login_company = await employerAccountModel.findOne({
             email: email
         })
 
@@ -74,7 +74,7 @@ export const login_company_account = async(req, res) => {
 export const get_employer = async(req, res) => {
     try {
 
-        const employer = await companyAccountModel.find();
+        const employer = await employerAccountModel.find();
 
         if (!employer) {
             return res.status(404).json({
@@ -96,7 +96,7 @@ export const get_employer = async(req, res) => {
 export const get_current_employer = async(req, res) => {
     try {
         const employerId = req.employer._id;
-        const employer = await companyAccountModel.findOne({ _id: employerId });
+        const employer = await employerAccountModel.findOne({ _id: employerId });
 
         if (!employer) {
             return res.status(404).json({
@@ -118,7 +118,7 @@ export const get_current_employer = async(req, res) => {
 
 export const get_employer_byId = async(req, res) => {
     try {
-        const get_employer = await companyAccountModel.findOne({ _id: req.params.id });
+        const get_employer = await employerAccountModel.findOne({ _id: req.params.id });
 
         if (!get_employer) {
             return res.status(404).json({
@@ -139,7 +139,7 @@ export const get_employer_byId = async(req, res) => {
 
 export const delete_employer = async(req, res) => {
     try {
-        const delete_employer = await companyAccountModel.deleteOne({ _id: req.params.id });
+        const delete_employer = await employerAccountModel.deleteOne({ _id: req.params.id });
 
         if (!delete_employer) {
             return res.status(404).json({
@@ -160,9 +160,9 @@ export const delete_employer = async(req, res) => {
 
 export const update_employer = async(req, res) => {
     try {
-        const { companyName, email, phone, website, cover, logo, about, industry, founded, location } = req.body
+        const { companyName, email, phone, website, cover, logo, about, industry, founded } = req.body
 
-        const update_employer = await companyAccountModel.updateOne({ _id: req.params.id }, {
+        const update_employer = await employerAccountModel.updateOne({ _id: req.params.id }, {
             $set: {
                 companyName: companyName,
                 email: email,
@@ -173,7 +173,6 @@ export const update_employer = async(req, res) => {
                 about: about,
                 industry: industry,
                 founded: founded,
-                location: location
             }
         });
 

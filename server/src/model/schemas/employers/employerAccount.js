@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const companyAccountSchema = mongoose.Schema({
+const employerAccountSchema = mongoose.Schema({
     companyName: {
         type: String,
         required: true
@@ -41,10 +41,6 @@ const companyAccountSchema = mongoose.Schema({
         type: Number,
         required: false
     },
-    location: {
-        type: String,
-        required: false
-    },
     createAt: {
         type: Date,
         default: () => Date.now()
@@ -55,4 +51,4 @@ const companyAccountSchema = mongoose.Schema({
     }
 })
 
-export const companyAccountModel = mongoose.model('companyAccountSchema', companyAccountSchema)
+export const employerAccountModel = mongoose.model('employerAccountSchema', employerAccountSchema)
