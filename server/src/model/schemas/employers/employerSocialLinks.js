@@ -18,7 +18,7 @@ const employerSocialLinksSchema = mongoose.Schema({
     },
     employerId: {
         type: Schema.Types.ObjectId,
-        ref: 'companyAccountSchema'
+        ref: 'employerAccountSchema'
     },
     createdAt: {
         type: Date,

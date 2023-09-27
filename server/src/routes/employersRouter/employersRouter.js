@@ -2,6 +2,7 @@ import express from 'express'
 import { delete_employer, get_current_employer, get_employer, get_employer_byId, login_company_account, register_company_account, update_employer } from '../../controllers/employers_controller/employerAccountController.js';
 import { employersAuthenticate } from '../../middlewares/employersMiddleWare.js';
 import { add_social_links, delete_social_links, get_current_employer_social_links, get_social_link, get_social_links, update_social_links } from '../../controllers/employers_controller/employerSocialLinksController.js';
+import { add_branch_location, delete_branch_location, get_branch_location, get_branch_locations, get_current_employer_branch_location, update_branch_location } from '../../controllers/employers_controller/employerBranchController.js';
 
 
 export const employersRouter = express.Router();
@@ -18,3 +19,9 @@ employersRouter.get('/employerLinks', get_social_links)
 employersRouter.get('/employerLinks/:id', get_social_link)
 employersRouter.put('/employerLinks/:id', employersAuthenticate, update_social_links)
 employersRouter.delete('/employerLinks/:id', delete_social_links)
+employersRouter.post('/employerBranch/add', employersAuthenticate, add_branch_location)
+employersRouter.put('/employerBranch/:id', employersAuthenticate, update_branch_location)
+employersRouter.get('/employerBranch/current', employersAuthenticate, get_current_employer_branch_location)
+employersRouter.get('/employerBranch', get_branch_locations)
+employersRouter.get('/employerBranch/:id', get_branch_location)
+employersRouter.delete('/employerBranch/:id', delete_branch_location)
