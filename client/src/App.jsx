@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom'
-import { About, Contact, Header, Home, Jobs, Resumes } from './index'
+import { About, Contact, Header, Home, Job_seeker_signin, Job_seeker_signup, Jobs, Resumes } from './index'
 import './App.css'
 function App() {
   return (
@@ -11,6 +11,8 @@ function App() {
       <Route path='/Resumes' element={<Resumes/>}/>
       <Route path='/Contact' element={<Contact/>}/>
       <Route path='/About' element={<About/>}/>
+      <Route path='/Job_seeker_signup' element={<Job_seeker_signup/>}/>
+      <Route path='/Job_seeker_signin' element={<Job_seeker_signin/>}/>
     </Routes>
     
     </>
