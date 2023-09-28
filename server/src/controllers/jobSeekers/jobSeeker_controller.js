@@ -63,7 +63,10 @@ export const login_job_seekers = async(req, res) => {
             secure: false,
             maxAge: 7 * 24 * 60 * 60 * 1000
         })
-        res.json(token)
+        res.json({
+            message: 'successfully sign in',
+            token
+        })
     } catch (error) {
         console.log('error', error);
     }
