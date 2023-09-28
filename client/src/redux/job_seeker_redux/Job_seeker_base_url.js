@@ -1,1 +1,1 @@
-export const Job_seeker_base_url = 'http://localhost:8000/jobSeeker'
+export const Job_seeker_base_url = 'http://localhost:8000/api'
