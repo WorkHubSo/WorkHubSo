@@ -14,7 +14,7 @@ export const job_seeker_slice = createApi({
     endpoints: (builder) => ({
         registerJobSeeker: builder.mutation({
             query: (newJobSeeker) => ({
-                url: '/register',
+                url: 'jobSeeker/register',
                 method: 'POST',
                 body: newJobSeeker
             }),
@@ -22,13 +22,14 @@ export const job_seeker_slice = createApi({
         }),
         loginJobSeeker: builder.mutation({
             query: (LoginJobSeeker) => ({
-                url: '/login',
+                url: 'jobSeeker/login',
                 method: 'POST',
                 body: LoginJobSeeker
             }),
-            onQueryStarted: async(args, { queryFullfilled }) => {
+            onQueryStarted: async(args, { queryFulfilled }) => {
                 try {
-                    const result = await queryFullfilled
+                    const result = await queryFulfilled
+                    console.log('resulst', result.data.token);
                     setToken(result.data.token)
                 } catch (error) {
                     console.log('error', error.message);
@@ -38,7 +39,7 @@ export const job_seeker_slice = createApi({
         }),
         updateJobSeeker: builder.mutation({
             query: ({ id, UpdateJobSeeker }) => ({
-                url: `/${id}`,
+                url: `jobSeeker/${id}`,
                 method: 'PUT',
                 body: UpdateJobSeeker
             }),
@@ -46,7 +47,7 @@ export const job_seeker_slice = createApi({
         }),
         deleteCurrentJobSeeker: builder.mutation({
             query: (id) => ({
-                url: `/${id}`,
+                url: `jobSeeker/${id}`,
                 method: 'DELETE',
             }),
             invalidatesTags: ['job_seeker']
@@ -54,7 +55,7 @@ export const job_seeker_slice = createApi({
         getJobSeekers: builder.query({
             query: () => {
                 return {
-                    url: '/',
+                    url: 'jobSeeker/',
                     method: 'GET',
                 }
             },
@@ -63,7 +64,7 @@ export const job_seeker_slice = createApi({
         getCurrentJobSeeker: builder.query({
             query: (id) => {
                 return {
-                    url: `/${id}`,
+                    url: `jobSeeker/${id}`,
                     method: 'GET',
                 }
             },

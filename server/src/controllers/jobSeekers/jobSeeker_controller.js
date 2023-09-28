@@ -12,7 +12,8 @@ export const register_job_seekers = async(req, res) => {
         })
 
         if (user_exist) {
-            return res.status(404).json({
+            return res.json({
+                status: false,
                 message: 'user already exists',
             })
         }
@@ -26,6 +27,7 @@ export const register_job_seekers = async(req, res) => {
         await user.save();
 
         res.json({
+            status: true,
             message: 'successfully registered'
         })
 
@@ -50,23 +52,25 @@ export const login_job_seekers = async(req, res) => {
             })
         }
 
-        const compare_password = bcrypt.compare(password, user.password)
+        const compare_password = await bcrypt.compare(password, user.password)
         if (!compare_password) {
-            return res.status(404).json({
+            return res.json({
                 status: false,
-                message: 'incorrect email and password'
+                message: 'incorrect email and password',
+            })
+        } else {
+            const token = jwt.sign({ _id: user._id }, jwt_secret)
+            res.cookie('jobSeekerToken', token, {
+                httpOnly: true,
+                secure: false,
+                maxAge: 7 * 24 * 60 * 60 * 1000
+            })
+            res.json({
+                status: true,
+                message: 'successfully sign in',
+                token
             })
         }
-        const token = jwt.sign({ _id: user._id }, jwt_secret)
-        res.cookie('jobSeekerToken', token, {
-            httpOnly: true,
-            secure: false,
-            maxAge: 7 * 24 * 60 * 60 * 1000
-        })
-        res.json({
-            message: 'successfully sign in',
-            token
-        })
     } catch (error) {
         console.log('error', error);
     }
