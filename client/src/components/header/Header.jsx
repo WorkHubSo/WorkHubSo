@@ -20,7 +20,7 @@ const Header = () => {
 				<Link className=" text-lg capitalize tracking-widest">Contact</Link>
 				<Link className=" text-lg capitalize tracking-widest">About Us</Link>
 				<span className=" lg:ml-5 flex flex-col lg:flex-row justify-around items-center gap-5 space-y-3 lg:space-y-0">
-				<Link className="text-lg capitalize tracking-widest">Job Seeker</Link>
+				<Link className="text-lg capitalize tracking-widest" to='/Job_seeker_signup'>Job Seeker</Link>
 				<Link className="text-lg capitalize tracking-widest">Employer</Link>
 				</span>
 			</div>
