@@ -10,3 +10,5 @@ export { default as About }
 from './pages/About';
 export { default as Header }
 from './components/header/Header';
+export { default as Navbar }
+from './components/navbar/Navbar';

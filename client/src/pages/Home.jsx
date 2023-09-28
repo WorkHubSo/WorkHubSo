@@ -1,7 +1,9 @@
-
+import { Navbar } from '../index'
 const Home = () => {
   return (
-	<div>Home</div>
+	<div>
+		<Navbar/>
+	</div>
   )
 }
 
