@@ -1,6 +1,9 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { Job_seeker_base_url } from '../Job_seeker_base_url'
 import Cookies from 'js-cookie'
+const getToken = () => {
+    return Cookies.get('jobSeekerToken')
+}
 
 function setToken(token) {
     return Cookies.set('jobSeekerToken', token)
@@ -8,7 +11,14 @@ function setToken(token) {
 export const job_seeker_slice = createApi({
     reducerPath: 'job_seeker_slice',
     baseQuery: fetchBaseQuery({
-        baseUrl: Job_seeker_base_url
+        baseUrl: Job_seeker_base_url,
+        prepareHeaders: (headers) => {
+            const result = getToken();
+            if (result) {
+                headers.set('Authorization', result)
+            }
+            return headers
+        }
     }),
     tagTypes: ['job_seeker'],
     endpoints: (builder) => ({
@@ -38,11 +48,12 @@ export const job_seeker_slice = createApi({
             invalidatesTags: ['job_seeker']
         }),
         updateJobSeeker: builder.mutation({
-            query: ({ id, UpdateJobSeeker }) => ({
-                url: `jobSeeker/${id}`,
-                method: 'PUT',
-                body: UpdateJobSeeker
-            }),
+            query: ({ id, UpdateJobSeeker }) => (
+                console.log('UpdateJobSeeker', UpdateJobSeeker), {
+                    url: `jobSeeker/${id}`,
+                    method: 'PUT',
+                    body: UpdateJobSeeker
+                }),
             invalidatesTags: ['job_seeker']
         }),
         deleteCurrentJobSeeker: builder.mutation({
@@ -55,13 +66,22 @@ export const job_seeker_slice = createApi({
         getJobSeekers: builder.query({
             query: () => {
                 return {
-                    url: 'jobSeeker/',
+                    url: '/jobSeeker',
                     method: 'GET',
                 }
             },
             providesTags: ['job_seeker']
         }),
         getCurrentJobSeeker: builder.query({
+            query: () => {
+                return {
+                    url: 'jobSeeker/current',
+                    method: 'GET',
+                }
+            },
+            providesTags: ['job_seeker']
+        }),
+        getJobSeeker: builder.query({
             query: (id) => {
                 return {
                     url: `jobSeeker/${id}`,
@@ -79,5 +99,6 @@ export const {
     useUpdateJobSeekerMutation,
     useGetCurrentJobSeekerQuery,
     useGetJobSeekersQuery,
+    useGetJobSeekerQuery,
     useDeleteCurrentJobSeekerMutation
 } = job_seeker_slice;

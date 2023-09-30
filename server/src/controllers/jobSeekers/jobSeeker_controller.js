@@ -106,7 +106,7 @@ export const update_job_seekers = async(req, res) => {
         })
 
         if (!fidnUser) {
-            return res.status(404).json({
+            return res.json({
                 status: false,
                 message: 'Job Seeker not found'
             })
@@ -125,13 +125,16 @@ export const update_job_seekers = async(req, res) => {
         })
 
         if (!user) {
-            return res.status(404).json({
+            return res.json({
                 status: false,
                 message: 'Your Profile not Updated some issues occurs on your content'
             })
         }
 
-        res.json('successfully update your profile information')
+        res.json({
+            status: true,
+            message: 'successfully update your profile information'
+        })
 
     } catch (error) {
         console.log('error', error);
@@ -157,6 +160,21 @@ export const get_job_seekers_byId = async(req, res) => {
 }
 
 
+export const get_current_job_seeker = async(req, res) => {
+    try {
+        const jobSeekerId = req.jobSeeker._id;
+        const user = await jobSeekerModel.findOne({ _id: jobSeekerId })
+        if (!user) {
+            return res.status(404).json({
+                status: false,
+                message: 'Job Seeker not found'
+            })
+        }
+        res.json(user)
+    } catch (error) {
+        console.log('error', error.message);
+    }
+}
 export const delete_job_seekers_byId = async(req, res) => {
     try {
 

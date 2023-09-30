@@ -1,8 +1,8 @@
 import express from 'express'
-import { delete_job_seekers_byId, get_job_seekers, get_job_seekers_byId, login_job_seekers, register_job_seekers, update_job_seekers } from '../../controllers/jobSeekers/jobSeeker_controller.js';
+import { delete_job_seekers_byId, get_current_job_seeker, get_job_seekers, get_job_seekers_byId, login_job_seekers, register_job_seekers, update_job_seekers } from '../../controllers/jobSeekers/jobSeeker_controller.js';
 import { jobSeekerAuthenticate } from '../../middlewares/jobSeekerMiddleWares.js';
 import { add_reference, delete_reference, get_reference_byId, get_references, update_reference } from '../../controllers/jobSeekers/referenceController.js';
-import { add_category, delete_category, get_category, get_category_byId, update_category } from '../../controllers/jobSeekers/categoryController.js';
+import { add_category, delete_category, get_categories, get_category, get_category_byId, update_category } from '../../controllers/jobSeekers/categoryController.js';
 import { add_certificate, delete_certificate, get_certificate, get_certificate_byId, update_certificate } from '../../controllers/jobSeekers/certificateController.js';
 import { add_skill, delete_skill, get_skill_byId, get_skills, update_skill } from '../../controllers/jobSeekers/skillsController.js';
 import { add_language, delete_language, get_language_byId, get_languages, update_language } from '../../controllers/jobSeekers/languageController.js';
@@ -13,6 +13,7 @@ import { add_trainings, delete_training, get_training_byId, get_trainings, updat
 export const jobSookersRouter = express.Router();
 jobSookersRouter.post('/jobSeeker/register', register_job_seekers)
 jobSookersRouter.get('/jobSeeker', get_job_seekers)
+jobSookersRouter.get('/jobSeeker/current', jobSeekerAuthenticate, get_current_job_seeker)
 jobSookersRouter.put('/jobSeeker/:id', update_job_seekers)
 jobSookersRouter.get('/jobSeeker/:id', get_job_seekers_byId)
 jobSookersRouter.delete('/jobSeeker/:id', delete_job_seekers_byId)
@@ -23,7 +24,8 @@ jobSookersRouter.put('/reference/:id', jobSeekerAuthenticate, update_reference)
 jobSookersRouter.delete('/reference/:id', jobSeekerAuthenticate, delete_reference)
 jobSookersRouter.get('/reference/:id', jobSeekerAuthenticate, get_reference_byId)
 jobSookersRouter.post('/category/add', jobSeekerAuthenticate, add_category)
-jobSookersRouter.get('/category', jobSeekerAuthenticate, get_category)
+jobSookersRouter.get('/category/current', jobSeekerAuthenticate, get_category)
+jobSookersRouter.get('/category', get_categories)
 jobSookersRouter.put('/category/:id', jobSeekerAuthenticate, update_category)
 jobSookersRouter.get('/category/:id', jobSeekerAuthenticate, get_category_byId)
 jobSookersRouter.delete('/category/:id', jobSeekerAuthenticate, delete_category)
