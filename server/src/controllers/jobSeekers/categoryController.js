@@ -13,12 +13,14 @@ export const add_category = async(req, res) => {
         await add_category.save();
 
         if (!add_category) {
-            return res.status(404).json({
+            return res.json({
+                status: false,
                 message: 'something went wrong please try again'
             })
         }
 
         res.json({
+            status: true,
             message: 'successfully added category '
         })
 
@@ -40,12 +42,14 @@ export const update_category = async(req, res) => {
 
 
         if (!update_catogory) {
-            return res.status(404).json({
+            return res.json({
+                status: false,
                 message: 'something went wrong please try again'
             })
         }
 
         res.json({
+            status: true,
             message: 'successfully update category'
         })
 
@@ -61,13 +65,14 @@ export const delete_category = async(req, res) => {
         })
 
         if (!delete_category) {
-            return res.status(404).json({
+            return res.json({
                 status: false,
                 message: 'something went wrong please try again'
             })
         }
 
         res.json({
+            status: true,
             message: 'successfully deleted category'
         })
     } catch (error) {
@@ -105,6 +110,24 @@ export const get_category = async(req, res) => {
         const get_category = await categoryModel.find({
             jobSeekerId: req.jobSeeker._id,
         })
+
+        if (!get_category) {
+            return res.status(404).json({
+                status: false,
+                message: 'something went wrong please try again'
+            })
+        }
+
+        res.json({
+            get_category
+        })
+    } catch (error) {
+        console.log('error', error.message);
+    }
+}
+export const get_categories = async(req, res) => {
+    try {
+        const get_category = await categoryModel.find()
 
         if (!get_category) {
             return res.status(404).json({

@@ -16,3 +16,11 @@ export { default as Job_seeker_signup }
 from './components/job_seeker/job_seeker_auth/Job_seeker_signup';
 export { default as Job_seeker_signin }
 from './components/job_seeker/job_seeker_auth/Job_seeker_signin';
+export { default as Update_job_seeker_profile }
+from './components/job_seeker/job_seeker_profile/Update_job_seeker_profile';
+export { default as Category }
+from './components/job_seeker/job_seeker_profile/Category';
+export { default as Job_seeker_manage_profile }
+from './components/job_seeker/job_seeker_profile/Job_seeker_manage_profile';
+export { default as Sidebar_manage_profile }
+from './components/job_seeker/job_seeker_profile/Sidebar_manage_profile';

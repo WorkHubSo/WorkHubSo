@@ -1,29 +1,72 @@
 import { useState } from "react"
-import { Link } from "react-router-dom"
-import { AiOutlineClose , AiOutlineMenu } from "react-icons/ai"
-const Header = () => {
+import { Link, useNavigate} from "react-router-dom"
+import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai"
+
+function Header() {
 	const [ showMenu , setShowMenu ] = useState(true);
+	const [ selectJobSeeker , setselectJobSeeker] = useState('');
+	const [ selectEmployer , setselectEmployer] = useState('');
+	const navigate = useNavigate();
+	const hideShowMenu = () => {
+		setShowMenu(!showMenu)
+	}
+	const handleselectJobSeeker = (e)=>{
+		const selectJobSeekerValue = e.target.value
+		setselectJobSeeker(selectJobSeekerValue)
+		navigate(selectJobSeekerValue)
+		setTimeout(()=>{
+			hideShowMenu()
+		},1000)
+	}
+	const handleselectEmployer = (e)=>{
+		const selectEmployerValue = e.target.value
+		setselectEmployer(selectEmployerValue)
+		navigate(selectEmployerValue)
+		setTimeout(()=>{
+			hideShowMenu()
+		},1000)
+	}
+	const jobSeekerDropdown = (
+		<select className="p-2 rounded-md border-none outline-[#007bff]" value={selectJobSeeker} 
+		onChange={(e)=>handleselectJobSeeker(e)}>
+			<option value="Job Seeker">Job Seeker</option>
+			<option value="/Job_seeker_signin">Sign in</option>
+			<option value="/Job_seeker_signup">Sign up</option>
+			<option value="/view_profile">View Profile</option>
+			<option value="/Job_seeker_manage_profile">Manage Profile</option>
+		</select>
+	)
+	const employerDropdown = (
+		<select  className="p-2 rounded-md border-none outline-[#007bff]" value={selectEmployer}
+		onChange={(e)=>handleselectEmployer(e)}>
+			<option value="Employer">Employer</option>
+			<option value="/Job_seeker_signin">Sign in</option>
+			<option value="/Job_seeker_signup">Sign up</option>
+			<option value="/Dashboard">Dashboard</option>
+		</select>
+	)
   return (
-	<div className=" w-[80%] mx-auto p-4 fixed left-0 right-0 top-0 bg-[#f5f5f5]">
-		<div className="w-full flex flex-col lg:flex-row justify-between items-center gap-2">
-			<div className="lg:w-[20%] w-full flex flex-row justify-between">
-				<h1 className="text-3xl tracking-tighter"> <span className=" text-[#333333]">Work</span> <span className="text-[#007bff]">HubSo</span></h1>
+	<div className=" w-full lg:w-[80%] bg-[#f5f5f5] mx-auto fixed z-30 top-0 left-0 right-0 p-2">
+		<div className="flex flex-col relative lg:flex-row justify-between items-center gap-1">
+			<div className="w-full flex justify-start relative items-center gap-3">
+				<img className="w-36 h-24" src="logo1.svg" alt="" />
 				{
-					showMenu ? <AiOutlineMenu size={25} className="lg:hidden cursor-pointer text-[#007bff]" onClick={()=> setShowMenu(!showMenu)}/> : 
-					<AiOutlineClose size={25} className="lg:hidden text-[#007bff] cursor-pointer " onClick={()=> setShowMenu(!showMenu)}/>
+					showMenu ? <AiOutlineMenu size={25} className="lg:hidden block absolute right-5" onClick={()=>setShowMenu(!showMenu)}/> 
+					: <AiOutlineClose size={25} className="lg:hidden block absolute right-5" onClick={()=>setShowMenu(!showMenu)}/> 
 				}
 			</div>
-			<div className={`${showMenu ? 'hidden lg:flex lg:w-[80%] flex-row' : 'block h-[100vh] overflow-auto lg:w-[80%]'}lg:w-[80%] flex flex-col lg:flex-row justify-evenly items-center p-1 gap-2`}>
-				<Link className=" text-lg capitalize tracking-widest">Home</Link>
-				<Link className=" text-lg capitalize tracking-widest">Jobs</Link>
-				<Link className=" text-lg capitalize tracking-widest">Resumes</Link>
-				<Link className=" text-lg capitalize tracking-widest">Contact</Link>
-				<Link className=" text-lg capitalize tracking-widest">About Us</Link>
-				<span className=" lg:ml-5 flex flex-col lg:flex-row justify-around items-center gap-5 space-y-3 lg:space-y-0">
-				<Link className="text-lg capitalize tracking-widest" to='/Job_seeker_signup'>Job Seeker</Link>
-				<Link className="text-lg capitalize tracking-widest">Employer</Link>
+			<ul className={`font-medium capitalize text-lg flex flex-col lg:flex-row justify-start items-center gap-7
+			${showMenu ? 'hidden lg:flex lg:flex-row' : 'block h-screen lg:h-fit'}`}>
+				<Link to='/' onClick={()=>hideShowMenu()}>Home</Link>
+				<Link to='/Jobs' onClick={()=>hideShowMenu()}>Jobs</Link>
+				<Link to='/Resumes' onClick={()=>hideShowMenu()}>Resumes</Link>
+				<Link to='/Contact' onClick={()=>hideShowMenu()}>Contact</Link>
+				<Link to='/About' onClick={()=>hideShowMenu()}>About</Link>
+				<span className="lg:ml-5 flex flex-col lg:flex-row justify-evenly items-center gap-5">
+					{jobSeekerDropdown}
+					{employerDropdown}
 				</span>
-			</div>
+			</ul>
 		</div>
 	</div>
   )
