@@ -21,6 +21,7 @@ export const add_skill = async(req, res) => {
         }
 
         res.json({
+            status: true,
             message: 'successfully added skill'
         })
 
@@ -48,6 +49,7 @@ export const update_skill = async(req, res) => {
         }
 
         res.json({
+            status: true,
             message: 'successfully updated skill'
         })
 
@@ -57,12 +59,34 @@ export const update_skill = async(req, res) => {
 }
 
 
-export const get_skills = async(req, res) => {
+export const get_current_job_seeker_skills = async(req, res) => {
     try {
 
         const jobSeekerId = req.jobSeeker._id;
 
         const get_skills = await skillsModel.find({ jobSeekerId: jobSeekerId });
+
+        if (!get_skills) {
+            return res.status(404).json({
+                status: false,
+                message: 'something went wrong please try again'
+            })
+        }
+
+        res.json({
+            get_skills
+        })
+
+    } catch (error) {
+        console.log('error', error.message);
+    }
+}
+
+
+export const get_job_seeker_skills = async(req, res) => {
+    try {
+
+        const get_skills = await skillsModel.find();
 
         if (!get_skills) {
             return res.status(404).json({

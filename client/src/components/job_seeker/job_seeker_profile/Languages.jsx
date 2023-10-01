@@ -3,19 +3,19 @@ import * as Yup from 'yup'
 import { useState } from "react";
 import { MdOutlineClear, MdOutlineAdd, MdDeleteOutline, MdEdit} from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
-import { useAddJobSeekerSkillsMutation, useDeleteJobSeekerSkillsMutation, useGetCurrentJobSeekerSkillsQuery, useUpdateJobSeekerSkillsMutation } from "../../../redux/job_seeker_redux/slices/job_seeker_skills.js";
-const Skills = ({ update_res_state }) => {
+import { useAddJobSeekerLanguageMutation, useDeleteJobSeekerLanguageMutation, useGetCurrentJobSeekerLanguageQuery, useUpdateJobSeekerLanguageMutation } from "../../../redux/job_seeker_redux/slices/job_seeker_language_slice.js";
+const Languages = ({ update_res_state }) => {
 	const navigate = useNavigate();
-	const [addJobSeekerSkills] = useAddJobSeekerSkillsMutation();
-	const [updateJobSeekerSkills] = useUpdateJobSeekerSkillsMutation();
+	const [addJobSeekerLanguage] = useAddJobSeekerLanguageMutation();
+	const [updateJobSeekerLanguage] = useUpdateJobSeekerLanguageMutation();
 	const [showForm, setShowForm] = useState(false)
-	const { data: skill_data = {} } = useGetCurrentJobSeekerSkillsQuery();
-	const [deleteJobSeekerSkills] = useDeleteJobSeekerSkillsMutation()
+	const { data: language_data = {} } = useGetCurrentJobSeekerLanguageQuery();
+	const [deleteJobSeekerLanguage] = useDeleteJobSeekerLanguageMutation()
 	const initialValues = {
-		skill: update_res_state?.skill || ''
+		language: update_res_state?.language || ''
 	}
 	const validationSchema = Yup.object({
-		skill: Yup.string().required('Enter Your  Skill')
+		language: Yup.string().required('Enter Your  Language')
 	})
 
 
@@ -23,17 +23,18 @@ const Skills = ({ update_res_state }) => {
 		const id = update_res_state?._id;
 		if (!id) {
 			try {
-				const { skill } = values
-				await addJobSeekerSkills({ skill })
+				const { language } = values
+				await addJobSeekerLanguage({ language })
 			} catch (error) {
 				console.log('error', error);
 			}
 		} else {
 			try {
-				const { skill } = values
-				await updateJobSeekerSkills ({ id : id , updateSkill : {skill} }).then(res => {
+				const { language } = values
+				await updateJobSeekerLanguage ({ id : id , updateLanguage : {language} }).then(res => {
 					navigate('/Job_seeker_manage_profile')
 					setShowForm(!showForm)
+					console.log('res',res);
 				})
 			} catch (error) {
 				console.log('error', error);
@@ -47,7 +48,7 @@ const Skills = ({ update_res_state }) => {
 	const handleDelete = async (id) => {
 		try {
 			if (confirm('Are you sure you want to delete')) {
-				await deleteJobSeekerSkills(id)
+				await deleteJobSeekerLanguage(id)
 			}
 
 		} catch (error) {
@@ -55,13 +56,13 @@ const Skills = ({ update_res_state }) => {
 		}
 	}
 
-	const skillsComponent = (
+	const languagesComponent = (
 		<div className="mt-5 flex flex-col justify-start gap-2 space-y-3">
 			{
-				skill_data?.get_skills?.map(res => {
+				language_data?.get_language?.map(res => {
 					return (
 						<div className="flex flex-row justify-between gap-4 items-center" key={res?._id}>
-							<p className=" text-lg tracking-tighter">{res?.skill}</p>
+							<p className=" text-lg tracking-tighter">{res?.language}</p>
 							<div className=" space-y-2 lg:space-y-0 lg:space-x-2">
 								<Link to={`/Job_seeker_manage_profile/${res?._id}`} state={res}><MdEdit size={25} className=" inline text-blue-500 cursor-pointer" /></Link>
 								<MdDeleteOutline onClick={() => handleDelete(res?._id)} size={25} className=" inline text-blue-500 cursor-pointer" />
@@ -74,9 +75,9 @@ const Skills = ({ update_res_state }) => {
 	)
 	return (
 		<div className="mt-5 w-full bg-white shadow rounded p-4">
-			<h1 className="w-full text-lg tracking-tighter capitalize"> Skills</h1>
+			<h1 className="w-full text-lg tracking-tighter capitalize"> Languages</h1>
 			{
-				skillsComponent
+				languagesComponent
 			}
 			<div className="mt-5">
 				<Formik
@@ -86,8 +87,8 @@ const Skills = ({ update_res_state }) => {
 					onSubmit={onSubmit}>
 					{
 						showForm ? <Form className="flex flex-col text-[#333333] justify-start items-start gap-2 space-y-2">
-							<Field type='text' className=' w-full p-3 rounded shadow outline-[#007bff]' placeholder='Enter your Skills' name="skill" />
-							<ErrorMessage component='div' className="text-red-500" name="skill" />
+							<Field type='text' className=' w-full p-3 rounded shadow outline-[#007bff]' placeholder='Enter your Languages' name="language" />
+							<ErrorMessage component='div' className="text-red-500" name="language" />
 							<button type="submit" className="py-2 px-10 rounded shadow hover:bg-blue-600 bg-[#007bff] text-white">Save</button>
 						</Form> : ''
 					}
@@ -96,8 +97,8 @@ const Skills = ({ update_res_state }) => {
 
 			<div className="w-full mt-5">
 				{
-					showForm ? <span className=" cursor-pointer bg-[#007bff] text-white py-2 px-5 rounded shadow">< MdOutlineClear size={20} className="inline" onClick={() => setShowForm(!showForm)} /> <small className=" tracking-tighter text-lg" onClick={() => setShowForm(!showForm)} > Close Skill</small></span> :
-						<span className=" cursor-pointer bg-[#007bff] text-white py-2 px-5 rounded shadow"><MdOutlineAdd size={20} className="inline" onClick={() => setShowForm(!showForm)} /> <small className=" tracking-tighter text-lg" onClick={() => setShowForm(!showForm)} > Add Skill</small></span>
+					showForm ? <span className=" cursor-pointer bg-[#007bff] text-white py-2 px-5 rounded shadow">< MdOutlineClear size={20} className="inline" onClick={() => setShowForm(!showForm)} /> <small className=" tracking-tighter text-lg" onClick={() => setShowForm(!showForm)} > Close languages</small></span> :
+						<span className=" cursor-pointer bg-[#007bff] text-white py-2 px-5 rounded shadow"><MdOutlineAdd size={20} className="inline" onClick={() => setShowForm(!showForm)} /> <small className=" tracking-tighter text-lg" onClick={() => setShowForm(!showForm)} > Add languages</small></span>
 				}
 			</div>
 
@@ -105,4 +106,4 @@ const Skills = ({ update_res_state }) => {
 	)
 }
 
-export default Skills
+export default Languages 

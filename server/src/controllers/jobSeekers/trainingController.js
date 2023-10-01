@@ -3,11 +3,11 @@ import { trainingModel } from "../../model/schemas/jobSeekers/jobSeekerTraining.
 export const add_trainings = async(req, res) => {
     try {
 
-        const { topic, instuation, startDate, endDate, description } = req.body;
+        const { topic, institution, startDate, endDate, description } = req.body;
         const jobSeekerId = req.jobSeeker._id;
         const add_training = await new trainingModel({
             topic: topic,
-            instuation: instuation,
+            institution: institution,
             startDate: startDate,
             endDate: endDate,
             description: description,
@@ -36,11 +36,11 @@ export const add_trainings = async(req, res) => {
 export const update_training = async(req, res) => {
     try {
 
-        const { topic, instuation, startDate, endDate, description } = req.body;
+        const { topic, institution, startDate, endDate, description } = req.body;
         const update_training = await trainingModel.updateOne({ _id: req.params.id }, {
             $set: {
                 topic: topic,
-                instuation: instuation,
+                institution: institution,
                 startDate: startDate,
                 endDate: endDate,
                 description: description
@@ -65,6 +65,28 @@ export const update_training = async(req, res) => {
 
 
 export const get_trainings = async(req, res) => {
+    try {
+
+        const get_trainings = await trainingModel.find();
+
+        if (!get_trainings) {
+            return res.status(404).json({
+                status: false,
+                message: 'something went wrong please try again'
+            })
+        }
+
+        res.json({
+            get_trainings
+        })
+
+    } catch (error) {
+        console.log('error', error.message);
+    }
+}
+
+
+export const get_current_trainings = async(req, res) => {
     try {
         const jobSeekerId = req.jobSeeker._id;
 

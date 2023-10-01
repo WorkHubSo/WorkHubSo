@@ -38,6 +38,25 @@ export const add_reference = async(req, res) => {
 export const get_references = async(req, res) => {
     try {
 
+        const reference = await referenceModel.find();
+        if (!reference) {
+            return res.status(404).json({
+                message: 'Not Found Any Reference',
+            })
+        }
+
+        res.json({
+            reference
+        });
+
+    } catch (error) {
+        console.log('error', error.message);
+    }
+}
+
+export const get_current_references = async(req, res) => {
+    try {
+
         const reference = await referenceModel.find({ jobSeekerId: req.jobSeeker._id });
         if (!reference) {
             return res.status(404).json({
@@ -45,7 +64,9 @@ export const get_references = async(req, res) => {
             })
         }
 
-        res.json(reference);
+        res.json({
+            reference
+        });
 
     } catch (error) {
         console.log('error', error.message);

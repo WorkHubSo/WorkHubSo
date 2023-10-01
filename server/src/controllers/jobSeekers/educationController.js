@@ -65,6 +65,26 @@ export const update_education = async(req, res) => {
 
 export const get_educations = async(req, res) => {
     try {
+        const get_educations = await educationModel.find()
+
+        if (!get_educations) {
+            return res.status(404).json({
+                status: false,
+                message: 'something went wrong please try again'
+            })
+        }
+
+        res.json({
+            get_educations
+        })
+    } catch (error) {
+        console.log('error', error.message);
+    }
+}
+
+
+export const get_current_educations = async(req, res) => {
+    try {
         const jobSeekerId = req.jobSeeker._id;
         const get_educations = await educationModel.find({ jobSeekerId: jobSeekerId })
 
