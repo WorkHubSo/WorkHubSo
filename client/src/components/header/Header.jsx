@@ -1,8 +1,22 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Link, useNavigate} from "react-router-dom"
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai"
+import { SiWorkplace } from "react-icons/si"
 
 function Header() {
+	const [ showScroll , setShowScroll ] = useState(false)
+	useEffect(()=> {
+		const handle_window_scroll = () => {
+
+			if(window.scrollY > 0){
+				setShowScroll(true)
+			}else{
+				setShowScroll(false)
+			}
+		}
+		window.addEventListener('scroll',handle_window_scroll)
+		return () => window.removeEventListener('scroll',handle_window_scroll)
+	},[])
 	const [ showMenu , setShowMenu ] = useState(true);
 	const [ selectJobSeeker , setselectJobSeeker] = useState('');
 	const [ selectEmployer , setselectEmployer] = useState('');
@@ -32,7 +46,7 @@ function Header() {
 			<option value="Job Seeker">Job Seeker</option>
 			<option value="/Job_seeker_signin">Sign in</option>
 			<option value="/Job_seeker_signup">Sign up</option>
-			<option value="/view_profile">View Profile</option>
+			<option value="/View_job_seeker_profile">View Profile</option>
 			<option value="/Job_seeker_manage_profile">Manage Profile</option>
 		</select>
 	)
@@ -46,10 +60,10 @@ function Header() {
 		</select>
 	)
   return (
-	<div className=" w-full lg:w-[80%] bg-[#f5f5f5] mx-auto fixed z-30 top-0 left-0 right-0 p-2">
-		<div className="flex flex-col relative lg:flex-row justify-between items-center gap-1">
+	<div className={`${showScroll ? 'shadow bg-[#f5f5f5]' : ''}w-full bg-[#f5f5f5] mx-auto fixed z-30 top-0 left-0 right-0 p-4`}>
+		<div className="w-[90%] lg:w-[80%] mx-auto flex flex-col relative lg:flex-row justify-between items-center gap-1">
 			<div className="w-full flex justify-start relative items-center gap-3">
-				<img className="w-36 h-24" src="logo1.svg" alt="" />
+				<h1 className=" text-xl tracking-tighter"><SiWorkplace size={40} className="inline text-[#007bff]"/>ork<span className="text-[#333333]">Hubso</span></h1>
 				{
 					showMenu ? <AiOutlineMenu size={25} className="lg:hidden block absolute right-5" onClick={()=>setShowMenu(!showMenu)}/> 
 					: <AiOutlineClose size={25} className="lg:hidden block absolute right-5" onClick={()=>setShowMenu(!showMenu)}/> 

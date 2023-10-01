@@ -4,10 +4,6 @@ export { default as Jobs }
 from './pages/Jobs';
 export { default as Resumes }
 from './pages/Resumes';
-export { default as Contact }
-from './pages/Contact';
-export { default as About }
-from './pages/About';
 export { default as Header }
 from './components/header/Header';
 export { default as Navbar }
@@ -40,3 +36,11 @@ export { default as Trainings }
 from './components/job_seeker/job_seeker_profile/Trainings';
 export { default as Experiences }
 from './components/job_seeker/job_seeker_profile/Experiences';
+export { default as Sidebar_view_profile }
+from './components/job_seeker/job_seeker_profile/Sidebar_view_profile';
+export { default as Footer }
+from './components/footer/Footer';
+export { default as About }
+from './components/about/About';
+export { default as Contact }
+from './components/contact/Contact';

@@ -53,7 +53,7 @@ const Job_seeker_signup = () => {
 		}
 	}
   return (
-	<div className="w-[80%] mx-auto mt-32 p-4">
+	<div className="w-[90%] md:w-[80%] mx-auto mt-32 p-4">
 		<Formik
 		initialValues={initialValues}
 		validationSchema={validationSchema}
