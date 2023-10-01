@@ -71,7 +71,28 @@ export const update_certificate = async(req, res) => {
     }
 }
 
-export const get_certificate = async(req, res) => {
+export const get_certificates = async(req, res) => {
+    try {
+
+        const get_certificate = await CertificateModel.find();
+
+        if (!get_certificate) {
+            return res.status(404).json({
+                status: false,
+                message: 'Could not find certificate'
+            })
+        }
+
+        res.json({
+            get_certificate
+        })
+
+    } catch (error) {
+        console.log('error', error.message);
+    }
+}
+
+export const get_current_certificates = async(req, res) => {
     try {
 
         const get_certificate = await CertificateModel.find({ jobSeekerId: req.jobSeeker._id });

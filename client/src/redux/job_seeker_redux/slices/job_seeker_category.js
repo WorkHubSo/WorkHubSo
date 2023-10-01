@@ -5,7 +5,7 @@ const getToken = () => {
     return Cookies.get('jobSeekerToken')
 }
 export const jobSeekerCategorySlice = createApi({
-    reducerPath: 'api',
+    reducerPath: 'jobSeekerCategoryApi',
     baseQuery: fetchBaseQuery({
         baseUrl: Job_seeker_base_url,
         prepareHeaders: (headers) => {

@@ -73,6 +73,28 @@ export const update_social_profile = async(req, res) => {
 
 export const get_social_profiles = async(req, res) => {
     try {
+        const get_social_links = await socailProfileModel.find()
+
+        if (!get_social_links) {
+            return res.status(404).json({
+                status: false,
+                message: 'something went wrong please try again'
+            })
+        }
+
+        res.json({
+            get_social_links
+        })
+
+
+    } catch (error) {
+        console.log('error', error.message);
+    }
+}
+
+
+export const get__current_social_profiles = async(req, res) => {
+    try {
         const jobSeekerId = req.jobSeeker._id;
         const get_social_links = await socailProfileModel.find({ jobSeekerId: jobSeekerId })
 

@@ -5,7 +5,7 @@ const trainingShema = mongoose.Schema({
         type: String,
         required: false
     },
-    instuation: {
+    institution: {
         type: String,
         required: false
     },

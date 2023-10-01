@@ -3,8 +3,9 @@ import * as Yup from 'yup'
 import { useAddJobseekerCategoryMutation, useDeleteJobSeekerCategoryMutation, useGetJobSeekerCategoryQuery, useUpdateJobSeekerCategoryMutation } from "../../../redux/job_seeker_redux/slices/job_seeker_category"
 import { useState } from "react";
 import { MdOutlineClear, MdOutlineAdd, MdDeleteOutline, MdEdit, MdTry } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const Category = ({ update_res_state }) => {
+	const navigate = useNavigate();
 	const [addJobseekerCategory] = useAddJobseekerCategoryMutation();
 	const [updateJobSeekerCategory] = useUpdateJobSeekerCategoryMutation();
 	const [errors, setErrors] = useState(false);
@@ -60,6 +61,7 @@ const Category = ({ update_res_state }) => {
 						setErrors(false);
 						setMessage(res.data.message)
 						setShowForm(!showForm)
+						navigate('/Job_seeker_manage_profile')
 						setTimeout(() => {
 							setMessage('')
 						}, 2000)

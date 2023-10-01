@@ -99,7 +99,7 @@ export const get_job_seekers = async(req, res) => {
 export const update_job_seekers = async(req, res) => {
     try {
 
-        const { email, username, fullName, photo, address, phone, gender } = req.body
+        const { email, username, fullName, photo, address, phone, gender, aboutMe } = req.body
 
         const fidnUser = await jobSeekerModel.findById({
             _id: req.params.id,
@@ -120,7 +120,8 @@ export const update_job_seekers = async(req, res) => {
                 gender: gender,
                 phone: phone,
                 address: address,
-                photo: photo
+                photo: photo,
+                aboutMe: aboutMe
             }
         })
 

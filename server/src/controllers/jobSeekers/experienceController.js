@@ -72,6 +72,28 @@ export const update_experience = async(req, res) => {
 export const get_experiences = async(req, res) => {
     try {
 
+        const get_experiences = await experienceModel.find()
+
+        if (!get_experiences) {
+            return res.status(404).json({
+                status: false,
+                message: 'something went wrong please try again'
+            })
+        }
+
+        res.json({
+            get_experiences
+        })
+    } catch (error) {
+        console.log('error', error.message);
+    }
+
+}
+
+
+export const get_current_experiences = async(req, res) => {
+    try {
+
         const jobSeekerId = req.jobSeeker._id;
 
         const get_experiences = await experienceModel.find({ jobSeekerId: jobSeekerId })
@@ -91,7 +113,6 @@ export const get_experiences = async(req, res) => {
     }
 
 }
-
 
 
 export const get_experience_byId = async(req, res) => {
