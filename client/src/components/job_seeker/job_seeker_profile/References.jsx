@@ -10,7 +10,6 @@ const References = ({ update_res_state }) => {
 	const [ updateJobSeekerReference ] = useUpdateJobSeekerReferenceMutation();
 	const [showForm, setShowForm] = useState(false)
 	const { data: reference_data = {} } = useGetCurrentJobSeekerReferencesQuery();
-	console.log('reference',reference_data);
 	const [deleteJobSeekerReference] = useDeleteJobSeekerReferenceMutation()
 	const initialValues = {
 

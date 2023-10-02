@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
 import { jwt_secret } from '../config/config.js';
 export const employersAuthenticate = (req, res, next) => {
-    const token = req.cookies.employerToken;
+    const token = req.headers.authorization
     try {
         if (!token) {
             return res.status(404).json({

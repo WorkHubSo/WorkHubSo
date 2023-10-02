@@ -67,7 +67,7 @@ const Social_links = ({ update_res_state }) => {
 						<div className="w-full flex flex-col justify-start gap-4 items-start" key={res?._id}>
 							<div className="w-full flex flex-row justify-between items-start">
 								<div className="w-full space-y-3">
-									<div className="flex flex-col lg:flex-row justify-start items-start gap-4">
+									<div className="flex flex-row justify-start items-start gap-4">
 										<Link target="_blank" to={`https://www.linkedin.com/in/${res?.linkedIn}/`}><BsLinkedin size={25} className=" inline text-blue-500"/></Link>
 										<Link target="_blank" to={`https://www.facebook.com/${res?.facebook}`}><BsFacebook size={25} className=" inline text-blue-500"/></Link>
 										<Link target="_blank" to={`https://twitter.com/${res?.twitter}`}><BsTwitter size={25} className=" inline text-blue-500"/></Link>

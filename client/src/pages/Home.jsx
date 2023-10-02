@@ -1,8 +1,10 @@
-import { Navbar } from '../index'
+import { Footer, Header, Navbar } from '../index'
 const Home = () => {
   return (
 	<div>
+		<Header/>
 		<Navbar/>
+		<Footer/>
 	</div>
   )
 }

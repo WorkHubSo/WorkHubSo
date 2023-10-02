@@ -160,7 +160,23 @@ export const delete_employer = async(req, res) => {
 
 export const update_employer = async(req, res) => {
     try {
-        const { companyName, email, phone, website, cover, logo, about, industry, founded } = req.body
+        const {
+            companyName,
+            email,
+            phone,
+            website,
+            cover,
+            logo,
+            companyBio,
+            industry,
+            FoundedIn,
+            noEmployee,
+            location,
+            facebook,
+            twitter,
+            instagram,
+            linkedIn
+        } = req.body
 
         const update_employer = await employerAccountModel.updateOne({ _id: req.params.id }, {
             $set: {
@@ -170,9 +186,15 @@ export const update_employer = async(req, res) => {
                 website: website,
                 cover: cover,
                 logo: logo,
-                about: about,
+                companyBio: companyBio,
+                FoundedIn: FoundedIn,
                 industry: industry,
-                founded: founded,
+                noEmployee: noEmployee,
+                location: location,
+                facebook: facebook,
+                twitter: twitter,
+                instagram: instagram,
+                linkedIn: linkedIn
             }
         });
 

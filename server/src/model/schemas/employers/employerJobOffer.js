@@ -26,11 +26,11 @@ const employerJobOfferSchema = mongoose.Schema({
         required: false
     },
     requiredExperience: {
-        type: Number,
+        type: String,
         required: false
     },
     salary: {
-        type: String,
+        type: Number,
         required: false
     },
     deadline: {
