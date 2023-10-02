@@ -79,7 +79,7 @@ const Educations = ({ update_res_state }) => {
 										<p className=" text-lg tracking-tighter">{res?.degree},</p>
 										<p className=" text-lg tracking-tighter">{res?.institution}</p></div>
 									<div className="flex flex-col lg:flex-row justify-start items-start gap-4">
-										<p className=" text-lg tracking-tighter">{res?.graduationDate.substring(0, 10)},</p>
+										<p className=" text-lg tracking-tighter">{res?.graduationDate?.substring(0, 10)},</p>
 										<p className=" text-lg tracking-tighter">{res?.honor}</p>
 									</div>
 									<p className=" text-lg tracking-tighter">GPA :  {res?.gba}</p>

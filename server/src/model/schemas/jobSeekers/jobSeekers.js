@@ -44,7 +44,12 @@ const jobSchema = new mongoose.Schema({
     updateAt: {
         type: Date,
         default: () => Date.now()
-    }
+    },
+    jobSeekerEducation: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'educationShema'
+    },
+
 });
 
 export const jobSeekerModel = mongoose.model('jobSeekers', jobSchema);

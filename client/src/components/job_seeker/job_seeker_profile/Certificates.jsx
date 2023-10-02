@@ -77,8 +77,8 @@ const Certificates = ({ update_res_state }) => {
 										<p className=" text-lg tracking-tighter">{res?.certificateName}</p>
 										<p className=" text-lg tracking-tighter">{res?.institution}</p></div>
 									<div className="flex flex-col lg:flex-row justify-start items-start gap-4">
-										<p className=" text-lg tracking-tighter">{res?.startDate.substring(0, 10)} <span className="ml-2 text-lg"> - </span></p>
-										<p className=" text-lg tracking-tighter">{res?.expireDate.substring(0, 10)}</p>
+										<p className=" text-lg tracking-tighter">{res?.startDate?.substring(0, 10)} <span className="ml-2 text-lg"> - </span></p>
+										<p className=" text-lg tracking-tighter">{res?.expireDate?.substring(0, 10)}</p>
 									</div>
 									<p className=" text-lg tracking-tighter">{res?.description}</p>
 								</div>

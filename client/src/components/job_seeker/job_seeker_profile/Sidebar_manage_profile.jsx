@@ -25,7 +25,7 @@ const Sidebar_manage_profile = () => {
 			<div className="w-[90%] space-y-2 text-start">
 				<p className=" text-xl text-center tracking-widest font-semibold">{jobSeeker?.fullName}</p>
 				<p className=" text-center text-lg text-gray-700">{jobSeeker?.username}</p>
-				<p className="w-full text-sm tracking-tighter text-gray-700 text-start">{jobSeeker?.aboutMe.substring(0,120)}</p>
+				<p className="w-full text-sm tracking-tighter text-gray-700 text-start">{jobSeeker?.aboutMe?.substring(0,120)}</p>
 			</div>
 			<hr className="w-full mt-5" />
 			
@@ -109,7 +109,7 @@ const Sidebar_manage_profile = () => {
 							<li className="list-disc flex  flex-col justify-start items-start space-y-2 ml-4 w-full text-lg tracking-tighter">
 								<span>{res?.degree}</span>
 								<span>{res?.institution}</span>
-								<span>{res?.graduationDate.substring(0, 10)}</span>
+								<span>{res?.graduationDate?.substring(0, 10)}</span>
 							</li>
 						</ul>
 						

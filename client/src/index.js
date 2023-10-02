@@ -44,3 +44,23 @@ export { default as About }
 from './components/about/About';
 export { default as Contact }
 from './components/contact/Contact';
+export { default as Resume_detail }
+from './pages/Resume_detail';
+export { default as Employer_signin }
+from './components/employer/employer_auth/Employer_signin';
+export { default as Employer_signup }
+from './components/employer/employer_auth/Employer_signup';
+export { default as Dashboard_sidebar }
+from './components/employer/Dashboard_sidebar';
+export { default as Dashboard }
+from './components/employer/Dashboard';
+export { default as JopOffer }
+from './components/employer/JopOffer';
+export { default as Candidate }
+from './components/employer/Candidate';
+export { default as Change_password }
+from './components/employer/Change_password';
+export { default as Company_dashboard }
+from './components/employer/Company_dashboard';
+export { default as Edit_profile }
+from './components/employer/Edit_profile';

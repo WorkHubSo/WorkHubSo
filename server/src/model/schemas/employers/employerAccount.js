@@ -29,16 +29,40 @@ const employerAccountSchema = mongoose.Schema({
         type: String,
         required: false
     },
-    about: {
+    companyBio: {
         type: String,
         required: false
     },
-    industry: {
+    Industry: {
         type: String,
         required: false
     },
-    founded: {
+    FoundedIn: {
+        type: String,
+        required: false
+    },
+    noEmployee: {
         type: Number,
+        required: false
+    },
+    location: {
+        type: String,
+        required: false
+    },
+    facebook: {
+        type: String,
+        required: false
+    },
+    twitter: {
+        type: String,
+        required: false
+    },
+    instagram: {
+        type: String,
+        required: false
+    },
+    linkedIn: {
+        type: String,
         required: false
     },
     createAt: {

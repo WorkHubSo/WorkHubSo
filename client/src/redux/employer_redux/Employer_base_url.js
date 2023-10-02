@@ -1,0 +1,1 @@
+export const Employer_base_url = 'http://localhost:8000/api'

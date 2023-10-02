@@ -4,6 +4,7 @@ import { useGetCurrentJobSeekerExperiencesQuery } from '../../../redux/job_seeke
 import { useGetCurrentJobSeekerReferencesQuery } from '../../../redux/job_seeker_redux/slices/job_seeker_references';
 import { useGetCurrentJobSeekerSkillsQuery } from '../../../redux/job_seeker_redux/slices/job_seeker_skills';
 import { useGetCurrentJobSeekerQuery, useGetJobSeekersQuery } from '../../../redux/job_seeker_redux/slices/job_seeker_slice';
+import { Footer, Header } from '../../../index'
 const View_job_seeker_profile = () => {
 
 	const { data: user = {} } = useGetCurrentJobSeekerQuery();
@@ -122,27 +123,31 @@ const View_job_seeker_profile = () => {
 
 
 	return (
-		<div className="w-[90%] md:w-[80%] mx-auto p-4 mt-40 lg:mt-28">
-			<h1 className="w-full text-lg tracking-widest flex flex-row justify-start items-start gap-4">
-				<span className=" text-[#007bff]">Home</span>
-				<small>/</small>
-				<span>View Profile</span>
-			</h1>
-			<div className="w-full mt-10  flex flex-col lg:flex-row gap-3 justify-start items-start">
-				<div className="w-full lg:w-[34%] bg-white p-5 rounded-md h-fit shadow-md">
-					<Sidebar_view_profile />
+		<>
+		<Header/>
+			<div className="w-[90%] md:w-[80%] mx-auto p-4 mt-40 lg:mt-28">
+				<h1 className="w-full text-lg tracking-widest flex flex-row justify-start items-start gap-4">
+					<span className=" text-[#007bff]">Home</span>
+					<small>/</small>
+					<span>View Profile</span>
+				</h1>
+				<div className="w-full mt-10  flex flex-col lg:flex-row gap-3 justify-start items-start">
+					<div className="w-full lg:w-[34%] bg-white p-5 rounded-md h-fit shadow-md">
+						<Sidebar_view_profile />
+					</div>
+					<div className='w-full lg:w-[100%] flex flex-col justify-start items-start space-y-4 bg-white p-5 rounded-md h-fit shadow-md'>
+						<h1 className=' w-[90%] mx-auto text-2xl text-widest font-semibold'>Professional summury</h1>
+						{jobSeekerBio}
+						{skillsComponent}
+						{educationComponent}
+						{experienceComponent}
+						{referenceComponent}
+					</div>
 				</div>
-				<div className='w-full lg:w-[100%] flex flex-col justify-start items-start space-y-4 bg-white p-5 rounded-md h-fit shadow-md'>
-					<h1 className=' w-[90%] mx-auto text-2xl text-widest font-semibold'>Professional summury</h1>
-					{jobSeekerBio}
-					{skillsComponent}
-					{educationComponent}
-					{experienceComponent}
-					{referenceComponent}
-				</div>
-			</div>
 
-		</div>
+			</div>
+			<Footer/>
+		</>
 	)
 }
 

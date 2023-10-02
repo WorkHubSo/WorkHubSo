@@ -43,7 +43,7 @@ function Header() {
 	const jobSeekerDropdown = (
 		<select className="p-2 rounded-md border-none outline-[#007bff]" value={selectJobSeeker} 
 		onChange={(e)=>handleselectJobSeeker(e)}>
-			<option value="Job Seeker">Job Seeker</option>
+			<option value="">Job Seeker</option>
 			<option value="/Job_seeker_signin">Sign in</option>
 			<option value="/Job_seeker_signup">Sign up</option>
 			<option value="/View_job_seeker_profile">View Profile</option>
@@ -53,9 +53,9 @@ function Header() {
 	const employerDropdown = (
 		<select  className="p-2 rounded-md border-none outline-[#007bff]" value={selectEmployer}
 		onChange={(e)=>handleselectEmployer(e)}>
-			<option value="Employer">Employer</option>
-			<option value="/Job_seeker_signin">Sign in</option>
-			<option value="/Job_seeker_signup">Sign up</option>
+			<option value="">Employer</option>
+			<option value="/Employer_signin">Sign in</option>
+			<option value="/Employer_signup">Sign up</option>
 			<option value="/Dashboard">Dashboard</option>
 		</select>
 	)
