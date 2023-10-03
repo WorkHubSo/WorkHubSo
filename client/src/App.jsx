@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom'
-import { About, Candidate, Change_password, Company_dashboard, Contact, Dashboard, Edit_profile, Employer_signin, Employer_signup, Home, Job_seeker_manage_profile, Job_seeker_signin, Job_seeker_signup, Jobs, JopOffer, Resume_detail, Resumes } from './index'
+import { About, Candidate, Change_password, Company_dashboard, Contact, Dashboard, Edit_profile, Employer_signin, Employer_signup, Home, Job_detail, Job_seeker_manage_profile, Job_seeker_signin, Job_seeker_signup, Jobs, JopOffer, Resume_detail, Resumes } from './index'
 import './App.css'
 import View_job_seeker_profile from './components/job_seeker/job_seeker_profile/View_job_seeker_profile'
 import { ToastContainer, } from 'react-toastify';
@@ -11,7 +11,9 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/Jobs' element={<Jobs />} />
+        <Route path='/Job_detail/:_id' element={<Job_detail/>} />
         <Route path='/Resumes' element={<Resumes />} />
+        <Route path='/Resume_detail/:_id' element={<Resume_detail />} />
         <Route path='/About' element={<About />} />
         <Route path='/Contact' element={<Contact />} />
         <Route path='/Job_seeker_signup' element={<Job_seeker_signup />} />
@@ -19,7 +21,6 @@ function App() {
         <Route path='/Job_seeker_manage_profile' element={<Job_seeker_manage_profile />} />
         <Route path='/Job_seeker_manage_profile/:id' element={<Job_seeker_manage_profile />} />
         <Route path='/View_job_seeker_profile' element={<View_job_seeker_profile />} />
-        <Route path='/Resume_detail/:_id' element={<Resume_detail />} />
 
         {/* employers routes  */}
         <Route path='/Employer_signup' element={<Employer_signup />} />

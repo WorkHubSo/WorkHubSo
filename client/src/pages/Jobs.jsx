@@ -5,6 +5,7 @@ import { MdLocationOn, MdOutlineAttachMoney } from 'react-icons/md';
 import { CgCalendarDates } from 'react-icons/cg';
 import { BiTime } from 'react-icons/bi';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 const Jobs = () => {
   const { data: jobs = [] } = useGetJobOffersQuery();
   const job_lengths = jobs?.get_job_offer || []
@@ -18,7 +19,8 @@ const Jobs = () => {
   const numbers = [...Array(numberPage + 1).keys()].slice(1);
   const fullTime = records?.filter(res => res.typeEmployement == 'Full Time')
   const partTime = records?.filter(res => res.typeEmployement == 'Part Time')
-  const interneship = records?.filter(res => res.typeEmployement == 'Part Time')
+  const interneship = records?.filter(res => res.typeEmployement == 'Internship')
+  const freelance = records?.filter(res => res.typeEmployement == 'Freelance')
   return (
     <>
       <Header />
@@ -66,7 +68,7 @@ const Jobs = () => {
               </div>
               <div className='w-full'>
                 <input type="checkbox" name="" id="" />
-                <span className=' ml-4'>Freelance()</span>
+                <span className=' ml-4'>Freelance  (<small className='ml-1'>{freelance?.length}</small> )</span>
               </div>
 
             </div>
@@ -84,7 +86,7 @@ const Jobs = () => {
             {
               records?.map(res => {
                 return (
-                  <div className='flex flex-col justify-start items-start gap-2 space-y-3' key={res?._id}>
+                  <Link to={`/Job_detail/${res?._id}`} className='flex flex-col justify-start items-start gap-2 space-y-3' key={res?._id} state={res}>
                     <div className='w-full flex flex-row justify-start items-center gap-5 '>
                       <img className='w-28 h-20 bg-center object-cover rounded-[30%]' src={`../../public/uploads/${res?.cover}`} alt="" />
                       <div className='flex flex-col justify-start items-start gap-1'>
@@ -102,7 +104,7 @@ const Jobs = () => {
                       </div>
                     </div>
                     <hr className='w-full border-[1px]'/>
-                  </div>
+                  </Link>
                 )
               })
             }
