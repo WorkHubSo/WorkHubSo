@@ -104,6 +104,52 @@ const Home = () => {
 					}
 				</div>
 			</div>
+
+
+			<div className='w-full mt-14 p-10 bg-[#007bff]'>
+				<h1 className='mt-4 text-white text-center text-xl tracking-wide md:text-3xl md:tracking-widest'> we worked with 😊 👍</h1>
+
+				<div className='mt-10 w-[90%] lg:w-[80%] mx-auto 
+				grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 
+				justify-start items-start gap-4'>
+
+					<div className='w-full'>
+						<img className=' w-64 h-40 hover:shadow rounded-md transition-all ease-in-out duration-500 cursor-pointer bg-[#007bff] hover:bg-green-500' src="../../public/images/hormud_logo.png" alt="" />
+					</div>
+
+
+					<div className='w-full'>
+						<img className=' w-64 h-40 hover:shadow rounded-md transition-all ease-in-out duration-500 cursor-pointer bg-[#007bff] hover:bg-yellow-500' src="../../public/images/somtel_logo.png" alt="" />
+					</div>
+
+					<div className='w-full'>
+						<img className=' w-64 h-40 hover:shadow rounded-md transition-all ease-in-out duration-500 cursor-pointer bg-[#007bff] border-none hover:bg-slate-100' src="../../public/images/ibs_logo.png" alt="" />
+					</div>
+
+					<div className='w-full'>
+						<img className='w-64 h-40 hover:shadow rounded-md transition-all ease-in-out duration-500 cursor-pointer bg-[#007bff] hover:bg-slate-100' src="../../public/images/somnet_logo.png" alt="" />
+					</div>
+
+					<div className='w-full'>
+						<img className='w-64 h-40 hover:shadow rounded-md transition-all ease-in-out duration-500 cursor-pointer bg-[#007bff] hover:bg-slate-100' src="../../public/images/jtech_logo.png" alt="" />
+					</div>
+
+				</div>
+			</div>
+
+
+
+			<div className='w-full mt-14 p-10'>
+				<h1 className='mt-4 text-black text-center text-xl tracking-wide md:text-3xl md:tracking-widest'>Subscribe Our Newsletter!</h1>
+				<div className='mt-10 w-[90%] lg:w-[80%] mx-auto'>
+					<p className=' text-lg tracking-widest text-center leading-10'>Stay connected with us and never miss out on the latest updates, exclusive offers, and valuable insights. Subscribe to our newsletter and be the first to know about new job opportunities, industry trends, and career resources. Don`t wait, join our community today</p>
+					<div className='flex flex-row justify-center items-center p-4 gap-4'>
+						<input className='w-full lg:w-[40%] p-3 rounded shadow outline-[#007bff]' type="email" placeholder='@eg-> miirshe@gmail.com' />
+						<button className='w-full lg:w-[20%] p-3 rounded shadow bg-[#007bff] 
+						hover:bg-white hover:text-[#007bff] text-white transition-all ease-in-out duration-500'>subscribe</button>
+					</div>
+				</div>
+			</div>
 			<Footer />
 		</>
 	)
