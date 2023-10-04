@@ -1,12 +1,112 @@
+import { Link } from 'react-router-dom';
 import { Footer, Header, Navbar } from '../index'
+import { useGetJobOffersQuery } from '../redux/employer_redux/slices/Employer_job_offer'
+import { MdLocationOn, MdOutlineAttachMoney } from 'react-icons/md';
+import { CgCalendarDates } from 'react-icons/cg';
+import { BiTime } from 'react-icons/bi';
 const Home = () => {
-  return (
-	<div>
-		<Header/>
-		<Navbar/>
-		<Footer/>
-	</div>
-  )
+	const { data: jobs = [] } = useGetJobOffersQuery();
+	const fetchJobs = jobs?.get_job_offer || [];
+
+	return (
+		<>
+			<Header />
+			<div>
+				<Navbar />
+				<div className='w-full bg-[#007bff] text-white p-10'>
+					<h1 className='mt-4 text-center text-xl tracking-wide md:text-3xl md:tracking-widest'> Popular Job Categories </h1>
+					<div className='mt-10 w-[90%] lg:w-[80%] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
+
+						<div className='p-5 transition-all cursor-pointer ease-in-out duration-500 hover:bg-white hover:shadow-md hover:rounded-md hover:text-black/70 flex flex-col justify-center items-center space-y-4'>
+							<p className='text-base tracking-tighter'>Jobs</p>
+							<p className='text-lg font-medium  tracking-tighter'>Technology and IT</p>
+						</div>
+
+
+						<div className='p-5 transition-all cursor-pointer ease-in-out duration-500 hover:bg-white hover:shadow-md hover:rounded-md hover:text-black/70 flex flex-col justify-center items-center space-y-4'>
+							<p className='text-base tracking-tighter'>Jobs</p>
+							<p className='text-lg font-medium  tracking-tighter'>Finance and Accounting</p>
+						</div>
+
+
+						<div className='p-5 transition-all cursor-pointer ease-in-out duration-500 hover:bg-white hover:shadow-md hover:rounded-md hover:text-black/70 flex flex-col justify-center items-center space-y-4'>
+							<p className='text-base tracking-tighter'>Jobs</p>
+							<p className='text-lg font-medium  tracking-tighter'>Healthcare and Medicine</p>
+						</div>
+
+
+						<div className='p-5 transition-all cursor-pointer ease-in-out duration-500 hover:bg-white hover:shadow-md hover:rounded-md hover:text-black/70 flex flex-col justify-center items-center space-y-4'>
+							<p className='text-base tracking-tighter'>Jobs</p>
+							<p className='text-lg font-medium  tracking-tighter'>Sales and Marketing</p>
+						</div>
+
+
+						<div className='p-5 transition-all cursor-pointer ease-in-out duration-500 hover:bg-white hover:shadow-md hover:rounded-md hover:text-black/70 flex flex-col justify-center items-center space-y-4'>
+							<p className='text-base tracking-tighter'>Jobs</p>
+							<p className='text-lg font-medium  tracking-tighter'>Education and Teaching</p>
+						</div>
+
+
+						<div className='p-5 transition-all cursor-pointer ease-in-out duration-500 hover:bg-white hover:shadow-md hover:rounded-md hover:text-black/70 flex flex-col justify-center items-center space-y-4'>
+							<p className='text-base tracking-tighter'>Jobs</p>
+							<p className='text-lg font-medium  tracking-tighter'>Creative Arts and Design</p>
+						</div>
+
+
+						<div className='p-5 transition-all cursor-pointer ease-in-out duration-500 hover:bg-white hover:shadow-md hover:rounded-md hover:text-black/70 flex flex-col justify-center items-center space-y-4'>
+							<p className='text-base tracking-tighter'>Jobs</p>
+							<p className='text-lg font-medium  tracking-tighter'>Administrative and Clerical</p>
+						</div>
+
+
+						<div className='p-5 transition-all cursor-pointer ease-in-out duration-500 hover:bg-white hover:shadow-md hover:rounded-md hover:text-black/70 flex flex-col justify-center items-center space-y-4'>
+							<p className='text-base tracking-tighter'>Jobs</p>
+							<p className='text-lg font-medium  tracking-tighter'>Human Resources</p>
+						</div>
+
+
+						<div className=' p-5 transition-all cursor-pointer ease-in-out duration-500 hover:bg-white hover:shadow-md hover:rounded-md hover:text-black/70 flex flex-col justify-center items-center space-y-4'>
+							<p className='text-base tracking-tighter'>Jobs</p>
+							<p className='text-lg font-medium  tracking-tighter'>Hospitality and Tourism</p>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+			<div className='w-full p-10'>
+				<h1 className='mt-4 text-center text-xl tracking-wide md:text-3xl md:tracking-widest'> Features Jobs </h1>
+				<div className=' mt-10 w-[90%] lg:w-[80%] mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 '>
+					{
+						fetchJobs?.map(res => {
+							return (
+								<Link to={`/Job_detail/${res?._id}`} className='p-3 hover:bg-[#007bff] hover:text-white hover:shadow-md hover:rounded transition-all ease-in-out duration-500
+								 flex flex-col justify-start items-start gap-2 space-y-3' key={res?._id} state={res}>
+									<div className='w-full flex flex-row justify-start items-center gap-5 '>
+										<img className='w-32 h-20 bg-cover object-center rounded-[10%]' src={`../../public/uploads/${res?.cover}`} alt="" />
+										<div className='flex flex-col justify-start items-start gap-1'>
+											<p className='text-lg md:text-xl tracking-widest font-medium'>{res?.jobTitle}</p>
+											<p className='text-base md:text-lg tracking-tighter font-normal'>{res?.category}</p>
+										</div>
+									</div>
+									<div className='w-full flex flex-col justify-start items-start gap-3'>
+										<p className=' text-base tracking-tighter md:tracking-wider'>{res?.description?.substring(0, 200)}.</p>
+										<div className='flex flex-col lg:flex-row justify-start gap-4'>
+											<p className='text-sm flex flex-row justify-start items-center gap-2'><MdLocationOn />{res?.location}</p>
+											<p className='text-sm flex flex-row justify-start items-center gap-2'><CgCalendarDates />{res?.deadline?.substring(0, 10)}</p>
+											<p className='text-sm flex flex-row justify-start items-center gap-2'><BiTime />{res?.typeEmployement}</p>
+											<p className='text-sm flex flex-row justify-start items-center gap-2'><MdOutlineAttachMoney />{res?.salary}</p>
+										</div>
+									</div>
+								</Link>
+							)
+						})
+					}
+				</div>
+			</div>
+			<Footer />
+		</>
+	)
 }
 
 export default Home
