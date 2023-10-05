@@ -12,6 +12,7 @@ import { job_seeker_social_links } from './job_seeker_redux/slices/job_seeker_so
 import { job_seeker_references } from './job_seeker_redux/slices/job_seeker_references';
 import { employer_auth_slice } from './employer_redux/slices/Employer_auth_slice';
 import { employer_job_offer } from './employer_redux/slices/Employer_job_offer';
+import { job_candidates } from './employer_redux/slices/JobCandidates';
 
 export const store = configureStore({
     reducer: {
@@ -27,6 +28,7 @@ export const store = configureStore({
         [job_seeker_social_links.reducerPath]: job_seeker_social_links.reducer,
         [employer_auth_slice.reducerPath]: employer_auth_slice.reducer,
         [employer_job_offer.reducerPath]: employer_job_offer.reducer,
+        [job_candidates.reducerPath]: job_candidates.reducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware()
@@ -42,5 +44,6 @@ export const store = configureStore({
         .concat(job_seeker_references.middleware)
         .concat(employer_auth_slice.middleware)
         .concat(employer_job_offer.middleware)
+        .concat(job_candidates.middleware)
 });
 setupListeners(store.dispatch);

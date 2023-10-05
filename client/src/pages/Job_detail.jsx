@@ -9,6 +9,11 @@ import { BiTime } from "react-icons/bi";
 import { useState } from "react";
 import Modal from 'react-modal';
 import {LuImagePlus} from 'react-icons/lu';
+import axios from "axios";
+import { useGetCurrentJobSeekerQuery } from "../redux/job_seeker_redux/slices/job_seeker_slice";
+import { useAddJobCandidateMutation } from "../redux/employer_redux/slices/JobCandidates";
+import { toast } from "react-toastify";
+Modal.setAppElement('#root')
 // import Button from 'react-bootstrap/Button';
 // import Modal from 'react-bootstrap/Modal';
 
@@ -30,6 +35,54 @@ const Job_detail = () => {
 	const { data: employer = [] } = useGetEmployersAuthQuery();
 	const fetch_single_employer = employer?.employer || [];
 	const res_employer = fetch_single_employer?.find(res => res?._id == res_job?.employerId);
+
+
+	// apply jobs functionality
+	const { data : jobSeeker = {} } = useGetCurrentJobSeekerQuery()
+	const currentjobSekeer =  jobSeeker?.user || [];
+	console.log('job_id',job_id);
+	console.log('currentjobSekeer',currentjobSekeer);
+	const [addJobCandidate] = useAddJobCandidateMutation()
+
+
+	const upload = async () => {
+		try {
+
+			let formdata = new FormData();
+			formdata.append('file', files || '');
+			const res = await axios.post("http://localhost:8000/api/upload", formdata)
+			return res.data;
+
+		} catch (error) {
+			console.log(`error uploading : ${error.message}`);
+		}
+	}
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		try {
+			const jobSeekerResume = await upload();
+			await addJobCandidate({
+				JobOfferId: job_id?._id,
+                jobSeekerId: currentjobSekeer?._id,
+                jobSeekerName: currentjobSekeer?.fullName,
+                jobSeekerEmail: currentjobSekeer?.email,
+                jobTitle: job_id?.jobTitle,
+                jobCategory: job_id?.category,
+                jobSeekerResume: jobSeekerResume,
+                jobOfferStatus: 'pending'
+			}).then((res)=>{
+				const status = res.data.message;
+				if(status){
+					toast.success(res.data.message);
+				}else{
+					toast.error(res.data.message);
+				}
+			})
+		} catch (error) {
+			console.log('error',error);
+		}
+	}
 	const employerComponent = (
 		<div className="p-2 w-full bg-white shadow rounded">
 			<div className="w-full p-1 flex flex-col justify-start  gap-3 space-y-3" key={res_employer?._id}>
@@ -79,7 +132,7 @@ const Job_detail = () => {
 
 							<Modal className='w-[80%] lg:w-[30%] bg-[#f5f5f5] mx-auto p-10 rounded mt-32' isOpen={show} onRequestClose={handleClose} >
 								<h1 className="w-full text-xl tracking-widest text-center">upload resume</h1>
-								<form className="mt-4 flex flex-col justify-start items-center gap-2 space-y-5">
+								<form onSubmit={handleSubmit} className="mt-4 flex flex-col justify-start items-center gap-2 space-y-5">
 									<div className="w-full relative space-y-3">
 										<img className="mx-auto w-40 h-36 border-[4px] border-gray-500 rounded-[100%] object-center bg-cover" src="" alt="" />
 										<input className="hidden" type="file" name="file" id="file" onChange={(e)=> setFiles(e.target.files[0])}/>
@@ -87,7 +140,7 @@ const Job_detail = () => {
 									</div>
 									<div className="flex flex-row justify-center items-start gap-4">
 										<button className="text-xl text-white tracking-widest p-3 rounded shadow bg-slate-900 hover:bg-slate-700" onClick={handleClose}>Close</button>
-										<button className="text-xl text-white tracking-widest p-3 rounded shadow bg-[#007bff] hover:bg-blue-600" onClick={handleClose}>Save</button>
+										<button type="submit" className="text-xl text-white tracking-widest p-3 rounded shadow bg-[#007bff] hover:bg-blue-600">Save</button>
 									</div>
 								</form>
 							</Modal>

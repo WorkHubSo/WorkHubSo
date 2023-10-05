@@ -171,7 +171,7 @@ export const get_current_job_seeker = async(req, res) => {
                 message: 'Job Seeker not found'
             })
         }
-        res.json(user)
+        res.json({ user })
     } catch (error) {
         console.log('error', error.message);
     }
