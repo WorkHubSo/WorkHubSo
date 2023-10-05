@@ -1,5 +1,5 @@
 import { ErrorMessage, Field, Form, Formik } from "formik"
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import { useGetCurrentEmployerAuthQuery, useGetEmployersAuthQuery, useUpdateEmployerAuthMutation } from "../../redux/employer_redux/slices/Employer_auth_slice"
 import * as Yup from 'yup'
 import { toast } from "react-toastify"
@@ -83,7 +83,7 @@ const Edit_profile = () => {
 		}
 	}
 	return (
-		<div className="mt-16 lg:mt-44 w-full lg:w-[90%]  lg:ml-[30%]">
+		<div className="mt-16 lg:mt-32 w-full lg:w-[90%]  lg:ml-[30%]">
 			<h1 className="w-full ml-2 flex flex-row justify-start items-start gap-4">
 				<Link to='/' className="text-[#007bff] lg:text-xl tracking-widest font-semibold">Home</Link>
 				<small>/</small>

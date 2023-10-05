@@ -28,10 +28,10 @@ export const employer_job_offer = createApi({
             invalidatesTags: ['jobOffer']
         }),
         updateJobOffer: builder.mutation({
-            query: ({ id, updateJobOffer }) => ({
+            query: ({ id, updateJob }) => ({
                 url: `/employerjobOffer/${id}`,
                 method: 'PUT',
-                body: updateJobOffer
+                body: updateJob
             }),
             invalidatesTags: ['jobOffer']
         }),

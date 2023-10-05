@@ -66,5 +66,7 @@ export { default as Edit_profile }
 from './components/employer/Edit_profile';
 export { default as Manage_jobs }
 from './components/employer/Manage_jobs';
+export { default as View_Job_detail }
+from './components/employer/View_Job_detail';
 export { default as Job_detail }
 from './pages/Job_detail';
