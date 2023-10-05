@@ -10,7 +10,7 @@ export const add_employer_candidates = async(req, res) => {
             jobTitle,
             jobCategory,
             jobSeekerResume,
-            jobOfferStatus
+            jobOfferStatus,
         } = req.body
         const candidates = await new employerCandidatesModel({
             JobOfferId: JobOfferId,
@@ -22,6 +22,7 @@ export const add_employer_candidates = async(req, res) => {
             jobSeekerResume: jobSeekerResume,
             jobOfferStatus: jobOfferStatus
         })
+        await candidates.save();
         if (!candidates) {
             return req.json({
                 status: false,
@@ -64,6 +65,7 @@ export const update_employer_candidates = async(req, res) => {
                 jobOfferStatus: jobOfferStatus
             }
         })
+
         if (!candidates) {
             return req.json({
                 status: false,

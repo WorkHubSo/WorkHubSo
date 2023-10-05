@@ -31,7 +31,6 @@ const employerCandidateShema = mongoose.Schema({
     },
     jobOfferStatus: {
         type: String,
-        default: 'pending',
         required: false
     },
     createAt: {

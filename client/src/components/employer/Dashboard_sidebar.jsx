@@ -14,7 +14,7 @@ const Dashboard_sidebar = ({ setShowMenu, showMenu }) => {
 			<div className={`w-full p-1 flex flex-col justify-start items-start gap-3 space-y-4 text-lg tracking-tighter font-medium mt-16 ${showMenu ? 'hidden lg:block lg:w-full lg:flex' : 'block'}`} onClick={() => setShowMenu(!showMenu)}>
 				<Link className=" flex flex-row justify-start items-center gap-3" to='/Dashboard'><MdDashboard size={25} className="inline" /> <span>Dashboard</span></Link>
 				<Link className=" flex flex-row justify-start items-center gap-3" to='/Dashboard/job_offer'><BsFileTextFill size={25} className="inline" /> <span>New Job Offer</span></Link>
-				<Link className=" flex flex-row justify-start items-center gap-3" to='/Dashboard/candidate'><MdSupervisedUserCircle size={25} className="inline" /> <span>Candidates</span></Link>
+				<Link className=" flex flex-row justify-start items-center gap-3" to='/Dashboard/Job_candidates'><MdSupervisedUserCircle size={25} className="inline" /> <span>Candidates</span></Link>
 				<Link className=" flex flex-row justify-start items-center gap-3" to='/Dashboard/edit_profile'><MdEdit /> <span>Edit Profile</span></Link>
 				<Link className=" flex flex-row justify-start items-center gap-3" to='/Dashboard/manage_jobs'><BsTable /> <span>Manage Jobs</span></Link>
 				<Link className=" flex flex-row justify-start items-center gap-3" to='/Dashboard/change_password'><MdLock size={25} className="inline" /> <span>Change Password</span></Link>

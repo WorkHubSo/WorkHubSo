@@ -48,6 +48,7 @@ function Header() {
 			<option value="/Job_seeker_signup">Sign up</option>
 			<option value="/View_job_seeker_profile">View Profile</option>
 			<option value="/Job_seeker_manage_profile">Manage Profile</option>
+			<option value="/Applied_jobs">Applied Jobs</option>
 		</select>
 	)
 	const employerDropdown = (
