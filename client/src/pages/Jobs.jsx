@@ -86,9 +86,9 @@ const Jobs = () => {
             {
               records?.map(res => {
                 return (
-                  <Link to={`/Job_detail/${res?._id}`} className='flex flex-col justify-start items-start gap-2 space-y-3' key={res?._id} state={res}>
+                  <Link to={`/Job_detail/${res?._id}`} className='mt-5 flex flex-col justify-start items-start gap-2 space-y-3' key={res?._id} state={res}>
                     <div className='w-full flex flex-row justify-start items-center gap-5 '>
-                      <img className='w-28 h-20 bg-center object-cover rounded-[30%]' src={`../../public/uploads/${res?.cover}`} alt="" />
+                      <img className='w-20 h-20 bg-center object-cover rounded-[100%]' src={`../../public/uploads/${res?.cover}`} alt="" />
                       <div className='flex flex-col justify-start items-start gap-1'>
                         <p className='text-lg md:text-xl tracking-widest font-medium'>{res?.jobTitle}</p>
                         <p className='text-base md:text-lg tracking-tighter font-normal text-black/60'>{res?.category}</p>

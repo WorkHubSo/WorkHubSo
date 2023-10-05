@@ -6,8 +6,19 @@ import { useGetJobOffersQuery } from "../redux/employer_redux/slices/Employer_jo
 import { MdLocationOn, MdOutlineAttachMoney, MdOutlineCategory, MdTitle } from "react-icons/md";
 import { CgCalendarDates } from "react-icons/cg";
 import { BiTime } from "react-icons/bi";
+import { useState } from "react";
+import Modal from 'react-modal';
+import {LuImagePlus} from 'react-icons/lu';
+// import Button from 'react-bootstrap/Button';
+// import Modal from 'react-bootstrap/Modal';
 
 const Job_detail = () => {
+	// upload resumes files states 
+	const [ files , setFiles ] = useState(null);
+	// implemented model functionalities
+	const [show, setShow] = useState(false);
+	const handleClose = () => setShow(false);
+	const handleShow = () => setShow(true);
 
 	// fetching single jobs data
 	const job_id = useLocation().state;
@@ -24,7 +35,7 @@ const Job_detail = () => {
 			<div className="w-full p-1 flex flex-col justify-start  gap-3 space-y-3" key={res_employer?._id}>
 				<div className="w-full flex flex-row justify-start items-center">
 					{/* <img className=" absolute left-0 right-0 top-0 w-full h-48 bg-cover object-center rounded" src="" alt="" style={{ backgroundImage: `url(${static_covver})` }} /> */}
-					{res_employer?.logo ? <img className="w-32 h-16 object-center bg-cover" src={`../../public/uploads/${res_employer?.logo}`} alt="" /> : <img className="w-24 h-20 object-center bg-cover" src={`../../public/uploads/${res_employer?.cover}`} alt="" />  }
+					{res_employer?.logo ? <img className="w-32 h-16 object-center bg-cover" src={`../../public/uploads/${res_employer?.logo}`} alt="" /> : <img className="w-24 h-20 object-center bg-cover" src={`../../public/uploads/${res_employer?.cover}`} alt="" />}
 				</div>
 
 				<div className=" mt-5 flex flex-col justify-start items-start gap-3 space-y-2">
@@ -42,7 +53,45 @@ const Job_detail = () => {
 					</div>
 					<div className=" flex flex-row justify-start items-start gap-2">
 						<button className="px-5 py-2 rounded shadow bg-[#007bff] text-white hover:bg-blue-500">Save</button>
-						<button className="px-5 py-2 rounded shadow bg-[#007bff] text-white hover:bg-blue-500">Apply</button>
+						{/* <button className="px-5 py-2 rounded shadow bg-[#007bff] text-white hover:bg-blue-500" onClick={handleShow}>Apply</button> */}
+						{/* <>
+
+							<Modal show={show} onHide={handleClose}>
+								<Modal.Header closeButton>
+									<Modal.Title>Modal heading</Modal.Title>
+								</Modal.Header>
+								<Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
+								<Modal.Footer>
+									<Button variant="secondary" onClick={handleClose}>
+										Close
+									</Button>
+									<Button variant="primary" onClick={handleClose}>
+										Save Changes
+									</Button>
+								</Modal.Footer>
+							</Modal>
+
+						</> */}
+						<>
+							<button className="px-5 py-2 rounded shadow bg-[#007bff] text-white hover:bg-blue-500" onClick={handleShow}>
+								Apply
+							</button>
+
+							<Modal className='w-[80%] lg:w-[30%] bg-[#f5f5f5] mx-auto p-10 rounded mt-32' isOpen={show} onRequestClose={handleClose} >
+								<h1 className="w-full text-xl tracking-widest text-center">upload resume</h1>
+								<form className="mt-4 flex flex-col justify-start items-center gap-2 space-y-5">
+									<div className="w-full relative space-y-3">
+										<img className="mx-auto w-40 h-36 border-[4px] border-gray-500 rounded-[100%] object-center bg-cover" src="" alt="" />
+										<input className="hidden" type="file" name="file" id="file" onChange={(e)=> setFiles(e.target.files[0])}/>
+										<label className=" absolute right-[4%] lg:right-[15%] top-16 cursor-pointer" htmlFor="file"><LuImagePlus size={30}/></label>
+									</div>
+									<div className="flex flex-row justify-center items-start gap-4">
+										<button className="text-xl text-white tracking-widest p-3 rounded shadow bg-slate-900 hover:bg-slate-700" onClick={handleClose}>Close</button>
+										<button className="text-xl text-white tracking-widest p-3 rounded shadow bg-[#007bff] hover:bg-blue-600" onClick={handleClose}>Save</button>
+									</div>
+								</form>
+							</Modal>
+						</>
 					</div>
 				</div>
 			</div>
@@ -66,7 +115,7 @@ const Job_detail = () => {
 					<p className='text-base flex flex-row justify-start items-center gap-2'><MdOutlineCategory className="text-[#007bff]" size={20} />  <span className="">Category : </span>  {res_job?.category}</p>
 					<p className='text-base flex flex-row justify-start items-center gap-2'><MdLocationOn className="text-[#007bff]" size={20} />  <span className="">Location : </span>  {res_job?.location}</p>
 					<p className='text-base flex flex-row justify-start items-center gap-2'><CgCalendarDates className="text-[#007bff]" size={20} />  <span className="">Deadline : </span>   {res_job?.deadline?.substring(0, 10)}</p>
-					<p className='text-base flex flex-row justify-start items-center gap-2'><BiTime  className="text-[#007bff]" size={20} /> <span className="">Type : </span>   {res_job?.typeEmployement}</p>
+					<p className='text-base flex flex-row justify-start items-center gap-2'><BiTime className="text-[#007bff]" size={20} /> <span className="">Type : </span>   {res_job?.typeEmployement}</p>
 					<p className='text-base flex flex-row justify-start items-center gap-2'><MdOutlineAttachMoney className="text-[#007bff]" size={20} />  <span className="">Salary : </span>  {res_job?.salary}</p>
 				</div>
 			</div>

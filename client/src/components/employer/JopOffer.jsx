@@ -1,12 +1,14 @@
 import axios from "axios";
 import { ErrorMessage, Field, Form, Formik } from "formik"
 import { useState } from "react";
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import * as Yup from 'yup'
-import { useAddJopOfferMutation } from "../../redux/employer_redux/slices/Employer_job_offer";
+import { useAddJopOfferMutation, useUpdateJobOfferMutation } from "../../redux/employer_redux/slices/Employer_job_offer";
 import { toast } from "react-toastify";
 const JopOffer = () => {
-  const [addJopOffer] = useAddJopOfferMutation()
+  const res_job_state = useLocation().state
+  const [addJopOffer] = useAddJopOfferMutation();
+  const [updateJobOffer] = useUpdateJobOfferMutation();
   const [coverFile, setCoverFile] = useState(null);
   const uploadCover = async () => {
     try {
@@ -22,17 +24,17 @@ const JopOffer = () => {
   }
 
   const initialValues = {
-    jobTitle: '',
-    category: '',
-    typeEmployement: '',
-    description: '',
-    experienceLevel: '',
-    requiredExperience: '',
-    salary: '',
-    deadline: '',
-    externalUrl: '',
-    branch: '',
-    location: '',
+    jobTitle: res_job_state?.jobTitle || '',
+    category: res_job_state?.category || '',
+    typeEmployement: res_job_state?.typeEmployement || '',
+    description: res_job_state?.description || '',
+    experienceLevel: res_job_state?.experienceLevel || '',
+    requiredExperience: res_job_state?.requiredExperience || '',
+    salary: res_job_state?.salary || '',
+    deadline: res_job_state?.deadline || '',
+    externalUrl: res_job_state?.externalUrl || '',
+    branch: res_job_state?.branch || '',
+    location: res_job_state?.location || '',
   }
 
   const validationSchema = Yup.object({
@@ -51,21 +53,41 @@ const JopOffer = () => {
   })
 
   const handleSubmit = async (values) => {
-    try {
-      console.log('values', values);
-      const { jobTitle, category, typeEmployement, description, experienceLevel, requiredExperience, salary, deadline, externalUrl, branch, location } = values;
-      const cover = await uploadCover();
-      await addJopOffer({ jobTitle, category, typeEmployement, description, experienceLevel, requiredExperience, salary, deadline, externalUrl, branch, location, cover }).then((res) => {
-        toast.success(res.data.message)
-      })
+    const id = res_job_state?._id || ''
 
-    } catch (error) {
-      console.log('error', error);
+    if (!id) {
+
+      try {
+        const { jobTitle, category, typeEmployement, description, experienceLevel, requiredExperience, salary, deadline, externalUrl, branch, location } = values;
+        const cover = await uploadCover();
+        await addJopOffer({ jobTitle, category, typeEmployement, description, experienceLevel, requiredExperience, salary, deadline, externalUrl, branch, location, cover }).then((res) => {
+          toast.success(res.data.message)
+        })
+
+      } catch (error) {
+        console.log('error', error);
+      }
+
+    } else {
+
+      try {
+        const { jobTitle, category, typeEmployement, description, experienceLevel, requiredExperience, salary, deadline, externalUrl, branch, location } = values;
+        const cover = await uploadCover();
+        await updateJobOffer({ id: id, updateJob: { jobTitle, category, typeEmployement, description, experienceLevel, requiredExperience, salary, deadline, externalUrl, branch, location, cover } }).then((res) => {
+          toast.success(res.data.message)
+        })
+
+      } catch (error) {
+        console.log('error', error);
+      }
+
     }
+
+
   }
 
   return (
-    <div className="mt-16 lg:mt-44 w-full lg:w-[90%]  lg:ml-[30%]">
+    <div className="mt-16 lg:mt-32 w-full lg:w-[90%]  lg:ml-[30%]">
       <h1 className="w-full ml-2 flex flex-row justify-start items-start gap-4">
         <Link to='/' className="text-[#007bff] lg:text-xl tracking-widest font-semibold">Home</Link>
         <small>/</small>
@@ -73,6 +95,7 @@ const JopOffer = () => {
       </h1>
       <div className="mt-5 w-full lg:w-[90%] bg-white shadow rounded p-4 ">
         <Formik
+          enableReinitialize
           initialValues={initialValues}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}>
@@ -113,9 +136,9 @@ const JopOffer = () => {
               <div className="w-full">
                 <Field className='outline-[#007bff] w-full p-3 rounded shadow' as='select' placeholder='Experience Level' name="experienceLevel">
                   <option value="">-Select Experience Level --</option>
-                  <option value="Full Time">Top Level</option>
-                  <option value="Full Time">Mid Level</option>
-                  <option value="Part Time">Senior Level</option>
+                  <option value="Top Level">Top Level</option>
+                  <option value="Mid Level">Mid Level</option>
+                  <option value="Senior Level">Senior Level</option>
                 </Field>
                 <ErrorMessage className="text-red-500" component='div' name="experienceLevel" />
               </div>

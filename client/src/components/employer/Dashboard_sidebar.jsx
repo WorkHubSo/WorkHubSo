@@ -11,7 +11,7 @@ const Dashboard_sidebar = ({ setShowMenu, showMenu }) => {
 				<h1 className=" text-xl tracking-tighter mt-5"><SiWorkplace size={40} className="inline text-[#007bff]" />ork<span className="text-[#333333]">Hubso</span></h1>
 				<AiOutlineClose size={25} className="lg:hidden block absolute right-5" onClick={() => setShowMenu(!showMenu)} />
 			</div>
-			<div className={`w-full p-1 flex flex-col justify-start items-start gap-3 space-y-4 text-lg tracking-tighter font-medium mt-28 ${showMenu ? 'hidden lg:block lg:w-full lg:flex' : 'block'}`} onClick={() => setShowMenu(!showMenu)}>
+			<div className={`w-full p-1 flex flex-col justify-start items-start gap-3 space-y-4 text-lg tracking-tighter font-medium mt-16 ${showMenu ? 'hidden lg:block lg:w-full lg:flex' : 'block'}`} onClick={() => setShowMenu(!showMenu)}>
 				<Link className=" flex flex-row justify-start items-center gap-3" to='/Dashboard'><MdDashboard size={25} className="inline" /> <span>Dashboard</span></Link>
 				<Link className=" flex flex-row justify-start items-center gap-3" to='/Dashboard/job_offer'><BsFileTextFill size={25} className="inline" /> <span>New Job Offer</span></Link>
 				<Link className=" flex flex-row justify-start items-center gap-3" to='/Dashboard/candidate'><MdSupervisedUserCircle size={25} className="inline" /> <span>Candidates</span></Link>
