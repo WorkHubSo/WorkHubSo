@@ -92,6 +92,24 @@ export const employer_auth_slice = createApi({
             },
             providesTags: ['auth']
         }),
+        getEmployerCurrentPassword: builder.query({
+            query: (currentPassword) => {
+                return {
+                    url: '/employer/currentPassword',
+                    method: 'GET',
+                    body: currentPassword
+                }
+            },
+            providesTags: ['auth']
+        }),
+        changePassword: builder.mutation({
+            query: ({ id, updatePassword }) => ({
+                url: `employer/changePassword/${id}`,
+                method: 'PUT',
+                body: updatePassword
+            }),
+            invalidatesTags: ['auth']
+        }),
     })
 })
 
@@ -102,5 +120,7 @@ export const {
     useDeleteEmployerAuthMutation,
     useGetEmployersAuthQuery,
     useGetCurrentEmployerAuthQuery,
-    useGetEmployerAuthbyIdQuery
+    useGetEmployerAuthbyIdQuery,
+    useChangePasswordMutation,
+    useGetEmployerCurrentPasswordQuery
 } = employer_auth_slice

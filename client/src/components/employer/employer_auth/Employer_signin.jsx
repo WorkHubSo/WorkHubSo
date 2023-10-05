@@ -29,8 +29,15 @@ const Employer_signin = () => {
 			await loginEmployerAuth({
 				email, password
 			}).then((res) => {
-				navigate('/Dashboard')
-				toast.success(res.data.message)
+				const status = res.data.status
+
+				console.log('status: ',res.data);
+				if(status){
+					navigate('/Dashboard')
+					toast.success(res.data.message)
+				}else{
+					toast.error(res.data.message)
+				}
 		})
 		} catch (error) {
 			console.log('error', error);
