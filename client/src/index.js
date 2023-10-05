@@ -64,5 +64,7 @@ export { default as Company_dashboard }
 from './components/employer/Company_dashboard';
 export { default as Edit_profile }
 from './components/employer/Edit_profile';
+export { default as Manage_jobs }
+from './components/employer/Manage_jobs';
 export { default as Job_detail }
 from './pages/Job_detail';

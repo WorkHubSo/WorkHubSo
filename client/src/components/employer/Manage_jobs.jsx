@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom"
 
-const Candidate = () => {
+const Manage_jobs = () => {
 	return (
-		<div className='mt-16 lg:mt-44 w-full lg:w-[90%]  lg:ml-[30%]'>
+		<div className="mt-16 lg:mt-44 w-full lg:w-[90%]  lg:ml-[30%]">
 			<h1 className="w-full ml-2 flex flex-row justify-start items-start gap-4">
 				<Link to='/' className="text-[#007bff] lg:text-xl tracking-widest font-semibold">Home</Link>
 				<small>/</small>
@@ -12,4 +12,4 @@ const Candidate = () => {
 	)
 }
 
-export default Candidate
+export default Manage_jobs
