@@ -52,7 +52,7 @@ const JopOffer = () => {
 
   const handleSubmit = async (values) => {
     try {
-      console.log('values',values);
+      console.log('values', values);
       const { jobTitle, category, typeEmployement, description, experienceLevel, requiredExperience, salary, deadline, externalUrl, branch, location } = values;
       const cover = await uploadCover();
       await addJopOffer({ jobTitle, category, typeEmployement, description, experienceLevel, requiredExperience, salary, deadline, externalUrl, branch, location, cover }).then((res) => {
@@ -65,13 +65,13 @@ const JopOffer = () => {
   }
 
   return (
-    <div className="mt-40 w-[90%]  lg:ml-[30%]">
+    <div className="mt-16 lg:mt-44 w-full lg:w-[90%]  lg:ml-[30%]">
       <h1 className="w-full ml-2 flex flex-row justify-start items-start gap-4">
-        <Link to='/' className="text-[#007bff] text-xl tracking-widest font-semibold">Home</Link>
+        <Link to='/' className="text-[#007bff] lg:text-xl tracking-widest font-semibold">Home</Link>
         <small>/</small>
-        <span className='text-black/70 text-xl tracking-widest font-semibold'>Dashboard / Edit Profile </span>
+        <span className='text-black/70 text-base lg:text-xl tracking-widest font-semibold'><Link className="inline" to='/Dashboard'>Dashboard</Link> / Job Offer</span>
       </h1>
-      <div className="mt-5 w-[90%] bg-white shadow rounded p-4 ">
+      <div className="mt-5 w-full lg:w-[90%] bg-white shadow rounded p-4 ">
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}

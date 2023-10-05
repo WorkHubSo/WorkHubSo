@@ -79,7 +79,7 @@ const Job_seeker_signin = () => {
 							}
 						</div>
 						<button type='submit' className='w-full p-3 rounded text-white bg-[#007bff] hover:bg-blue-700'> Sign Ip</button>
-						<p className=' text-base tracking-widest'> don`t have an Account? <Link className=' text-[#007bff]' to='/Job_seeker_signup'> Sign Un</Link></p>
+						<p className=' text-base tracking-widest'> don`t have an Account? <Link className=' text-[#007bff]' to='/Job_seeker_signup'> Sign Up</Link></p>
 					</Form>
 				</Formik>
 			</div>
