@@ -29,11 +29,12 @@ export const add_job_offer = async(req, res) => {
                 status: false,
                 message: 'something wrong please try again'
             })
+        } else {
+            return res.json({
+                status: true,
+                message: 'successfully added job offer',
+            })
         }
-
-        res.json({
-            message: 'successfully added job offer',
-        })
 
     } catch (error) {
         console.log('error', error.message);
@@ -70,11 +71,12 @@ export const update_job_offer = async(req, res) => {
                 status: false,
                 message: 'something wrong please try again'
             })
+        } else {
+            return res.json({
+                status: true,
+                message: 'successfully updated job offer',
+            })
         }
-
-        res.json({
-            message: 'successfully updated job offer',
-        })
 
     } catch (error) {
         console.log('error', error.message);

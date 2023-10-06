@@ -14,7 +14,7 @@ const JopOffer = () => {
     try {
 
       let formdata = new FormData();
-      formdata.append('file', coverFile);
+      formdata.append('file', coverFile || '');
       const res = await axios.post("http://localhost:8000/api/upload", formdata)
       return res.data;
 
@@ -52,7 +52,7 @@ const JopOffer = () => {
 
   })
 
-  const handleSubmit = async (values) => {
+  const handleSubmit = async (values , {resetForm}) => {
     const id = res_job_state?._id || ''
 
     if (!id) {
@@ -60,9 +60,15 @@ const JopOffer = () => {
       try {
         const { jobTitle, category, typeEmployement, description, experienceLevel, requiredExperience, salary, deadline, externalUrl, branch, location } = values;
         const cover = await uploadCover();
-        await addJopOffer({ jobTitle, category, typeEmployement, description, experienceLevel, requiredExperience, salary, deadline, externalUrl, branch, location, cover }).then((res) => {
-          toast.success(res.data.message)
-        })
+        await addJopOffer({ jobTitle, category, typeEmployement, description, experienceLevel, requiredExperience, salary, deadline, externalUrl, branch, location, cover })
+          .then((res) => {
+            const status = res.data.status;
+            if (status) {
+              toast.success(res.data.message)
+            } else {
+              toast.error(res.data.message)
+            }
+          })
 
       } catch (error) {
         console.log('error', error);
@@ -82,6 +88,8 @@ const JopOffer = () => {
       }
 
     }
+
+    resetForm();
 
 
   }
@@ -173,7 +181,7 @@ const JopOffer = () => {
                 <ErrorMessage className="text-red-500" component='div' name="location" />
               </div>
             </div>
-            <button type="submit" className="lg:w-[30%] bg-[#007bff] text-white hover:bg-blue-600 w-full p-3 rounded shadow">Edit Profile</button>
+            <button type="submit" className="lg:w-[30%] bg-[#007bff] text-white hover:bg-blue-600 w-full p-3 rounded shadow">Save Job Offer</button>
           </Form>
         </Formik>
       </div>
