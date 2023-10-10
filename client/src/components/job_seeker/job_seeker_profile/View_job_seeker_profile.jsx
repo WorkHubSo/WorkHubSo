@@ -1,21 +1,17 @@
-import { Sidebar_view_profile } from '../../../index'
+import { Footer, Header, Sidebar_view_profile } from '../../../index';
 import { useGetCurrentJobSeekerEducationQuery } from '../../../redux/job_seeker_redux/slices/job_seeker_education';
 import { useGetCurrentJobSeekerExperiencesQuery } from '../../../redux/job_seeker_redux/slices/job_seeker_experiences';
 import { useGetCurrentJobSeekerReferencesQuery } from '../../../redux/job_seeker_redux/slices/job_seeker_references';
 import { useGetCurrentJobSeekerSkillsQuery } from '../../../redux/job_seeker_redux/slices/job_seeker_skills';
-import { useGetCurrentJobSeekerQuery, useGetJobSeekersQuery } from '../../../redux/job_seeker_redux/slices/job_seeker_slice';
-import { Footer, Header } from '../../../index'
+import { useGetCurrentJobSeekerQuery } from '../../../redux/job_seeker_redux/slices/job_seeker_slice';
 const View_job_seeker_profile = () => {
 
-	const { data: user = {} } = useGetCurrentJobSeekerQuery();
-	const { data: users = {} } = useGetJobSeekersQuery();
+	const { data: jobSeekerAuth = [] } = useGetCurrentJobSeekerQuery();
 	const { data: skill_data = {} } = useGetCurrentJobSeekerSkillsQuery();
 	const { data: educations_data = {} } = useGetCurrentJobSeekerEducationQuery();
 	const { data: experience_data = {} } = useGetCurrentJobSeekerExperiencesQuery();
 	const { data: reference_data = {} } = useGetCurrentJobSeekerReferencesQuery();
-	const jobSeeker = users?.user?.find((res) => {
-		return res._id == user?._id
-	})
+	const jobSeeker = jobSeekerAuth?.user || []
 
 	const jobSeekerBio = (
 		<div className="w-[90%] mx-auto flex flex-col  justify-start items-center gap-2 space-y-2">

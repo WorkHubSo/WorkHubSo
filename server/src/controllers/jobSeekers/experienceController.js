@@ -26,6 +26,7 @@ export const add_experience = async(req, res) => {
         }
 
         res.json({
+            status: true,
             message: 'successfully added experience'
         })
     } catch (error) {
@@ -59,6 +60,7 @@ export const update_experience = async(req, res) => {
         }
 
         res.json({
+            status: true,
             message: 'successfully updated experience'
         })
     } catch (error) {
@@ -150,7 +152,8 @@ export const delete_experience = async(req, res) => {
         }
 
         res.json({
-            delete_experience
+            status: true,
+            message: 'successfully deleted experience'
         })
     } catch (error) {
         console.log('error', error.message);

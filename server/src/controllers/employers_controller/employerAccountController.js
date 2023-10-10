@@ -218,32 +218,42 @@ export const update_employer = async(req, res) => {
 
 export const Change_password_employer = async(req, res) => {
     try {
-        const { NewPassword } = req.body;
+        const { currentPassword, NewPassword } = req.body;
         const current_employer = await employerAccountModel.findOne({ _id: req.params.id })
-        console.log('Current employee', current_employer);
         if (!current_employer) {
             return res.json({
                 status: false,
                 message: 'something went wrong try again'
             })
         } else {
-            const hassedpassword = await bcrypt.hash(NewPassword, 10);
-            const updatedPassword = await employerAccountModel.updateOne({ _id: current_employer._id }, {
-                $set: {
-                    password: hassedpassword
+            const compare_password = await bcrypt.compare(currentPassword, current_employer.password);
+            if (compare_password) {
+                const hass_password = await bcrypt.hash(NewPassword, 10)
+                const updatedPassword = await employerAccountModel.updateOne({ _id: current_employer._id }, {
+                    $set: {
+                        password: hass_password
+                    }
+                })
+                if (!updatedPassword) {
+                    res.json({
+                        status: false,
+                        message: 'something went wrong try again.'
+                    })
+                } else {
+                    res.json({
+                        status: true,
+                        message: 'successfull changed password.'
+                    })
                 }
-            })
-            if (!updatedPassword) {
-                res.json({
-                    status: false,
-                    message: 'something went wrong try again'
-                })
             } else {
+
                 res.json({
                     status: false,
-                    message: 'successfull changed password'
+                    message: 'current password is invalid try again.'
                 })
+
             }
+
         }
 
     } catch (error) {

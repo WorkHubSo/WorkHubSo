@@ -17,11 +17,12 @@ export const job_candidates = createApi({
             invalidatesTags: ['jobCandidate']
         }),
         updateJobCandidate: builder.mutation({
-            query: ({ id, updateCandidate }) => ({
-                url: `/employerCandidate/${id}`,
-                method: 'PUT',
-                body: updateCandidate
-            }),
+            query: ({ id, updateCandidate }) => (
+                console.log('updateCandidate', updateCandidate), {
+                    url: `/employerCandidate/${id}`,
+                    method: 'PUT',
+                    body: updateCandidate
+                }),
             invalidatesTags: ['jobCandidate']
         }),
         deleteJobCandidate: builder.mutation({

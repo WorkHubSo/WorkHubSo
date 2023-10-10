@@ -14,7 +14,7 @@ export const add_skill = async(req, res) => {
         await add_skills.save();
 
         if (!add_skills) {
-            return res.status(404).json({
+            return res.json({
                 status: false,
                 message: 'something went wrong please try again'
             })
@@ -42,7 +42,7 @@ export const update_skill = async(req, res) => {
         })
 
         if (!update_skills) {
-            return res.status(404).json({
+            return res.json({
                 status: false,
                 message: 'something went wrong please try again'
             })
@@ -67,7 +67,7 @@ export const get_current_job_seeker_skills = async(req, res) => {
         const get_skills = await skillsModel.find({ jobSeekerId: jobSeekerId });
 
         if (!get_skills) {
-            return res.status(404).json({
+            return res.json({
                 status: false,
                 message: 'something went wrong please try again'
             })
@@ -118,6 +118,7 @@ export const delete_skill = async(req, res) => {
         }
 
         res.json({
+            status: true,
             message: 'successfully deleted skill'
         })
 

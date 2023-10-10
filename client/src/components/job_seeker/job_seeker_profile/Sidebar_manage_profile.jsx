@@ -8,17 +8,13 @@ import { useGetCurrentJobSeekerSkillsQuery } from "../../../redux/job_seeker_red
 import { useGetCurrentJobSeekerEducationQuery } from "../../../redux/job_seeker_redux/slices/job_seeker_education";
 import { useGetCurrentJobSeekerExperiencesQuery } from "../../../redux/job_seeker_redux/slices/job_seeker_experiences";
 const Sidebar_manage_profile = () => {
-	const { data : user = {} } = useGetCurrentJobSeekerQuery();
-	const { data : users = {} } = useGetJobSeekersQuery();
+	const { data : jobSeekerAuth = [] } = useGetCurrentJobSeekerQuery();
 	const { data: reference_data = {} } = useGetCurrentJobSeekerSocialLinkQuery();
 	const { data: language_data = {} } = useGetCurrentJobSeekerLanguageQuery();
 	const { data: skill_data = {} } = useGetCurrentJobSeekerSkillsQuery();
 	const { data: educations_data = {} } = useGetCurrentJobSeekerEducationQuery();
 	const { data: experience_data = {} } = useGetCurrentJobSeekerExperiencesQuery();
-	const jobSeeker = users?.user?.find( (res) => {
-		return  res._id == user?._id
-	} )
-
+	const jobSeeker = jobSeekerAuth?.user || [];
 	const jobSeekerProfile = (
 		<div className="w-full flex flex-col  justify-center items-center gap-2 space-y-2">
 			<img className="w-[80%] h-40 object-cover bg-center rounded-[100%]" src={`../../../../public/uploads/${jobSeeker?.photo}`} alt="" />

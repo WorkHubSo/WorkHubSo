@@ -24,6 +24,7 @@ export const add_trainings = async(req, res) => {
         }
 
         res.json({
+            status: true,
             message: 'successfully added training'
         })
 
@@ -55,6 +56,7 @@ export const update_training = async(req, res) => {
         }
 
         res.json({
+            status: true,
             message: 'successfully updated training'
         })
 
@@ -144,6 +146,7 @@ export const delete_training = async(req, res) => {
         }
 
         res.json({
+            status: true,
             message: ' successfully deleted training '
         })
 

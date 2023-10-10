@@ -13,7 +13,6 @@ export const jobSeekerAuthenticate = (req, res, next) => {
         }
 
         const decoded = jwt.verify(token, jwt_secret);
-        console.log('decoded', decoded);
         req.jobSeeker = decoded
 
         next();

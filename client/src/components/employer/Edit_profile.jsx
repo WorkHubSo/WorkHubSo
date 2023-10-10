@@ -1,11 +1,14 @@
-import { ErrorMessage, Field, Form, Formik } from "formik"
-import { Link, useLocation } from "react-router-dom"
-import { useGetCurrentEmployerAuthQuery, useGetEmployersAuthQuery, useUpdateEmployerAuthMutation } from "../../redux/employer_redux/slices/Employer_auth_slice"
-import * as Yup from 'yup'
-import { toast } from "react-toastify"
-import { useState } from "react"
 import axios from "axios"
+import { ErrorMessage, Field, Form, Formik } from "formik"
+import { useState, useEffect } from "react"
+import { Link } from "react-router-dom"
+import { toast } from "react-toastify"
+import * as Yup from 'yup'
+import { useGetCurrentEmployerAuthQuery, useGetEmployersAuthQuery, useUpdateEmployerAuthMutation } from "../../redux/employer_redux/slices/Employer_auth_slice"
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 const Edit_profile = () => {
+	const [value, setValue] = useState('');
 	const [updateEmployer] = useUpdateEmployerAuthMutation()
 	const { data: currentJobSeeker = {} } = useGetCurrentEmployerAuthQuery();
 	const { data: getJobSeekers = [] } = useGetEmployersAuthQuery();
@@ -14,13 +17,18 @@ const Edit_profile = () => {
 	const jobseekerProfile = jobseeker.find(res => {
 		return res._id == jobSeekerId
 	})
+	useEffect(() => {
+		if (jobseekerProfile?.companyBio) {
+			setValue(jobseekerProfile.companyBio);
+		}
+	}, [jobseekerProfile]);
 	const [coverFile, setCoverFile] = useState(null);
 	const [logoFile, setLogoFile] = useState(null);
 	const uploadCover = async () => {
 		try {
 
 			let formdata = new FormData();
-			formdata.append('file', coverFile);
+			formdata.append('file', coverFile || '');
 			const res = await axios.post("http://localhost:8000/api/upload", formdata)
 			return res.data;
 
@@ -33,7 +41,7 @@ const Edit_profile = () => {
 		try {
 
 			let formdata = new FormData();
-			formdata.append('file', logoFile);
+			formdata.append('file', logoFile || '');
 			const res = await axios.post("http://localhost:8000/api/upload", formdata)
 			return res.data;
 
@@ -47,7 +55,6 @@ const Edit_profile = () => {
 		email: jobseekerProfile?.email || '',
 		phone: jobseekerProfile?.phone || '',
 		website: jobseekerProfile?.website || '',
-		companyBio: jobseekerProfile?.companyBio || '',
 		FoundedIn: jobseekerProfile?.FoundedIn || '',
 		industry: jobseekerProfile?.industry || '',
 		noEmployee: jobseekerProfile?.noEmployee || '',
@@ -62,17 +69,16 @@ const Edit_profile = () => {
 		companyName: Yup.string().required(' Enter a Company Name '),
 		email: Yup.string().required(' Enter a Company Email '),
 		phone: Yup.number().required(' Enter a Company Number '),
-		companyBio: Yup.string().required(' Enter a Company Bio '),
 		industry: Yup.string().required(' Enter a Company Industry'),
 		location: Yup.string().required(' Enter a Company location')
 
 	})
 	const handleSubmit = async (values) => {
 		console.log('values', values);
-		const { companyName, email, phone, website, companyBio, FoundedIn, industry, noEmployee, location, facebook, twitter, instagram, linkedIn } = values
+		const companyBio = value;
+		const { companyName, email, phone, website, FoundedIn, industry, noEmployee, location, facebook, twitter, instagram, linkedIn } = values
 		const cover = await uploadCover();
 		const logo = await uploadLogo();
-
 		try {
 			await updateEmployer({ id: jobseekerProfile?._id, updateEmployer: { companyName, email, phone, website, companyBio, FoundedIn, industry, noEmployee, location, facebook, twitter, instagram, linkedIn, cover, logo } }).then((res) => {
 				toast.success(res.data.message)
@@ -113,25 +119,31 @@ const Edit_profile = () => {
 								<Field className='outline-[#007bff] w-full p-3 rounded shadow' type='text' placeholder='website' name="website" />
 								<ErrorMessage className="text-red-500" component='div' name="website" />
 							</div>
-							<div className="w-full">
+							<div className="w-full space-y-2">
+								<label className="text-base tracking-tighter" htmlFor="">Comapany Logo</label>
 								<input className='outline-[#007bff] w-full p-3 rounded shadow' type='file' placeholder='cover photo' onChange={(e) => setCoverFile(e.target.files[0])} />
 							</div>
-							<div className="w-full">
+							<div className="w-full space-y-2">
+								<label className=" text-base tracking-tighter" htmlFor="">Comapany Cover</label>
 								<input className='outline-[#007bff] w-full p-3 rounded shadow' type='file' placeholder='logo photo' onChange={(e) => setLogoFile(e.target.files[0])} />
 							</div>
 						</div>
 						<div className="w-full">
-							<Field className='outline-[#007bff] w-full p-3 rounded shadow' as='textarea' placeholder='website' name="companyBio" />
-							<ErrorMessage className="text-red-500" component='div' name="companyBio" />
+							<ReactQuill theme="snow" value={value} onChange={setValue} />
 						</div>
 						<div className="w-full grid grid-cols-1 lg:grid-cols-2 justify-start items-start gap-4">
 							<div className="w-full">
 								<Field className='outline-[#007bff] w-full p-3 rounded shadow' as='select' placeholder='industry' name="industry">
 									<option value="">select industry</option>
-									<option value="Software Engineering">Software Engineering</option>
-									<option value="Finance">Finance</option>
-									<option value="HealthCare">HealthCare</option>
-									<option value="Project Management">Project Management</option>
+									<option value="Technology and IT">Technology and IT</option>
+									<option value="Finance and Accounting">Finance and Accounting</option>
+									<option value="Healthcare and Medicine">Healthcare and Medicine</option>
+									<option value="Sales and Marketing">Sales and Marketing</option>
+									<option value="Education and Teaching">Education and Teaching</option>
+									<option value="Creative Arts and Design">Creative Arts and Design</option>
+									<option value="Administrative and Clerical">Administrative and Clerical</option>
+									<option value="Human Resources">Human Resources</option>
+									<option value="Hospitality and Tourism">Hospitality and Tourism</option>
 								</Field>
 								<ErrorMessage className="text-red-500" component='div' name="industry" />
 							</div>

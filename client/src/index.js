@@ -56,8 +56,6 @@ export { default as Dashboard }
 from './components/employer/Dashboard';
 export { default as JopOffer }
 from './components/employer/JopOffer';
-export { default as Job_candidates }
-from './components/employer/Job_candidates';
 export { default as Change_password }
 from './components/employer/Change_password';
 export { default as Company_dashboard }
@@ -72,3 +70,9 @@ export { default as Job_detail }
 from './pages/Job_detail';
 export { default as Applied_jobs }
 from './components/job_seeker/job_seeker_profile/Applied_jobs';
+export { default as Private_route_employers }
+from './Private_route_employers';
+export { default as Private_route_job_seekers }
+from './Private_route_job_seekers';
+export { default as Opps }
+from './components/opps/Opps';

@@ -25,6 +25,7 @@ export const add_social_profile = async(req, res) => {
         }
 
         res.json({
+            status: true,
             message: 'successfully added social links'
         })
 
@@ -60,6 +61,7 @@ export const update_social_profile = async(req, res) => {
         }
 
         res.json({
+            status: true,
             message: 'successfully update social links'
         })
 
@@ -153,6 +155,7 @@ export const delete_social_profile = async(req, res) => {
         }
 
         res.json({
+            status: true,
             message: ' successfully deleted social links '
         })
 

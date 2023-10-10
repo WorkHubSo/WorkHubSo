@@ -25,6 +25,10 @@ const employerCandidateShema = mongoose.Schema({
         type: String,
         required: false
     },
+    jobSeekerImage: {
+        type: String,
+        required: false
+    },
     jobSeekerResume: {
         type: String,
         required: false

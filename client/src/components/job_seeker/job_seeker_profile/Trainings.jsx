@@ -1,8 +1,9 @@
-import { ErrorMessage, Field, Form, Formik } from "formik"
-import * as Yup from 'yup'
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useState } from "react";
-import { MdOutlineClear, MdOutlineAdd, MdDeleteOutline, MdEdit } from "react-icons/md";
+import { MdDeleteOutline, MdEdit, MdOutlineAdd, MdOutlineClear } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import * as Yup from 'yup';
 import { useAddJobSeekerTrainingMutation, useDeleteJobSeekerTrainingMutation, useGetCurrentJobSeekerTrainingsQuery, useUpdateJobSeekerTrainingMutation } from "../../../redux/job_seeker_redux/slices/job_seeker_trainings.js";
 const Trainings = ({ update_res_state }) => {
 	const navigate = useNavigate();
@@ -12,7 +13,6 @@ const Trainings = ({ update_res_state }) => {
 	const { data: training_data = {} } = useGetCurrentJobSeekerTrainingsQuery();
 	const [deleteJobSeekerTraining] = useDeleteJobSeekerTrainingMutation()
 	const initialValues = {
-
 		topic: update_res_state?.topic || '',
 		institution: update_res_state?.institution || '',
 		startDate: update_res_state?.startDate || '',
@@ -33,7 +33,15 @@ const Trainings = ({ update_res_state }) => {
 		if (!id) {
 			try {
 				const { topic, institution, startDate, endDate, description } = values
-				await addJobSeekerTraining({ topic, institution, startDate, endDate, description })
+				await addJobSeekerTraining({ topic, institution, startDate, endDate, description }).then((res)=>{
+					const status = res.data.status;
+					if(status){
+						toast.success(res.data.message);
+						setShowForm(!showForm)
+					}else{
+						toast.error(res.data.message);
+					}
+				})
 			} catch (error) {
 				console.log('error', error);
 			}
@@ -41,9 +49,14 @@ const Trainings = ({ update_res_state }) => {
 			try {
 				const { topic, institution, startDate, endDate, description } = values
 				await updateJobSeekerTraining({ id: id, updateTraining: { topic, institution, startDate, endDate, description} }).then(res => {
-					console.log('res', res);
-					navigate('/Job_seeker_manage_profile')
-					setShowForm(!showForm)
+					const status = res.data.status;
+					if(status){
+						toast.success(res.data.message);
+						navigate('/Job_seeker_manage_profile')
+						setShowForm(!showForm)
+					}else{
+						toast.error(res.data.message);
+					}
 				})
 			} catch (error) {
 				console.log('error', error);
@@ -57,7 +70,14 @@ const Trainings = ({ update_res_state }) => {
 	const handleDelete = async (id) => {
 		try {
 			if (confirm('Are you sure you want to delete')) {
-				await deleteJobSeekerTraining(id)
+				await deleteJobSeekerTraining(id).then((res) => {
+					const status = res.data.status;
+					if(status){
+						toast.success(res.data.message);
+					}else{
+						toast.error(res.data.message);
+					}
+				})
 			}
 
 		} catch (error) {

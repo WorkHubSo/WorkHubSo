@@ -1,13 +1,9 @@
-import { Link } from "react-router-dom"
-import { GrFormView } from "react-icons/gr"
-import { TiDelete } from "react-icons/ti"
-import { BiSolidEditAlt } from "react-icons/bi"
 import { useState } from "react";
-import { Header , Footer } from "../../../index.js";
-import { useDeleteJobCandidateMutation, useGetJobCandidateQuery } from "../../../redux/employer_redux/slices/JobCandidates";
+import { Link } from "react-router-dom";
+import { Footer, Header } from "../../../index.js";
+import { useGetJobCandidateQuery } from "../../../redux/employer_redux/slices/JobCandidates";
 import { useGetCurrentJobSeekerQuery } from "../../../redux/job_seeker_redux/slices/job_seeker_slice";
 const Applied_jobs = () => {
-	const [deleteJobCandidate] = useDeleteJobCandidateMutation()
 	const [searchJobCandidate, setSearchJobCandidate] = useState('');
 	const { data: candidateJobs = [] } = useGetJobCandidateQuery();
 	const { data : jobSeekerJopOffer = [] } = useGetCurrentJobSeekerQuery();
@@ -23,18 +19,6 @@ const Applied_jobs = () => {
 	const records = get_current_applyied_jobs.slice(firstIndex, lastIndex);
 	const numberPage = Math.ceil(get_current_applyied_jobs.length / recordPerge);
 	const numbers = [...Array(numberPage + 1).keys()].slice(1);
-
-	const handleDelete = async (_id) => {
-		try {
-
-			if (confirm('Are you sure you want to delete')) {
-				await deleteJobCandidate(_id);
-			}
-
-		} catch (error) {
-			console.log('error', error);
-		}
-	}
 
 	return (
 		<>
@@ -59,7 +43,6 @@ const Applied_jobs = () => {
 								<td className="p-2">J_Category</td>
 								<td className="p-2">J_Resume</td>
 								<td className="p-2">J_status</td>
-								<td className="p-2">Actions</td>
 							</tr>
 						</thead>
 						<tbody>
@@ -78,14 +61,7 @@ const Applied_jobs = () => {
 												<img className="w-16 h-16 rounded-md" src={`../../../public/uploads/${res?.jobSeekerResume}`} alt="" />
 											</td>
 											<td className="p-2 text-base ">{res?.jobOfferStatus}</td>
-											<td className="p-2">
-												<div className="text-base flex flex-row justify-center items-center gap-2">
-													<Link to={`/Dashboard/view_job_detail/${res?._id}`} state={res}><GrFormView className="inline cursor-pointer" size={20} /></Link>
-													<Link to={`/Dashboard/job_offer/${res?._id}`} state={res}><BiSolidEditAlt className="text-[#007bff] cursor-pointer inline" size={20} /></Link>
-													<TiDelete className="inline text-red-500 cursor-pointer" size={20}
-														onClick={() => handleDelete(res?._id)} />
-												</div>
-											</td>
+											
 										</tr>
 									)
 								})

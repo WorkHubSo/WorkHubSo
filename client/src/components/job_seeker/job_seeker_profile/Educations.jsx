@@ -4,6 +4,7 @@ import { useState } from "react";
 import { MdOutlineClear, MdOutlineAdd, MdDeleteOutline, MdEdit } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import { useAddJobSeekerEducationMutation, useDeleteJobSeekerEducationMutation, useGetCurrentJobSeekerEducationQuery, useUpdateJobSeekerEducationMutation } from "../../../redux/job_seeker_redux/slices/job_seeker_education.js";
+import { toast } from "react-toastify";
 const Educations = ({ update_res_state }) => {
 	const navigate = useNavigate();
 	const [addJobSeekerEducation] = useAddJobSeekerEducationMutation();
@@ -35,7 +36,15 @@ const Educations = ({ update_res_state }) => {
 		if (!id) {
 			try {
 				const { degree, institution, graduationDate, honor, gba ,description } = values
-				await addJobSeekerEducation({ degree, institution, graduationDate, honor, gba ,description })
+				await addJobSeekerEducation({ degree, institution, graduationDate, honor, gba ,description }).then((res)=>{
+					const status = res.data.status;
+					if(status){
+						toast.success(res.data.message);
+						setShowForm(!showForm)
+					}else{
+						toast.error(res.data.message);
+					}
+				})
 			} catch (error) {
 				console.log('error', error);
 			}
@@ -43,9 +52,14 @@ const Educations = ({ update_res_state }) => {
 			try {
 				const { degree, institution, graduationDate, honor, gba ,description } = values
 				await updateJobSeekerEducation({ id: id, updateEducation: { degree, institution, graduationDate, honor, gba ,description } }).then(res => {
-					console.log('res', res);
-					navigate('/Job_seeker_manage_profile')
-					setShowForm(!showForm)
+					const status = res.data.status;
+					if(status){
+						toast.success(res.data.message);
+						navigate('/Job_seeker_manage_profile')
+						setShowForm(!showForm)
+					}else{
+						toast.error(res.data.message);
+					}
 				})
 			} catch (error) {
 				console.log('error', error);
@@ -59,7 +73,14 @@ const Educations = ({ update_res_state }) => {
 	const handleDelete = async (id) => {
 		try {
 			if (confirm('Are you sure you want to delete')) {
-				await deleteJobSeekerEducation(id)
+				await deleteJobSeekerEducation(id).then((res)=>{
+					const status = res.data.status;
+					if(status){
+						toast.success(res.data.message);
+					}else{
+						toast.error(res.data.message);
+					}
+				})
 			}
 
 		} catch (error) {

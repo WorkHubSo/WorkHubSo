@@ -23,6 +23,7 @@ export const add_certificate = async(req, res) => {
             })
         }
         res.json({
+            status: true,
             message: 'successfully added certificate'
         })
 
@@ -63,6 +64,7 @@ export const update_certificate = async(req, res) => {
             })
         }
         res.json({
+            status: true,
             message: 'successfully updated certificate'
         })
 
@@ -149,6 +151,7 @@ export const delete_certificate = async(req, res) => {
         }
 
         res.json({
+            status: true,
             message: 'successfully deleted certificate'
         })
 

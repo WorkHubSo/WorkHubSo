@@ -88,7 +88,7 @@ const Jobs = () => {
       <Header />
       <div className='w-[90%] md:w-[80%] mx-auto p-4 mt-40 lg:mt-28'>
         <h1 className="w-full ml-2 flex flex-row justify-start items-start gap-4">
-          <span className="text-[#007bff] text-xl tracking-widest font-semibold">Home</span>
+        <Link to='/' className="text-[#007bff] text-xl tracking-widest font-semibold">Home</Link>
           <small>/</small>
           <span className='text-black/70 text-xl tracking-widest font-semibold'>Jobs</span>
         </h1>
@@ -162,7 +162,7 @@ const Jobs = () => {
                       </div>
                     </div>
                     <div className='w-full flex flex-col justify-start items-start gap-3'>
-                      <p className=' text-base tracking-tighter md:tracking-wider'>{res?.description?.substring(0, 200)}.</p>
+                    <div dangerouslySetInnerHTML={{__html : res?.description?.substring(0, 200) }}/>
                       <div className='flex flex-col lg:flex-row justify-start gap-4'>
                         <p className='text-sm flex flex-row justify-start items-center gap-2'><MdLocationOn />{res?.location}</p>
                         <p className='text-sm flex flex-row justify-start items-center gap-2'><CgCalendarDates />{res?.deadline?.substring(0, 10)}</p>
@@ -190,7 +190,7 @@ const Jobs = () => {
                       </div>
                     </div>
                     <div className='w-full flex flex-col justify-start items-start gap-3'>
-                      <p className=' text-base tracking-tighter md:tracking-wider'>{res?.description?.substring(0, 200)}.</p>
+                    <div dangerouslySetInnerHTML={{__html : res?.description?.substring(0, 200) }}/>
                       <div className='flex flex-col lg:flex-row justify-start gap-4'>
                         <p className='text-sm flex flex-row justify-start items-center gap-2'><MdLocationOn />{res?.location}</p>
                         <p className='text-sm flex flex-row justify-start items-center gap-2'><CgCalendarDates />{res?.deadline?.substring(0, 10)}</p>
@@ -219,7 +219,8 @@ const Jobs = () => {
                       </div>
                     </div>
                     <div className='w-full flex flex-col justify-start items-start gap-3'>
-                      <p className=' text-base tracking-tighter md:tracking-wider'>{res?.description?.substring(0, 200)}.</p>
+                    <div dangerouslySetInnerHTML={{__html : res?.description?.substring(0, 200)}}/>
+                      {/* <p className=' text-base tracking-tighter md:tracking-wider'>{res?.description?.substring(0, 200)}.</p> */}
                       <div className='flex flex-col lg:flex-row justify-start gap-4'>
                         <p className='text-sm flex flex-row justify-start items-center gap-2'><MdLocationOn />{res?.location}</p>
                         <p className='text-sm flex flex-row justify-start items-center gap-2'><CgCalendarDates />{res?.deadline?.substring(0, 10)}</p>
@@ -248,7 +249,7 @@ const Jobs = () => {
                       </div>
                     </div>
                     <div className='w-full flex flex-col justify-start items-start gap-3'>
-                      <p className=' text-base tracking-tighter md:tracking-wider'>{res?.description?.substring(0, 200)}.</p>
+                      <div dangerouslySetInnerHTML={{__html : res?.description?.substring(0, 200) }}/>
                       <div className='flex flex-col lg:flex-row justify-start gap-4'>
                         <p className='text-sm flex flex-row justify-start items-center gap-2'><MdLocationOn />{res?.location}</p>
                         <p className='text-sm flex flex-row justify-start items-center gap-2'><CgCalendarDates />{res?.deadline?.substring(0, 10)}</p>

@@ -1,18 +1,16 @@
-import { ErrorMessage, Field, Form, Formik } from "formik"
-import * as Yup from 'yup'
+import axios from 'axios';
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useState } from "react";
-import axios from 'axios'
-import { useGetCurrentJobSeekerQuery, useGetJobSeekersQuery, useUpdateJobSeekerMutation } from "../../../redux/job_seeker_redux/slices/job_seeker_slice";
+import * as Yup from 'yup';
+import { useGetCurrentJobSeekerQuery, useUpdateJobSeekerMutation } from "../../../redux/job_seeker_redux/slices/job_seeker_slice";
 const Update_job_seeker_profile = () => {
 	const [updateJobSeeker] = useUpdateJobSeekerMutation();
 	const [errors, setErrors] = useState(false);
 	const [message, setMessage] = useState('');
 	const [success, setSuccees] = useState(false);
-	const { data: user = {} } = useGetCurrentJobSeekerQuery();
-	const { data: users = {} } = useGetJobSeekersQuery();
-	const jobSeeker = users?.user?.find((res) => {
-		return res._id == user?._id
-	})
+	const { data: jobSeekerAuth = {} } = useGetCurrentJobSeekerQuery();
+	const jobSeeker = jobSeekerAuth?.user || []
+	console.log('jobSeeker',jobSeeker);
 	const [files, setFiles] = useState(null);
 	const [selectedFiles, setSelectedFiles] = useState('');
 	const initialValues = {
@@ -47,7 +45,7 @@ const Update_job_seeker_profile = () => {
 		try {
 
 			let formdata = new FormData();
-			formdata.append('file', files);
+			formdata.append('file', files || '');
 			const res = await axios.post("http://localhost:8000/api/upload", formdata)
 			return res.data;
 

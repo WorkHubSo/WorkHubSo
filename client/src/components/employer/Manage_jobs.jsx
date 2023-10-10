@@ -47,11 +47,11 @@ const Manage_jobs = () => {
 					<thead>
 						<tr className="text-white text-base text-start space-x-2 bg-[#007bff]">
 							<td className="p-2">J_title</td>
-							<td className="p-2">Category</td>
+							<td className="p-2 hidden md:block">Category</td>
 							<td className="p-2">T_employement</td>
 							<td className="p-2">Exp_level</td>
 							<td className="p-2">Req_experience</td>
-							<td className="p-2">Deadline</td>
+							<td className="p-2 hidden md:block">Deadline</td>
 							<td className="p-2">Salary</td>
 							<td className="p-2">Actions</td>
 						</tr>
@@ -65,13 +65,13 @@ const Manage_jobs = () => {
 
 									<tr key={res?._id} className="w-full space-x-2 border-b-[3px] border-b-[#f5f5f9]">
 										<td className="p-2 text-base">{res?.jobTitle}</td>
-										<td className="p-2 text-base">{res?.category}</td>
+										<td className="p-2 text-base hidden md:block">{res?.category}</td>
 										<td className="p-2 text-base">{res?.typeEmployement}</td>
 										<td className="p-2 text-base">{res?.experienceLevel}</td>
 										<td className="p-2 text-base">{res?.requiredExperience}</td>
-										<td className="p-2 text-base">{res?.deadline.substring(0, 10)}</td>
+										<td className="p-2 text-base hidden md:block">{res?.deadline.substring(0, 10)}</td>
 										<td className="p-2 text-base">{res?.salary}</td>
-										<td className="p-2 text-base flex flex-row justify-start items-center gap-2">
+										<td className="p-2 text-base flex flex-row justify-center items-center gap-2">
 											<Link to={`/Dashboard/view_job_detail/${res?._id}`} state={res}><GrFormView className="inline cursor-pointer" size={20} /></Link>
 											<Link to={`/Dashboard/job_offer/${res?._id}`} state={res}><BiSolidEditAlt className="text-[#007bff] cursor-pointer inline" size={20} /></Link>
 											<TiDelete className="inline text-red-500 cursor-pointer" size={20}
