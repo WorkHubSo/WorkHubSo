@@ -4,6 +4,7 @@ import { useState } from "react";
 import { MdOutlineClear, MdOutlineAdd, MdDeleteOutline, MdEdit } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import { useAddJobSeekerExperienceMutation, useDeleteJobSeekerExperienceMutation, useGetCurrentJobSeekerExperiencesQuery, useUpdateJobSeekerExperienceMutation } from "../../../redux/job_seeker_redux/slices/job_seeker_experiences.js";
+import { toast } from "react-toastify";
 const Experiences = ({ update_res_state }) => {
 	const navigate = useNavigate();
 	const [addJobSeekerExperience] = useAddJobSeekerExperienceMutation();
@@ -36,18 +37,31 @@ const Experiences = ({ update_res_state }) => {
 		const id = update_res_state?._id;
 		if (!id) {
 			try {
-				const { jobTitle , category, employeType, companyName, locations, years ,description } = values
-				await addJobSeekerExperience({ jobTitle , category, employeType, companyName, locations, years ,description })
+				const { jobTitle, category, employeType, companyName, locations, years, description } = values
+				await addJobSeekerExperience({ jobTitle, category, employeType, companyName, locations, years, description }).then((res) => {
+					const status = res.data.status;
+					if (status) {
+						toast.success(res.data.message);
+						setShowForm(!showForm)
+					} else {
+						toast.error(res.data.message);
+					}
+				})
 			} catch (error) {
 				console.log('error', error);
 			}
 		} else {
 			try {
-				const { jobTitle , category, employeType, companyName, locations, years ,description} = values
-				await updateJobSeekerExperience({ id: id, UpdateExperience: { jobTitle , category, employeType, companyName, locations, years ,description } }).then(res => {
-					console.log('res', res);
-					navigate('/Job_seeker_manage_profile')
-					setShowForm(!showForm)
+				const { jobTitle, category, employeType, companyName, locations, years, description } = values
+				await updateJobSeekerExperience({ id: id, UpdateExperience: { jobTitle, category, employeType, companyName, locations, years, description } }).then(res => {
+					const status = res.data.status;
+					if (status) {
+						toast.success(res.data.message);
+						navigate('/Job_seeker_manage_profile')
+						setShowForm(!showForm)
+					} else {
+						toast.error(res.data.message);
+					}
 				})
 			} catch (error) {
 				console.log('error', error);
@@ -61,7 +75,14 @@ const Experiences = ({ update_res_state }) => {
 	const handleDelete = async (id) => {
 		try {
 			if (confirm('Are you sure you want to delete')) {
-				await deleteJobSeekerExperience(id)
+				await deleteJobSeekerExperience(id).then((res) => {
+					const status = res.data.status;
+					if (status) {
+						toast.success(res.data.message);
+					} else {
+						toast.error(res.data.message);
+					}
+				})
 			}
 
 		} catch (error) {
@@ -122,11 +143,22 @@ const Experiences = ({ update_res_state }) => {
 						showForm ? <Form className="flex flex-col text-[#333333] justify-start items-start gap-2 space-y-1">
 							<div className="w-full gap-3 grid grid-cols-1 lg:grid-cols-2 justify-start items-start">
 								<div className="w-full space-y-1">
-									<Field type='text' className=' w-full p-3 rounded shadow outline-[#007bff]' placeholder='Enter Job Title' name="jobTitle"/>
+									<Field type='text' className=' w-full p-3 rounded shadow outline-[#007bff]' placeholder='Enter Job Title' name="jobTitle" />
 									<ErrorMessage component='div' className="text-red-500" name="jobTitle" />
 								</div>
 								<div className="w-full space-y-1">
-									<Field type='text' className=' w-full p-3 rounded shadow outline-[#007bff]' placeholder='Enter Category' name="category" />
+									<Field as='select' className=' w-full p-3 rounded shadow outline-[#007bff]' placeholder='Enter Category' name="category">
+										<option value="">-select category--</option>
+										<option value="Technology and IT">Technology and IT</option>
+										<option value="Finance and Accounting">Finance and Accounting</option>
+										<option value="Healthcare and Medicine">Healthcare and Medicine</option>
+										<option value="Sales and Marketing">Sales and Marketing</option>
+										<option value="Education and Teaching">Education and Teaching</option>
+										<option value="Creative Arts and Design">Creative Arts and Design</option>
+										<option value="Administrative and Clerical">Administrative and Clerical</option>
+										<option value="Human Resources">Human Resources</option>
+										<option value="Hospitality and Tourism">Hospitality and Tourism</option>
+									</Field>
 									<ErrorMessage component='div' className="text-red-500" name="category" />
 								</div>
 								<div className="w-full space-y-1">
@@ -146,16 +178,16 @@ const Experiences = ({ update_res_state }) => {
 								<div className="w-full space-y-1">
 									<Field type='text' className=' w-full p-3 rounded shadow outline-[#007bff]' placeholder='Enter locations ' name="locations" />
 									<ErrorMessage component='div' className="text-red-500" name="locations" />
-							</div>
-							<div className="w-full space-y-1">
+								</div>
+								<div className="w-full space-y-1">
 									<Field type='date' className=' w-full p-3 rounded shadow outline-[#007bff]' placeholder='Enter Years ' name="years" />
 									<ErrorMessage component='div' className="text-red-500" name="years" />
+								</div>
 							</div>
-							</div>
-							
+
 							<div className="w-full space-y-1">
-									<Field as='textarea' className=' w-full p-3 rounded shadow outline-[#007bff]' placeholder='Enter Description' name="description" />
-									<ErrorMessage component='div' className="text-red-500" name="description" />
+								<Field as='textarea' className=' w-full p-3 rounded shadow outline-[#007bff]' placeholder='Enter Description' name="description" />
+								<ErrorMessage component='div' className="text-red-500" name="description" />
 							</div>
 							<button type="submit" className="py-2 px-10 rounded shadow hover:bg-blue-600 bg-[#007bff] text-white">Save</button>
 						</Form> : ''
@@ -165,8 +197,8 @@ const Experiences = ({ update_res_state }) => {
 
 			<div className="w-full mt-5">
 				{
-					showForm ? <span className=" cursor-pointer bg-[#007bff] text-white py-2 px-5 rounded shadow">< MdOutlineClear size={20} className="inline" onClick={() => setShowForm(!showForm)} /> <small className=" tracking-tighter text-lg" onClick={() => setShowForm(!showForm)} > Close Education</small></span> :
-						<span className=" cursor-pointer bg-[#007bff] text-white py-2 px-5 rounded shadow"><MdOutlineAdd size={20} className="inline" onClick={() => setShowForm(!showForm)} /> <small className=" tracking-tighter text-lg" onClick={() => setShowForm(!showForm)} > Add Education</small></span>
+					showForm ? <span className=" cursor-pointer bg-[#007bff] text-white py-2 px-5 rounded shadow">< MdOutlineClear size={20} className="inline" onClick={() => setShowForm(!showForm)} /> <small className=" tracking-tighter text-lg" onClick={() => setShowForm(!showForm)} > Close Experience</small></span> :
+						<span className=" cursor-pointer bg-[#007bff] text-white py-2 px-5 rounded shadow"><MdOutlineAdd size={20} className="inline" onClick={() => setShowForm(!showForm)} /> <small className=" tracking-tighter text-lg" onClick={() => setShowForm(!showForm)} > Add Experience</small></span>
 				}
 			</div>
 

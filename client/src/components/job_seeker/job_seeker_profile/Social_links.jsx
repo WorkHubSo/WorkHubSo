@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAddJobSeekerSocialLinksMutation, useDeleteJobSeekerSocialLinksMutation, useGetCurrentJobSeekerSocialLinkQuery, useUpdateJobSeekerSocialLinksMutation } from "../../../redux/job_seeker_redux/slices/job_seeker_social_links.js";
 import { BsTwitter , BsLinkedin , BsGithub , BsFacebook, BsYoutube , } from 'react-icons/bs'
 import { SiLinktree } from 'react-icons/si'
+import { toast } from "react-toastify";
 const Social_links = ({ update_res_state }) => {
 	const navigate = useNavigate();
 	const [ addJobSeekerSocialLinks ] = useAddJobSeekerSocialLinksMutation();
@@ -27,7 +28,15 @@ const Social_links = ({ update_res_state }) => {
 		if (!id) {
 			try {
 				const { linkedIn , facebook , twitter , github , linkTree , Youtube } = values
-				await addJobSeekerSocialLinks({ linkedIn , facebook , twitter , github , linkTree , Youtube })
+				await addJobSeekerSocialLinks({ linkedIn , facebook , twitter , github , linkTree , Youtube }).then((res)=>{
+					const status = res.data.status;
+					if(status){
+						toast.success(res.data.message);
+						setShowForm(!showForm)
+					}else{
+						toast.error(res.data.message);
+					}
+				})
 			} catch (error) {
 				console.log('error', error);
 			}
@@ -35,9 +44,14 @@ const Social_links = ({ update_res_state }) => {
 			try {
 				const { linkedIn , facebook , twitter , github , linkTree , Youtube } = values
 				await updateJobSeekerSocialLinks({ id: id, updateSocialLinks: { linkedIn , facebook , twitter , github , linkTree , Youtube } }).then(res => {
-					console.log('res', res);
-					navigate('/Job_seeker_manage_profile')
-					setShowForm(!showForm)
+					const status = res.data.status;
+					if(status){
+						toast.success(res.data.message);
+						navigate('/Job_seeker_manage_profile')
+						setShowForm(!showForm)
+					}else{
+						toast.error(res.data.message);
+					}
 				})
 			} catch (error) {
 				console.log('error', error);
@@ -51,7 +65,14 @@ const Social_links = ({ update_res_state }) => {
 	const handleDelete = async (id) => {
 		try {
 			if (confirm('Are you sure you want to delete')) {
-				await deleteJobSeekerSocialLinks(id)
+				await deleteJobSeekerSocialLinks(id).then((res) => {
+					const status = res.data.status;
+					if(status){
+						toast.success(res.data.message);
+					}else{
+						toast.error(res.data.message);
+					}
+				})
 			}
 
 		} catch (error) {

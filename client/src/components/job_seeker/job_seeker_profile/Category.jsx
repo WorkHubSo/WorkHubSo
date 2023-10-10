@@ -1,16 +1,14 @@
-import { ErrorMessage, Field, Form, Formik } from "formik"
-import * as Yup from 'yup'
-import { useAddJobseekerCategoryMutation, useDeleteJobSeekerCategoryMutation, useGetJobSeekerCategoryQuery, useUpdateJobSeekerCategoryMutation } from "../../../redux/job_seeker_redux/slices/job_seeker_category"
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useState } from "react";
-import { MdOutlineClear, MdOutlineAdd, MdDeleteOutline, MdEdit, MdTry } from "react-icons/md";
+import { MdDeleteOutline, MdEdit, MdOutlineAdd, MdOutlineClear } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import * as Yup from 'yup';
+import { useAddJobseekerCategoryMutation, useDeleteJobSeekerCategoryMutation, useGetJobSeekerCategoryQuery, useUpdateJobSeekerCategoryMutation } from "../../../redux/job_seeker_redux/slices/job_seeker_category";
 const Category = ({ update_res_state }) => {
 	const navigate = useNavigate();
 	const [addJobseekerCategory] = useAddJobseekerCategoryMutation();
 	const [updateJobSeekerCategory] = useUpdateJobSeekerCategoryMutation();
-	const [errors, setErrors] = useState(false);
-	const [message, setMessage] = useState('');
-	const [success, setSuccees] = useState(false);
 	const [showForm, setShowForm] = useState(false)
 	const { data: Category_data = {} } = useGetJobSeekerCategoryQuery();
 	const [deleteJobSeekerCategory] = useDeleteJobSeekerCategoryMutation()
@@ -31,20 +29,10 @@ const Category = ({ update_res_state }) => {
 				await addJobseekerCategory({ category }).then((res) => {
 					const status = res.data.status;
 					if (status) {
-						setSuccees(true);
-						setErrors(false);
-						setMessage(res.data.message)
-						setTimeout(() => {
-							setMessage('')
-						}, 2000)
+						toast.success(res.data.message)
 
 					} else {
-						setSuccees(false);
-						setErrors(true);
-						setMessage(res.data.message)
-						setTimeout(() => {
-							setMessage('')
-						}, 2000)
+						toast.error(res.data.message)
 					}
 				})
 
@@ -54,25 +42,16 @@ const Category = ({ update_res_state }) => {
 		} else {
 			try {
 				const { category } = values
-				await updateJobSeekerCategory ({ id : id , updateCategory : {category} }).then((res) => {
+				await updateJobSeekerCategory({ id: id, updateCategory: { category } }).then((res) => {
 					const status = res.data.status;
 					if (status) {
-						setSuccees(true);
-						setErrors(false);
-						setMessage(res.data.message)
+						toast.success(res.data.message)
 						setShowForm(!showForm)
 						navigate('/Job_seeker_manage_profile')
-						setTimeout(() => {
-							setMessage('')
-						}, 2000)
+					
 
 					} else {
-						setSuccees(false);
-						setErrors(true);
-						setMessage(res.data.message)
-						setTimeout(() => {
-							setMessage('')
-						}, 2000)
+						toast.error(res.data.message)
 					}
 				})
 
@@ -91,20 +70,9 @@ const Category = ({ update_res_state }) => {
 				await deleteJobSeekerCategory(id).then((res) => {
 					const status = res.data.status;
 					if (status) {
-						setSuccees(true);
-						setErrors(false);
-						setMessage(res.data.message)
-						setTimeout(() => {
-							setMessage('')
-						}, 2000)
+						toast.success(res.data.message)
 					} else {
-						setSuccees(false);
-						setErrors(true);
-						setMessage(res.data.message)
-						setTimeout(() => {
-							setMessage('')
-						}, 2000)
-
+						toast.error(res.data.message)
 					}
 				})
 			}
@@ -145,9 +113,18 @@ const Category = ({ update_res_state }) => {
 					onSubmit={onSubmit}>
 					{
 						showForm ? <Form className="flex flex-col text-[#333333] justify-start items-start gap-2 space-y-2">
-							{errors ? <p className=" text-base text-red-500 tracking-tighter">{message}</p> : ''}
-							{success ? <p className=" text-base text-green-500 tracking-tighter">{message}</p> : ''}
-							<Field type='text' className=' w-full p-3 rounded shadow outline-[#007bff]' placeholder='Enter your Category like Web developer' name="category" />
+							<Field as='select' className=' w-full p-3 rounded shadow outline-[#007bff]' placeholder='Enter your Category like Web developer' name="category">
+								<option value="">-select category--</option>
+								<option value="Technology and IT">Technology and IT</option>
+								<option value="Finance and Accounting">Finance and Accounting</option>
+								<option value="Healthcare and Medicine">Healthcare and Medicine</option>
+								<option value="Sales and Marketing">Sales and Marketing</option>
+								<option value="Education and Teaching">Education and Teaching</option>
+								<option value="Creative Arts and Design">Creative Arts and Design</option>
+								<option value="Administrative and Clerical">Administrative and Clerical</option>
+								<option value="Human Resources">Human Resources</option>
+								<option value="Hospitality and Tourism">Hospitality and Tourism</option>
+							</Field>
 							<ErrorMessage component='div' className="text-red-500" name="category" />
 							<button type="submit" className="py-2 px-10 rounded shadow hover:bg-blue-600 bg-[#007bff] text-white">Save</button>
 						</Form> : ''

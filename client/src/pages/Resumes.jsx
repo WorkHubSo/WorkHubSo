@@ -1,4 +1,3 @@
-import { Field, Form, Formik } from 'formik';
 import { useState } from 'react';
 import { MdLocationOn } from 'react-icons/md';
 import { Link } from 'react-router-dom';
@@ -19,25 +18,18 @@ const Resumes = () => {
       <Header />
       <div className='w-[90%] md:w-[80%] mx-auto p-4 mt-40 lg:mt-28'>
         <h1 className="w-full ml-2 flex flex-row justify-start items-start gap-4">
-          <span className="text-[#007bff] text-xl tracking-widest font-semibold">Home</span>
+          <Link to='/' className="text-[#007bff] text-xl tracking-widest font-semibold">Home</Link>
           <small>/</small>
           <span className='text-black/70 text-xl tracking-widest font-semibold'>Resumes</span>
         </h1>
         <div className='mt-5 p-5 bg-[#007bff] md:p-10 shadow rounded'>
-          <p className=' text-white text-center text-3xl tracking-widest font-semibold'>{jobSeeker?.user?.length} <span className='ml-4'>Resumes Found</span></p>
-          <Formik>
-            <Form className='mt-5 text-lg tracking-tighter grid grid-cols-1 lg:grid-cols-3 justify-start items-center gap-3'>
-              <Field className='p-3 rounded shadow outline-white' type="text" placeholder='Search Resumes' />
-              <Field className='p-3 rounded shadow outline-white' type="text" placeholder='Select category' />
-              <button className='p-3 shadow rounded bg-black text-white' type='submit'>Search</button>
-            </Form>
-          </Formik>
+          <p className=' text-white text-center text-xl lg:text-3xl tracking-widest font-semibold'>{jobSeeker?.user?.length} <span className='ml-4'>Resumes Found</span></p>
         </div>
-        <div className='bg-white p-5 lg:p-10 w-full mt-10 flex flex-col justify-start items-start gap-3'>
+        <div className='bg-white p-5 lg:p-10 w-full mt-10 grid grid-cols-1 md:grid-cols-2 justify-start items-start gap-4 space-y-4'>
           {
             records?.map(res => {
               return (
-                <Link to={`/Resume_detail/${res?._id}`} className='w-full flex flex-col justify-start items-start gap-5 ' key={res?._id} state={res}>
+                <Link to={`/Resume_detail/${res?._id}`} className='w-full  flex flex-col justify-start items-start gap-5 ' key={res?._id} state={res}>
                   <div className='w-full flex flex-col lg:flex-row justify-start items-center gap-5'>
                     {
                       res?.photo ? <img className=' w-16 h-16 object-center bg-cover rounded-[100%]' src={`../../public/uploads/${res?.photo}`} alt="" /> : ''
@@ -49,12 +41,13 @@ const Resumes = () => {
                     <MdLocationOn  size={16} className='inline text-black/70'/>
                     <span>{res?.address}</span>
                     </p>
-                    <hr className='w-full border-2' />
+                    {/* <hr className='w-full border-2' /> */}
                 </Link>
               )
             })
           }
-                <nav className="mt-20">
+        </div>
+        <nav className="mt-20">
         <ul className="flex flex-row justify-start items-center gap-4">
           <li>
             <button
@@ -88,7 +81,6 @@ const Resumes = () => {
           </li>
         </ul>
       </nav>
-        </div>
       </div>
 
       <Footer />

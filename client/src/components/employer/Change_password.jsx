@@ -6,10 +6,9 @@ import { useChangePasswordMutation, useGetCurrentEmployerAuthQuery } from "../..
 const Change_password = () => {
 	const { data : employerInfo = [] } = useGetCurrentEmployerAuthQuery();
 	const currentEmployer = employerInfo?.employer || []
-	console.log('currentEmployer',currentEmployer);
 	const  [changePassword] = useChangePasswordMutation();
 	const initialState = {
-		currentPassword : currentEmployer?.password || '',
+		currentPassword : '',
 		NewPassword : '',
 		ConfirmPassword : ''
 	}
@@ -24,11 +23,16 @@ const Change_password = () => {
 	})
 
 	const handleSubmit = async(values , {resetForm}) => {
-		const { NewPassword , ConfirmPassword} = values;
+		const {currentPassword , NewPassword , ConfirmPassword} = values;
 		try {
 			if(NewPassword === ConfirmPassword){
-				await changePassword({ id : currentEmployer?._id ,updatePassword :{ NewPassword }}).then((res) => {
-					toast.success(res.data.message)
+				await changePassword({ id : currentEmployer?._id ,updatePassword :{ currentPassword , NewPassword }}).then((res) => {
+					const status = res.data.status;
+					if(status){
+						toast.success(res.data.message)
+					}else{
+						toast.error(res.data.message)
+					}
 				})
 			}else{
 				toast.error('New password and confirm password is not match')
@@ -37,7 +41,7 @@ const Change_password = () => {
 		} catch (error) {
 			console.log('error', error);
 		}
-		console.log('NewPassword',NewPassword);
+		resetForm();
 	} 
 	return (
 		<div className='mt-16 lg:mt-32 w-full lg:w-[90%]  lg:ml-[30%]'>

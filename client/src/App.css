@@ -1,0 +1,9 @@
+.text {
+    width: 100%;
+    background-color: red;
+}
+
+.text p {
+    display: block;
+    background-color: aliceblue;
+}

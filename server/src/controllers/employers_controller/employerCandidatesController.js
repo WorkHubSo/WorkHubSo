@@ -9,6 +9,7 @@ export const add_employer_candidates = async(req, res) => {
             jobSeekerEmail,
             jobTitle,
             jobCategory,
+            jobSeekerImage,
             jobSeekerResume,
             jobOfferStatus,
         } = req.body
@@ -19,6 +20,7 @@ export const add_employer_candidates = async(req, res) => {
             jobSeekerEmail: jobSeekerEmail,
             jobTitle: jobTitle,
             jobCategory: jobCategory,
+            jobSeekerImage: jobSeekerImage,
             jobSeekerResume: jobSeekerResume,
             jobOfferStatus: jobOfferStatus
         })
@@ -43,25 +45,11 @@ export const add_employer_candidates = async(req, res) => {
 export const update_employer_candidates = async(req, res) => {
     try {
         const {
-            JobOfferId,
-            jobSeekerId,
-            jobSeekerName,
-            jobSeekerEmail,
-            jobTitle,
-            jobCategory,
-            jobSeekerResume,
             jobOfferStatus
         } = req.body
 
         const candidates = await employerCandidatesModel.updateOne({ _id: req.params.id }, {
             $set: {
-                JobOfferId: JobOfferId,
-                jobSeekerId: jobSeekerId,
-                jobSeekerName: jobSeekerName,
-                jobSeekerEmail: jobSeekerEmail,
-                jobTitle: jobTitle,
-                jobCategory: jobCategory,
-                jobSeekerResume: jobSeekerResume,
                 jobOfferStatus: jobOfferStatus
             }
         })
@@ -74,7 +62,8 @@ export const update_employer_candidates = async(req, res) => {
         }
         res.json({
             status: true,
-            message: 'successfully updated'
+            message: 'successfully updated',
+            candidates
         });
 
     } catch (error) {

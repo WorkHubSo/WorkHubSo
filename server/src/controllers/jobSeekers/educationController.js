@@ -25,6 +25,7 @@ export const add_education = async(req, res) => {
         }
 
         res.json({
+            status: true,
             message: 'successfully added education '
         })
     } catch (error) {
@@ -54,6 +55,7 @@ export const update_education = async(req, res) => {
         }
 
         res.json({
+            status: true,
             message: 'successfully updated education '
         })
     } catch (error) {
@@ -138,6 +140,7 @@ export const delete_education = async(req, res) => {
         }
 
         res.json({
+            status: true,
             message: ' successfully deleted education '
         })
     } catch (error) {

@@ -1,11 +1,25 @@
-import { ErrorMessage, Field, Form, Formik } from 'formik'
-import { BiWorld } from 'react-icons/bi'
-import { MdEmail, MdLocationOn, MdPhone } from 'react-icons/md'
-import * as Yup from 'yup'
 import emailjs from '@emailjs/browser';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { useEffect, useState } from 'react';
+import { BiWorld } from 'react-icons/bi';
+import { MdEmail, MdLocationOn, MdPhone } from 'react-icons/md';
 import { toast } from 'react-toastify';
-import { Footer, Header, Navbar } from '../../index'
+import * as Yup from 'yup';
+import { Footer, Header } from '../../index';
+import Cookies from 'js-cookie';
+import { Link } from 'react-router-dom';
 const Contact = () => {
+	const jobSeekerToken = Cookies.get('jobSeekerToken')
+	const employerToken = Cookies.get('employerToken')
+	const [ auth , setAuth ] = useState(false);
+
+	useEffect(()=> {
+		if(jobSeekerToken || employerToken){
+			setAuth(true);
+		}else{
+			setAuth(false);
+		}
+	},[])
 	const initialValues = {
 		name: '',
 		email: '',
@@ -18,7 +32,7 @@ const Contact = () => {
 		subject: Yup.string().required('Subject is required'),
 		message: Yup.string().required('Message is required')
 	})
-	async function sendEmail(values) {
+	async function sendEmail(values,{ resetForm}) {
 		const templateParams = {
 			name: values.name,
 			email: values.email,
@@ -40,6 +54,8 @@ const Contact = () => {
 			console.error('Email sending failed!', error);
 			toast.error('Failed to send email message');
 		}
+
+		resetForm()
 	}
 	return (
 		<>
@@ -76,26 +92,30 @@ const Contact = () => {
 								<Field className=' w-full p-3 rounded shadow outline-[#007bff]' as='textarea' placeholder='Message' name='message' />
 								<ErrorMessage component='div' className='text-red-500' name='message' />
 							</div>
-							<button type='submit' className='w-full p-3 rounded text-white bg-[#007bff] hover:bg-blue-700 '>Send Message</button>
+							{
+								auth ? <button type='submit' className='w-full p-3 rounded text-white bg-[#007bff] hover:bg-blue-700 '>Send Message</button>
+								: <Link to='/Job_seeker_signin' type='submit' className='w-full p-3 rounded text-white bg-[#007bff] hover:bg-blue-700 '>Send Message</Link>
+							}
+							
 						</Form>
 					</Formik>
-					<div className='bg-[#007bff] h-[100%] text-white p-2 flex flex-col justify-start items-start gap-2 space-y-5'>
-						<h1 className=' ml-5 text-xl tracking-widest '>Contact Us</h1>
+					<div className='bg-[#007bff] h-[100%] text-[#007bff] p-2 flex flex-col justify-start items-start gap-2 space-y-5'>
+						<h1 className=' ml-5 text-xl tracking-widest text-white'>Contact Us</h1>
 						<div className='ml-5 flex flex-row justify-start items-center gap-2'>
-							<MdLocationOn size={30} className='inline p-2 bg-blue-500' />
-							<p className=' text-lg tracking-widest'>Mogadishu-Somalia</p>
+							<MdLocationOn size={30} className='inline p-2 bg-white' />
+							<p className=' text-lg tracking-widest text-white'>Mogadishu-Somalia</p>
 						</div>
 						<div className='ml-5 flex flex-row justify-start items-center gap-2'>
-							<MdPhone size={30} className='inline p-2 bg-blue-500' />
-							<p className=' text-lg tracking-widest'>+ 252618302314</p>
+							<MdPhone size={30} className='inline p-2 bg-white' />
+							<p className=' text-lg tracking-widest text-white'>+ 252618302314</p>
 						</div>
 						<div className='ml-5 flex flex-row justify-start items-center gap-2'>
-							<MdEmail size={30} className='inline p-2 bg-blue-500' />
-							<p className=' text-lg tracking-widest'>workhubso@gmail.com</p>
+							<MdEmail size={30} className='inline p-2 bg-white' />
+							<p className=' text-lg tracking-widest text-white'>workhubso@gmail.com</p>
 						</div>
 						<div className='ml-5 flex flex-row justify-start items-center gap-2'>
-							<BiWorld size={30} className='inline p-2 bg-blue-500' />
-							<p className=' text-lg tracking-widest'>workhubso.com</p>
+							<BiWorld size={30} className='inline p-2 bg-white' />
+							<p className=' text-lg tracking-widest text-white'>workhubso.com</p>
 						</div>
 					</div>
 				</div>

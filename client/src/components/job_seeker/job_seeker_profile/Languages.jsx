@@ -4,6 +4,7 @@ import { useState } from "react";
 import { MdOutlineClear, MdOutlineAdd, MdDeleteOutline, MdEdit} from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import { useAddJobSeekerLanguageMutation, useDeleteJobSeekerLanguageMutation, useGetCurrentJobSeekerLanguageQuery, useUpdateJobSeekerLanguageMutation } from "../../../redux/job_seeker_redux/slices/job_seeker_language_slice.js";
+import { toast } from "react-toastify";
 const Languages = ({ update_res_state }) => {
 	const navigate = useNavigate();
 	const [addJobSeekerLanguage] = useAddJobSeekerLanguageMutation();
@@ -24,7 +25,15 @@ const Languages = ({ update_res_state }) => {
 		if (!id) {
 			try {
 				const { language } = values
-				await addJobSeekerLanguage({ language })
+				await addJobSeekerLanguage({ language }).then((res)=>{
+					const status = res.data.status;
+					if(status){
+						toast.success(res.data.message);
+						setShowForm(!showForm)
+					}else{
+						toast.error(res.data.message);
+					}
+				})
 			} catch (error) {
 				console.log('error', error);
 			}
@@ -32,9 +41,14 @@ const Languages = ({ update_res_state }) => {
 			try {
 				const { language } = values
 				await updateJobSeekerLanguage ({ id : id , updateLanguage : {language} }).then(res => {
-					navigate('/Job_seeker_manage_profile')
-					setShowForm(!showForm)
-					console.log('res',res);
+					const status = res.data.status;
+					if(status){
+						toast.success(res.data.message);
+						navigate('/Job_seeker_manage_profile')
+						setShowForm(!showForm)
+					}else{
+						toast.error(res.data.message);
+					}
 				})
 			} catch (error) {
 				console.log('error', error);
@@ -48,7 +62,14 @@ const Languages = ({ update_res_state }) => {
 	const handleDelete = async (id) => {
 		try {
 			if (confirm('Are you sure you want to delete')) {
-				await deleteJobSeekerLanguage(id)
+				await deleteJobSeekerLanguage(id).then((res)=>{
+					const status = res.data.status;
+					if(status){
+						toast.success(res.data.message);
+					}else{
+						toast.error(res.data.message);
+					}
+				})
 			}
 
 		} catch (error) {

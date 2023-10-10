@@ -19,6 +19,7 @@ export const add_language = async(req, res) => {
         }
 
         res.json({
+            status: true,
             message: 'successfully added language '
         })
     } catch (error) {
@@ -44,6 +45,7 @@ export const update_language = async(req, res) => {
         }
 
         res.json({
+            status: true,
             message: 'successfully updated language '
         })
     } catch (error) {
@@ -126,6 +128,7 @@ export const delete_language = async(req, res) => {
         }
 
         res.json({
+            status: true,
             message: ' successfully deleted language '
         })
     } catch (error) {

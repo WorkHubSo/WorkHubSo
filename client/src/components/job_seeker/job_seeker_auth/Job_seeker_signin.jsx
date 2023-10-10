@@ -5,12 +5,9 @@ import { Link, useNavigate } from 'react-router-dom'
 import * as Yup from 'yup'
 import { Footer, Header } from '../../../index'
 import { useLoginJobSeekerMutation } from '../../../redux/job_seeker_redux/slices/job_seeker_slice'
+import { toast } from 'react-toastify'
 const Job_seeker_signin = () => {
 	const [showPassword, setShowPassword] = useState('password')
-	const [messageSuccess, setMessageSuccess] = useState('')
-	const [messageError, setMessageError] = useState('')
-	const [success, setSuccess] = useState(false);
-	const [errors, setErrors] = useState(false);
 	const [loginJobSeeker] = useLoginJobSeekerMutation()
 	const navigate = useNavigate();
 	const initialValues = {
@@ -35,18 +32,11 @@ const Job_seeker_signin = () => {
 			}).then((res) => {
 				const status = res.data.status
 				if (status) {
-					setErrors(false)
-					setSuccess(true)
-					setMessageSuccess(res.data.message)
-					setTimeout(() => {
-						navigate('/')
-					}, 2000)
+					navigate('/')
+					toast.success(res.data.message)
 				} else {
-					setSuccess(false)
-					setErrors(true)
-					setMessageError(res.data.message)
+					toast.error(res.data.message)
 				}
-				console.log('res', res.data.message)
 			})
 		} catch (error) {
 			console.log('error', error);
@@ -62,12 +52,6 @@ const Job_seeker_signin = () => {
 					onSubmit={onSubmit}>
 					<Form className='w-full md:w-[45%] bg-white rounded-md shadow-md p-4 mx-auto flex flex-col justify-start items-start gap-2 space-y-5'>
 						<h1 className='w-full text-center text-lg md:text-2xl tracking-widest text-[#007bff]'> Login as Job Seeker </h1>
-						{
-							errors ? <p className=' text-xl tracking-widest w-full text-center text-red-500'>{messageError}</p> : ' '
-						}
-						{
-							success ? <p className=' text-xl tracking-widest w-full text-center text-green-500'>{messageSuccess}</p> : ' '
-						}
 						<Field className=' w-full p-3 border-2 border-[#f5f5f5] rounded outline-[#007bff]' type='text' placeholder='Enter Your Email' name='email' />
 						<ErrorMessage component='div' className=' text-red-500' name='email' />
 						<div className='w-full relative space-y-2'>

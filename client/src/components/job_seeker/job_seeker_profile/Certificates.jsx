@@ -4,6 +4,7 @@ import { useState } from "react";
 import { MdOutlineClear, MdOutlineAdd, MdDeleteOutline, MdEdit } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import { useAddJobSeekerCertificateMutation, useDeleteJobSeekerCertificateMutation, useGetCurrentJobSeekerCertificatesQuery, useUpdateJobSeekerCertificateMutation } from "../../../redux/job_seeker_redux/slices/job_seeker_certificates.js";
+import { toast } from "react-toastify";
 const Certificates = ({ update_res_state }) => {
 	const navigate = useNavigate();
 	const [addJobSeekerCertificate] = useAddJobSeekerCertificateMutation();
@@ -33,7 +34,15 @@ const Certificates = ({ update_res_state }) => {
 		if (!id) {
 			try {
 				const { certificateName, institution, startDate, expireDate, description } = values
-				await addJobSeekerCertificate({ certificateName, institution, startDate, expireDate, description })
+				await addJobSeekerCertificate({ certificateName, institution, startDate, expireDate, description }).then((res)=>{
+					const status = res.data.status;
+					if(status){
+						toast.success(res.data.message);
+						setShowForm(!showForm)
+					}else{
+						toast.error(res.data.message);
+					}
+				})
 			} catch (error) {
 				console.log('error', error);
 			}
@@ -41,9 +50,14 @@ const Certificates = ({ update_res_state }) => {
 			try {
 				const { certificateName, institution, startDate, expireDate, description } = values
 				await updateJobSeekerCertificate({ id: id, updateCertificate: { certificateName, institution, startDate, expireDate, description } }).then(res => {
-					console.log('res', res);
-					navigate('/Job_seeker_manage_profile')
-					setShowForm(!showForm)
+					const status = res.data.status;
+					if(status){
+						toast.success(res.data.message);
+						navigate('/Job_seeker_manage_profile')
+						setShowForm(!showForm)
+					}else{
+						toast.error(res.data.message);
+					}
 				})
 			} catch (error) {
 				console.log('error', error);
@@ -57,7 +71,14 @@ const Certificates = ({ update_res_state }) => {
 	const handleDelete = async (id) => {
 		try {
 			if (confirm('Are you sure you want to delete')) {
-				await deleteJobSeekerCertificate(id)
+				await deleteJobSeekerCertificate(id).then((res)=>{
+					const status = res.data.status;
+					if(status){
+						toast.success(res.data.message);
+					}else{
+						toast.error(res.data.message);
+					}
+				})
 			}
 
 		} catch (error) {

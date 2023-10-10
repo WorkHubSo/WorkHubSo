@@ -1,21 +1,15 @@
 import { BsFacebook, BsGithub, BsLinkedin, BsTwitter, BsYoutube } from "react-icons/bs";
 import { SiLinktree } from "react-icons/si";
 import { Link } from "react-router-dom";
-import { useGetCurrentJobSeekerEducationQuery } from "../../../redux/job_seeker_redux/slices/job_seeker_education";
-import { useGetCurrentJobSeekerExperiencesQuery } from "../../../redux/job_seeker_redux/slices/job_seeker_experiences";
 import { useGetCurrentJobSeekerLanguageQuery } from "../../../redux/job_seeker_redux/slices/job_seeker_language_slice";
-import { useGetCurrentJobSeekerQuery, useGetJobSeekersQuery } from "../../../redux/job_seeker_redux/slices/job_seeker_slice";
+import { useGetCurrentJobSeekerQuery } from "../../../redux/job_seeker_redux/slices/job_seeker_slice";
 import { useGetCurrentJobSeekerSocialLinkQuery } from "../../../redux/job_seeker_redux/slices/job_seeker_social_links";
 
 const Sidebar_view_profile = () => {
-	const { data : user = {} } = useGetCurrentJobSeekerQuery();
-	const { data : users = {} } = useGetJobSeekersQuery();
+	const { data: jobSeekerAuth = {} } = useGetCurrentJobSeekerQuery();
+	const jobSeeker = jobSeekerAuth?.user || []
 	const { data: social_links_data = {} } = useGetCurrentJobSeekerSocialLinkQuery();
 	const { data: language_data = {} } = useGetCurrentJobSeekerLanguageQuery();
-	const jobSeeker = users?.user?.find( (res) => {
-		return  res._id == user?._id
-	} )
-
 	const jobSeekerProfile = (
 		<div className="w-full flex flex-col  justify-center items-center gap-2 space-y-2">
 			<img className="w-[70%] h-40 object-cover bg-center rounded-[100%]" src={`../../../../public/uploads/${jobSeeker?.photo}`} alt="" />

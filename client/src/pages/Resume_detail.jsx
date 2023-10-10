@@ -225,7 +225,7 @@ const Resume_detail = () => {
 			<Header />
 			<div className='w-[90%] md:w-[80%] mx-auto p-4 mt-40 lg:mt-28'>
 				<h1 className="w-full ml-2 flex flex-row justify-start items-start gap-4">
-					<span className="text-[#007bff] text-xl tracking-widest font-semibold">Home</span>
+				<Link to='/' className="text-[#007bff] text-xl tracking-widest font-semibold">Home</Link>
 					<small>/</small>
 					<span className='text-black/70 text-xl tracking-widest font-semibold'>Resumes Detail</span>
 				</h1>

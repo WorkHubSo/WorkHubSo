@@ -6,20 +6,33 @@ import { useGetJobOffersQuery } from "../redux/employer_redux/slices/Employer_jo
 import { MdLocationOn, MdOutlineAttachMoney, MdOutlineCategory, MdTitle } from "react-icons/md";
 import { CgCalendarDates } from "react-icons/cg";
 import { BiTime } from "react-icons/bi";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from 'react-modal';
-import {LuImagePlus} from 'react-icons/lu';
+import { LuImagePlus } from 'react-icons/lu';
 import axios from "axios";
 import { useGetCurrentJobSeekerQuery } from "../redux/job_seeker_redux/slices/job_seeker_slice";
 import { useAddJobCandidateMutation } from "../redux/employer_redux/slices/JobCandidates";
 import { toast } from "react-toastify";
 Modal.setAppElement('#root')
-// import Button from 'react-bootstrap/Button';
-// import Modal from 'react-bootstrap/Modal';
+import '../App.css'
+import Cookies from "js-cookie";
+
 
 const Job_detail = () => {
+
+	const jobSeekerToken = Cookies.get('jobSeekerToken')
+	const employerToken = Cookies.get('employerToken')
+	const [ auth , setAuth ] = useState(false);
+
+	useEffect(()=> {
+		if(jobSeekerToken || employerToken){
+			setAuth(true);
+		}else{
+			setAuth(false);
+		}
+	},[])
 	// upload resumes files states 
-	const [ files , setFiles ] = useState(null);
+	const [files, setFiles] = useState(null);
 	// implemented model functionalities
 	const [show, setShow] = useState(false);
 	const handleClose = () => setShow(false);
@@ -36,13 +49,13 @@ const Job_detail = () => {
 	const fetch_single_employer = employer?.employer || [];
 	const res_employer = fetch_single_employer?.find(res => res?._id == res_job?.employerId);
 
-
 	// apply jobs functionality
-	const { data : jobSeeker = {} } = useGetCurrentJobSeekerQuery()
-	const currentjobSekeer =  jobSeeker?.user || [];
-	console.log('job_id',job_id);
-	console.log('currentjobSekeer',currentjobSekeer);
+	const { data: jobSeeker = {} } = useGetCurrentJobSeekerQuery()
+	const currentjobSekeer = jobSeeker?.user || [];
 	const [addJobCandidate] = useAddJobCandidateMutation()
+	const value = res_job?.description || ' '
+
+
 
 
 	const upload = async () => {
@@ -64,36 +77,38 @@ const Job_detail = () => {
 			const jobSeekerResume = await upload();
 			await addJobCandidate({
 				JobOfferId: job_id?._id,
-                jobSeekerId: currentjobSekeer?._id,
-                jobSeekerName: currentjobSekeer?.fullName,
-                jobSeekerEmail: currentjobSekeer?.email,
-                jobTitle: job_id?.jobTitle,
-                jobCategory: job_id?.category,
-                jobSeekerResume: jobSeekerResume,
-                jobOfferStatus: 'pending'
-			}).then((res)=>{
+				jobSeekerId: currentjobSekeer?._id,
+				jobSeekerName: currentjobSekeer?.fullName,
+				jobSeekerEmail: currentjobSekeer?.email,
+				jobTitle: job_id?.jobTitle,
+				jobCategory: job_id?.category,
+				jobSeekerResume: jobSeekerResume,
+				jobSeekerImage : currentjobSekeer?.photo,
+				jobOfferStatus: 'pending'
+			}).then((res) => {
 				const status = res.data.message;
-				if(status){
+				if (status) {
 					toast.success(res.data.message);
-				}else{
+				} else {
 					toast.error(res.data.message);
 				}
 			})
 		} catch (error) {
-			console.log('error',error);
+			console.log('error', error);
 		}
 	}
 	const employerComponent = (
 		<div className="p-2 w-full bg-white shadow rounded">
 			<div className="w-full p-1 flex flex-col justify-start  gap-3 space-y-3" key={res_employer?._id}>
-				<div className="w-full flex flex-row justify-start items-center">
-					{/* <img className=" absolute left-0 right-0 top-0 w-full h-48 bg-cover object-center rounded" src="" alt="" style={{ backgroundImage: `url(${static_covver})` }} /> */}
-					{res_employer?.logo ? <img className="w-32 h-16 object-center bg-cover" src={`../../public/uploads/${res_employer?.logo}`} alt="" /> : <img className="w-24 h-20 object-center bg-cover" src={`../../public/uploads/${res_employer?.cover}`} alt="" />}
+				<div className="w-full relative flex flex-row justify-start items-center">
+					{res_employer?.cover ? <img className="w-full lg:h-96 object-center bg-cover " src={`/public/uploads/${res_employer?.cover}`} alt="" /> : " "}
+					{res_employer?.logo ? <img className="w-32 h-16 rounded-md object-center bg-cover absolute left-3 top-3 md:left-10 md:top-10" src={`../../public/uploads/${res_employer?.logo}`} alt="" /> : " "}
 				</div>
 
 				<div className=" mt-5 flex flex-col justify-start items-start gap-3 space-y-2">
 					<h1 className=" text-lg md:text-xl tracking-tighter md:tracking-widest md:font-semibold">{res_employer?.companyName}</h1>
-					<p className=" text-base md:text-lg tracking-tighter md:tracking-widest md:font-light">{res_employer?.companyBio}</p>
+					{/* <p className=" text-base md:text-lg tracking-tighter md:tracking-widest md:font-light">{}</p> */}
+					<div dangerouslySetInnerHTML={{ __html: res_employer?.companyBio }} />
 				</div>
 
 
@@ -104,27 +119,9 @@ const Job_detail = () => {
 						{res_employer?.twitter ? <Link target="_blank" to={`https://twitter.com/${res_employer?.twitter}`}><BsTwitter size={25} className=" inline text-blue-500" /></Link> : ""}
 						{res_employer?.instagram ? <Link target="_blank" to={`https://www.youtube.com/@${res_employer?.instagram}`}><BsInstagram size={25} className=" inline text-blue-500" /></Link> : ""}
 					</div>
-					<div className=" flex flex-row justify-start items-start gap-2">
+					{
+						auth ? 					<div className=" flex flex-row justify-start items-start gap-2">
 						<button className="px-5 py-2 rounded shadow bg-[#007bff] text-white hover:bg-blue-500">Save</button>
-						{/* <button className="px-5 py-2 rounded shadow bg-[#007bff] text-white hover:bg-blue-500" onClick={handleShow}>Apply</button> */}
-						{/* <>
-
-							<Modal show={show} onHide={handleClose}>
-								<Modal.Header closeButton>
-									<Modal.Title>Modal heading</Modal.Title>
-								</Modal.Header>
-								<Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
-								<Modal.Footer>
-									<Button variant="secondary" onClick={handleClose}>
-										Close
-									</Button>
-									<Button variant="primary" onClick={handleClose}>
-										Save Changes
-									</Button>
-								</Modal.Footer>
-							</Modal>
-
-						</> */}
 						<>
 							<button className="px-5 py-2 rounded shadow bg-[#007bff] text-white hover:bg-blue-500" onClick={handleShow}>
 								Apply
@@ -134,9 +131,12 @@ const Job_detail = () => {
 								<h1 className="w-full text-xl tracking-widest text-center">upload resume</h1>
 								<form onSubmit={handleSubmit} className="mt-4 flex flex-col justify-start items-center gap-2 space-y-5">
 									<div className="w-full relative space-y-3">
-										<img className="mx-auto w-40 h-36 border-[4px] border-gray-500 rounded-[100%] object-center bg-cover" src="" alt="" />
-										<input className="hidden" type="file" name="file" id="file" onChange={(e)=> setFiles(e.target.files[0])}/>
-										<label className=" absolute right-[4%] lg:right-[15%] top-16 cursor-pointer" htmlFor="file"><LuImagePlus size={30}/></label>
+										{
+											files ? <img className="mx-auto w-40 h-36 border-[4px] border-gray-500 rounded-[100%] object-center bg-cover" src={URL.createObjectURL(files ||  '' )} alt="" /> : 
+											<img className="mx-auto w-40 h-36 border-[4px] border-gray-500 rounded-[100%] object-center bg-cover" src="" alt="" />
+										}
+										<input className="hidden" type="file" name="file" id="file" onChange={(e) => setFiles(e.target.files[0])} />
+										<label className=" absolute right-[4%] lg:right-[15%] top-16 cursor-pointer" htmlFor="file"><LuImagePlus size={30} /></label>
 									</div>
 									<div className="flex flex-row justify-center items-start gap-4">
 										<button className="text-xl text-white tracking-widest p-3 rounded shadow bg-slate-900 hover:bg-slate-700" onClick={handleClose}>Close</button>
@@ -145,7 +145,8 @@ const Job_detail = () => {
 								</form>
 							</Modal>
 						</>
-					</div>
+					</div>  : " "
+					}
 				</div>
 			</div>
 
@@ -158,7 +159,12 @@ const Job_detail = () => {
 			<div className="w-full p-2 lg:w-[75%]">
 				<h1 className="text-xl tracking-wider text-[#007bff]">Job description</h1>
 				<hr className="w-full border-[1px] mt-4 border-slate-300" />
-				<p className="mt-4 text-base lg:text-lg tracking-wide">{res_job?.description}</p>
+				{/* <p className="mt-4 text-base lg:text-lg tracking-wide">{res_job?.description}</p> */}
+				{/* <div dangerouslySetInnerHTML={{__html :  }}/> */}
+
+				<div dangerouslySetInnerHTML={{__html : value}}/>
+				
+
 			</div>
 			<div className="w-full lg:w-[35%] p-2 border-[1px] rounded-md">
 				<h1 className="text-xl tracking-wider text-[#007bff] ">Job Summary</h1>
@@ -180,7 +186,7 @@ const Job_detail = () => {
 			<Header />
 			<div className='w-[90%] md:w-[80%] mx-auto p-4 mt-40 lg:mt-28'>
 				<h1 className="w-full ml-2 flex flex-row justify-start items-start gap-4">
-					<span className="text-[#007bff] text-xl tracking-widest font-semibold">Home</span>
+				<Link to='/' className="text-[#007bff] text-xl tracking-widest font-semibold">Home</Link>
 					<small>/</small>
 					<span className='text-black/70 text-xl tracking-widest font-semibold'>Job Detail</span>
 				</h1>

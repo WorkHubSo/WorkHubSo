@@ -1,12 +1,15 @@
 import axios from "axios";
 import { ErrorMessage, Field, Form, Formik } from "formik"
-import { useState } from "react";
+import { useState , useEffect} from "react";
 import { Link, useLocation } from "react-router-dom"
 import * as Yup from 'yup'
 import { useAddJopOfferMutation, useUpdateJobOfferMutation } from "../../redux/employer_redux/slices/Employer_job_offer";
 import { toast } from "react-toastify";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 const JopOffer = () => {
   const res_job_state = useLocation().state
+  const [value, setValue] = useState('');
   const [addJopOffer] = useAddJopOfferMutation();
   const [updateJobOffer] = useUpdateJobOfferMutation();
   const [coverFile, setCoverFile] = useState(null);
@@ -14,7 +17,7 @@ const JopOffer = () => {
     try {
 
       let formdata = new FormData();
-      formdata.append('file', coverFile);
+      formdata.append('file', coverFile || '');
       const res = await axios.post("http://localhost:8000/api/upload", formdata)
       return res.data;
 
@@ -27,7 +30,6 @@ const JopOffer = () => {
     jobTitle: res_job_state?.jobTitle || '',
     category: res_job_state?.category || '',
     typeEmployement: res_job_state?.typeEmployement || '',
-    description: res_job_state?.description || '',
     experienceLevel: res_job_state?.experienceLevel || '',
     requiredExperience: res_job_state?.requiredExperience || '',
     salary: res_job_state?.salary || '',
@@ -37,11 +39,16 @@ const JopOffer = () => {
     location: res_job_state?.location || '',
   }
 
+  useEffect(() => {
+    if (res_job_state?.description) {
+      setValue(res_job_state?.description);
+    }
+  }, [res_job_state]);
+
   const validationSchema = Yup.object({
     jobTitle: Yup.string().required('Job Title'),
     category: Yup.string().required('Choose Category'),
     typeEmployement: Yup.string().required('Type Employement'),
-    description: Yup.string().required('Description'),
     experienceLevel: Yup.string().required('Experience Level'),
     requiredExperience: Yup.string().required('Required Experience'),
     salary: Yup.number().required('Salary'),
@@ -52,17 +59,24 @@ const JopOffer = () => {
 
   })
 
-  const handleSubmit = async (values) => {
+  const handleSubmit = async (values, { resetForm }) => {
     const id = res_job_state?._id || ''
 
     if (!id) {
 
       try {
-        const { jobTitle, category, typeEmployement, description, experienceLevel, requiredExperience, salary, deadline, externalUrl, branch, location } = values;
+        const description = value
+        const { jobTitle, category, typeEmployement, experienceLevel, requiredExperience, salary, deadline, externalUrl, branch, location } = values;
         const cover = await uploadCover();
-        await addJopOffer({ jobTitle, category, typeEmployement, description, experienceLevel, requiredExperience, salary, deadline, externalUrl, branch, location, cover }).then((res) => {
-          toast.success(res.data.message)
-        })
+        await addJopOffer({ jobTitle, category, typeEmployement, description, experienceLevel, requiredExperience, salary, deadline, externalUrl, branch, location, cover })
+          .then((res) => {
+            const status = res.data.status;
+            if (status) {
+              toast.success(res.data.message)
+            } else {
+              toast.error(res.data.message)
+            }
+          })
 
       } catch (error) {
         console.log('error', error);
@@ -71,7 +85,8 @@ const JopOffer = () => {
     } else {
 
       try {
-        const { jobTitle, category, typeEmployement, description, experienceLevel, requiredExperience, salary, deadline, externalUrl, branch, location } = values;
+        const description = value
+        const { jobTitle, category, typeEmployement, experienceLevel, requiredExperience, salary, deadline, externalUrl, branch, location } = values;
         const cover = await uploadCover();
         await updateJobOffer({ id: id, updateJob: { jobTitle, category, typeEmployement, description, experienceLevel, requiredExperience, salary, deadline, externalUrl, branch, location, cover } }).then((res) => {
           toast.success(res.data.message)
@@ -82,6 +97,8 @@ const JopOffer = () => {
       }
 
     }
+
+    resetForm();
 
 
   }
@@ -148,8 +165,7 @@ const JopOffer = () => {
               </div>
             </div>
             <div className="w-full">
-              <Field className='outline-[#007bff] w-full p-3 rounded shadow' as='textarea' placeholder='Description' name="description" />
-              <ErrorMessage className="text-red-500" component='div' name="description" />
+              <ReactQuill className="h-fit" theme="snow" value={value} onChange={setValue} />
             </div>
             <div className="w-full grid grid-cols-1 lg:grid-cols-2 justify-start items-start gap-4">
               <div className="w-full">
@@ -173,7 +189,7 @@ const JopOffer = () => {
                 <ErrorMessage className="text-red-500" component='div' name="location" />
               </div>
             </div>
-            <button type="submit" className="lg:w-[30%] bg-[#007bff] text-white hover:bg-blue-600 w-full p-3 rounded shadow">Edit Profile</button>
+            <button type="submit" className="lg:w-[30%] bg-[#007bff] text-white hover:bg-blue-600 w-full p-3 rounded shadow">Save Job Offer</button>
           </Form>
         </Formik>
       </div>

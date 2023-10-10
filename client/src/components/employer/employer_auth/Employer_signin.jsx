@@ -30,8 +30,6 @@ const Employer_signin = () => {
 				email, password
 			}).then((res) => {
 				const status = res.data.status
-
-				console.log('status: ',res.data);
 				if(status){
 					navigate('/Dashboard')
 					toast.success(res.data.message)

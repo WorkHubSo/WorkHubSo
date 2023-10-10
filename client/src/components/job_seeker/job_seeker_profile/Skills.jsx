@@ -4,6 +4,7 @@ import { useState } from "react";
 import { MdOutlineClear, MdOutlineAdd, MdDeleteOutline, MdEdit} from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import { useAddJobSeekerSkillsMutation, useDeleteJobSeekerSkillsMutation, useGetCurrentJobSeekerSkillsQuery, useUpdateJobSeekerSkillsMutation } from "../../../redux/job_seeker_redux/slices/job_seeker_skills.js";
+import { toast } from "react-toastify";
 const Skills = ({ update_res_state }) => {
 	const navigate = useNavigate();
 	const [addJobSeekerSkills] = useAddJobSeekerSkillsMutation();
@@ -24,7 +25,16 @@ const Skills = ({ update_res_state }) => {
 		if (!id) {
 			try {
 				const { skill } = values
-				await addJobSeekerSkills({ skill })
+				await addJobSeekerSkills({ skill }).then(res => {
+					const status = res.data.message;
+					if(status){
+						toast.success(res.data.message)
+						navigate('/Job_seeker_manage_profile')
+						setShowForm(!showForm)
+					}else{
+						toast.error(res.data.message)
+					}
+				})
 			} catch (error) {
 				console.log('error', error);
 			}
@@ -32,8 +42,14 @@ const Skills = ({ update_res_state }) => {
 			try {
 				const { skill } = values
 				await updateJobSeekerSkills ({ id : id , updateSkill : {skill} }).then(res => {
-					navigate('/Job_seeker_manage_profile')
-					setShowForm(!showForm)
+					const status = res.data.message;
+					if(status){
+						toast.success(res.data.message)
+						navigate('/Job_seeker_manage_profile')
+						setShowForm(!showForm)
+					}else{
+						toast.error(res.data.message)
+					}
 				})
 			} catch (error) {
 				console.log('error', error);
@@ -47,7 +63,14 @@ const Skills = ({ update_res_state }) => {
 	const handleDelete = async (id) => {
 		try {
 			if (confirm('Are you sure you want to delete')) {
-				await deleteJobSeekerSkills(id)
+				await deleteJobSeekerSkills(id).then((res)=>{
+					const status = res.data.message;
+					if(status){
+						toast.success(res.data.message)
+					}else{
+						toast.error(res.data.message)
+					}
+				})
 			}
 
 		} catch (error) {

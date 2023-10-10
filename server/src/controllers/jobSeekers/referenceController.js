@@ -26,8 +26,8 @@ export const add_reference = async(req, res) => {
 
         console.log('what is ', req.jobSeeker);
         res.json({
+            status: true,
             message: 'successfully added reference person',
-            reference_person
         })
 
     } catch (error) {
@@ -103,6 +103,7 @@ export const update_reference = async(req, res) => {
         }
 
         res.json({
+            status: true,
             message: 'successfully updated reference'
         })
 
@@ -123,6 +124,7 @@ export const delete_reference = async(req, res) => {
         }
 
         res.json({
+            status: true,
             message: 'successfully deleted reference'
         })
 

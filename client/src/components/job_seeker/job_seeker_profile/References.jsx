@@ -4,6 +4,7 @@ import { useState } from "react";
 import { MdOutlineClear, MdOutlineAdd, MdDeleteOutline, MdEdit } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import { useAddJobSeekerReferenceMutation, useDeleteJobSeekerReferenceMutation, useGetCurrentJobSeekerReferencesQuery, useUpdateJobSeekerReferenceMutation } from "../../../redux/job_seeker_redux/slices/job_seeker_references.js";
+import { toast } from "react-toastify";
 const References = ({ update_res_state }) => {
 	const navigate = useNavigate();
 	const [ addJobSeekerReference ] = useAddJobSeekerReferenceMutation();
@@ -36,7 +37,15 @@ const References = ({ update_res_state }) => {
 		if (!id) {
 			try {
 				const { fullName, company, position, email, phone, description } = values
-				await addJobSeekerReference({ fullName, company, position, email, phone, description })
+				await addJobSeekerReference({ fullName, company, position, email, phone, description }).then((res)=>{
+					const status = res.data.status;
+					if(status){
+						toast.success(res.data.message);
+						setShowForm(!showForm)
+					}else{
+						toast.error(res.data.message);
+					}
+				})
 			} catch (error) {
 				console.log('error', error);
 			}
@@ -44,9 +53,14 @@ const References = ({ update_res_state }) => {
 			try {
 				const { fullName, company, position, email, phone, description } = values
 				await updateJobSeekerReference({ id: id, updateReference: { fullName, company, position, email, phone, description } }).then(res => {
-					console.log('res', res);
-					navigate('/Job_seeker_manage_profile')
-					setShowForm(!showForm)
+					const status = res.data.status;
+					if(status){
+						toast.success(res.data.message);
+						navigate('/Job_seeker_manage_profile')
+						setShowForm(!showForm)
+					}else{
+						toast.error(res.data.message);
+					}
 				})
 			} catch (error) {
 				console.log('error', error);
@@ -60,7 +74,14 @@ const References = ({ update_res_state }) => {
 	const handleDelete = async (id) => {
 		try {
 			if (confirm('Are you sure you want to delete')) {
-				await deleteJobSeekerReference(id)
+				await deleteJobSeekerReference(id).then((res)=>{
+					const status = res.data.status;
+					if(status){
+						toast.success(res.data.message);
+					}else{
+						toast.error(res.data.message);
+					}
+				})
 			}
 
 		} catch (error) {
