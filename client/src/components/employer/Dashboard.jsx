@@ -8,7 +8,7 @@ const Dashboard = () => {
 	return (
 		<div className='w-full'>
 			<div className='relative p-5 lg:hidden flex flex-row justify-between items-center gap-5'>
-				<h1 className=" text-xl tracking-tighter"><SiWorkplace size={40} className="inline text-[#007bff]" />ork<span className="text-[#333333]">Hubso</span></h1>
+				<h1 className=" text-xl tracking-tighter"><SiWorkplace size={40} className="inline text-primaryColor" />ork<span className="text-[#333333]">Hubso</span></h1>
 				{
 					showMenu ? <AiOutlineMenu size={25} className="lg:hidden block absolute right-5" onClick={() => setShowMenu(!showMenu)} />
 						: <AiOutlineClose size={25} className="lg:hidden block absolute right-5" onClick={() => setShowMenu(!showMenu)} />

@@ -10,7 +10,6 @@ const Jobs = () => {
   const [partTimeChecked, setPartTimeChecked] = useState(false);
   const [freelanceChecked, setFreelanceChecked] = useState(false);
   const [interneshipChecked, setInterneshipChecked] = useState(false);
-  const [salaryRange, setSalaryRange] = useState('');
   const [filterCategory, setFilterCategory] = useState('');
 
   const { data: jobs = [] } = useGetJobOffersQuery();
@@ -64,13 +63,6 @@ const Jobs = () => {
   });
 
 
-  const getSalaryRange = records.filter((res) => {
-    if (salaryRange) {
-      return res.salary === salaryRange;
-    } else {
-      return true; // Return all jobs if the checkbox is not checked
-    }
-  });
 
 
   const getFilterCategory = records.filter((res) => {
@@ -86,12 +78,8 @@ const Jobs = () => {
   return (
     <>
       <Header />
-      <div className='w-[90%] md:w-[80%] mx-auto p-4 mt-40 lg:mt-28'>
-        <h1 className="w-full ml-2 flex flex-row justify-start items-start gap-4">
-        <Link to='/' className="text-[#007bff] text-xl tracking-widest font-semibold">Home</Link>
-          <small>/</small>
-          <span className='text-black/70 text-xl tracking-widest font-semibold'>Jobs</span>
-        </h1>
+      <div className='w-[90%] md:w-[80%] mx-auto p-4 mt-40 lg:mt-28 mb-10 bg-white rounded-md'>
+       
         <div className='mt-5 p-5 bg-[#007bff] md:p-10 shadow rounded'>
           <p className=' text-white text-center text-xl lg:text-3xl tracking-widest font-semibold'>{job_lengths.length} <span className='ml-4'>Job offer Founds</span></p>
         </div>
@@ -140,12 +128,7 @@ const Jobs = () => {
 
             </div>
 
-            <div className='w-full space-y-3'>
-              <h1 className=' text-xl tracking-widest font-medium'>Salary Range</h1>
-              <div className='w-full'>
-                <input type="range" name="salary" id="salary" onChange={(e) => setSalaryRange(e.target.value)} />
-              </div>
-            </div>
+           
 
           </div>
 

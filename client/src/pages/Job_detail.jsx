@@ -100,10 +100,10 @@ const Job_detail = () => {
 	const employerComponent = (
 		<div className="p-2 w-full bg-white shadow rounded">
 			<div className="w-full p-1 flex flex-col justify-start  gap-3 space-y-3" key={res_employer?._id}>
-				<div className="w-full relative flex flex-row justify-start items-center">
+				{/* <div className="w-full relative flex flex-row justify-start items-center">
 					{res_employer?.cover ? <img className="w-full lg:h-96 object-center bg-cover " src={`/public/uploads/${res_employer?.cover}`} alt="" /> : " "}
 					{res_employer?.logo ? <img className="w-32 h-16 rounded-md object-center bg-cover absolute left-3 top-3 md:left-10 md:top-10" src={`../../public/uploads/${res_employer?.logo}`} alt="" /> : " "}
-				</div>
+				</div> */}
 
 				<div className=" mt-5 flex flex-col justify-start items-start gap-3 space-y-2">
 					<h1 className=" text-lg md:text-xl tracking-tighter md:tracking-widest md:font-semibold">{res_employer?.companyName}</h1>
@@ -185,11 +185,11 @@ const Job_detail = () => {
 		<>
 			<Header />
 			<div className='w-[90%] md:w-[80%] mx-auto p-4 mt-40 lg:mt-28'>
-				<h1 className="w-full ml-2 flex flex-row justify-start items-start gap-4">
+				{/* <h1 className="w-full ml-2 flex flex-row justify-start items-start gap-4">
 				<Link to='/' className="text-[#007bff] text-xl tracking-widest font-semibold">Home</Link>
 					<small>/</small>
 					<span className='text-black/70 text-xl tracking-widest font-semibold'>Job Detail</span>
-				</h1>
+				</h1> */}
 			</div>
 			<div className="w-[80%] mx-auto flex flex-col justify-start items-start gap-2 space-y-3">
 				{employerComponent}

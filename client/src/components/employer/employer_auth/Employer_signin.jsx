@@ -44,25 +44,25 @@ const Employer_signin = () => {
 	return (
 		<>
 		<Header/>
-			<div className="w-[90%] md:w-[80%] mx-auto mt-32 p-4">
+			<div className="w-[90%] md:w-[80%] mx-auto mt-32 p-4 font-roboto mb-10">
 				<Formik
 					initialValues={initialValues}
 					validationSchema={validationSchema}
 					onSubmit={onSubmit}>
-					<Form className='w-full md:w-[45%] bg-white rounded-md shadow-md p-4 mx-auto flex flex-col justify-start items-start gap-2 space-y-5'>
-						<h1 className='w-full text-center text-lg md:text-2xl tracking-widest text-[#007bff]'> Login as Employer </h1>
-						<Field className=' w-full p-3 border-2 border-[#f5f5f5] rounded outline-[#007bff]' type='text' placeholder='Enter Your Email' name='email' />
+					<Form className='w-full md:w-[45%] bg-white rounded-md shadow-md p-4 mx-auto flex flex-col justify-start items-start gap-2 space-y-5 font-roboto'>
+						<h1 className='w-full text-center text-lg md:text-2xl  text-primaryColor'> Login as Employer </h1>
+						<Field className=' w-full p-3 border-2 border-[#f5f5f5] rounded outline-primaryColor' type='text' placeholder='Enter Your Email' name='email' />
 						<ErrorMessage component='div' className=' text-red-500' name='email' />
 						<div className='w-full relative space-y-2'>
-							<Field className=' w-full p-3 border-2 border-[#f5f5f5] rounded outline-[#007bff]' type={showPassword} placeholder='Enter Your Password' name='password' />
+							<Field className=' w-full p-3 border-2 border-[#f5f5f5] rounded outline-primaryColor' type={showPassword} placeholder='Enter Your Password' name='password' />
 							<ErrorMessage component='div' className=' text-red-500' name='password' />
 							{
 								showPassword == 'password' ? <BiHide size={25} className=' absolute right-3  cursor-pointer top-2' onClick={() => setShowPassword('text')} /> :
 									<BiShow size={25} className=' cursor-pointer absolute right-3 top-2' onClick={() => setShowPassword('password')} />
 							}
 						</div>
-						<button type='submit' className='w-full p-3 rounded text-white bg-[#007bff] hover:bg-blue-700 '> Sign In</button>
-						<p className=' text-base tracking-widest'>Already have an Account? <Link className=' text-[#007bff]' to='/Employer_signin'> Sign Up</Link></p>
+						<button type='submit' className='w-full p-3 rounded text-white bg-primaryColor hover:bg-primaryColor '> Sign In</button>
+						<p className=' text-base '>Already have an Account? <Link className=' text-primaryColor' to='/Employer_signup'> Sign Up</Link></p>
 					</Form>
 				</Formik>
 			</div>

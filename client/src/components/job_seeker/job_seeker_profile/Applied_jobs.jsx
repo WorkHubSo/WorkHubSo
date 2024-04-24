@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import { Footer, Header } from "../../../index.js";
 import { useGetJobCandidateQuery } from "../../../redux/employer_redux/slices/JobCandidates";
 import { useGetCurrentJobSeekerQuery } from "../../../redux/job_seeker_redux/slices/job_seeker_slice";
@@ -24,25 +23,22 @@ const Applied_jobs = () => {
 		<>
 		<Header/>
 			<div className='w-[90%] md:w-[80%] mx-auto p-4 mt-40 lg:mt-28'>
-				<h1 className="w-full ml-2 flex flex-row justify-start items-start gap-4">
-					<Link to='/' className="text-[#007bff] lg:text-xl tracking-widest font-semibold">Home</Link>
-					<small>/</small>
-					<span className='text-black/70 text-base lg:text-xl tracking-widest font-semibold'> / Applied Jobs</span>
-				</h1>
+				
 				<div className="mt-10 w-full lg:w-[30%]">
-					<input className="w-full p-3 rounded shadow outline-[#007bff] " type="text" placeholder="search for job title"
+					<input className="w-full p-3 rounded shadow outline-primaryColor " type="text" placeholder="search for job title"
 						onChange={(e) => setSearchJobCandidate(e.target.value)} />
 				</div>
 				<div className="w-full mt-7 overflow-auto bg-white shadow rounded p-2">
 					<table className="w-full">
 						<thead>
-							<tr className="text-white text-base text-start space-x-2 bg-[#007bff]">
-								<td className="p-2">J_seeker_name</td>
-								<td className="p-2">J_seeker_email</td>
-								<td className="p-2">J_title</td>
-								<td className="p-2">J_Category</td>
-								<td className="p-2">J_Resume</td>
-								<td className="p-2">J_status</td>
+							<tr className="text-white text-base text-start space-x-2 bg-primaryColor">
+								<td className="p-2 ">JOB SEEKER NAME</td>
+								<td className="p-2">JOB SEEKER EMAIL</td>
+								<td className="p-2">JOB TITLE</td>
+								<td className="p-2">JOB CATEGORY</td>
+								<td className="p-2">JOB SEEKER RESUME</td>
+								<td className="p-2">JOB OFFER STATUS</td>
+
 							</tr>
 						</thead>
 						<tbody>
@@ -58,7 +54,7 @@ const Applied_jobs = () => {
 											<td className="p-2 text-base">{res?.jobTitle}</td>
 											<td className="p-2 text-base">{res?.jobCategory}</td>
 											<td className="p-2 text-base">
-												<img className="w-16 h-16 rounded-md" src={`../../../public/uploads/${res?.jobSeekerResume}`} alt="" />
+												<img className="w-20 h-20 object-cover bg-center rounded-lg" src={`../../../public/uploads/${res?.jobSeekerResume}`} alt="" />
 											</td>
 											<td className="p-2 text-base ">{res?.jobOfferStatus}</td>
 											
@@ -73,7 +69,7 @@ const Applied_jobs = () => {
 							<li>
 								<button
 									onClick={prePage}
-									className="bg-[#007bff] hover:bg-blue-600 px-3 py-2 text-[#F7F5F5] rounded  shadow-lg"
+									className="bg-primaryColor hover:bg-blue-600 px-3 py-2 text-[#F7F5F5] rounded  shadow-lg"
 								>
 									previous
 								</button>
@@ -83,7 +79,7 @@ const Applied_jobs = () => {
 									<li
 										key={index}
 										className={`${currentPage === page
-											? "bg-[#007bff] rounded px-3 py-1  text-[#F7F5F5] text-lg "
+											? "bg-primaryColor rounded px-3 py-1  text-[#F7F5F5] text-lg "
 											: ""
 											}`}
 									>
@@ -94,7 +90,7 @@ const Applied_jobs = () => {
 							<li>
 								<button
 									onClick={nextPage}
-									className="bg-[#007bff] hover:bg-blue-600 px-3 py-2  text-[#F7F5F5] rounded shadow-lg"
+									className="bg-primaryColor hover:bg-blue-600 px-3 py-2  text-[#F7F5F5] rounded shadow-lg"
 								>
 									Next
 								</button>

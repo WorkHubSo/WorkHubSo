@@ -1,7 +1,7 @@
 import axios from "axios";
 import { ErrorMessage, Field, Form, Formik } from "formik"
 import { useState , useEffect} from "react";
-import { Link, useLocation } from "react-router-dom"
+import {  useLocation } from "react-router-dom"
 import * as Yup from 'yup'
 import { useAddJopOfferMutation, useUpdateJobOfferMutation } from "../../redux/employer_redux/slices/Employer_job_offer";
 import { toast } from "react-toastify";
@@ -105,11 +105,7 @@ const JopOffer = () => {
 
   return (
     <div className="mt-16 lg:mt-32 w-full lg:w-[90%]  lg:ml-[30%]">
-      <h1 className="w-full ml-2 flex flex-row justify-start items-start gap-4">
-        <Link to='/' className="text-[#007bff] lg:text-xl tracking-widest font-semibold">Home</Link>
-        <small>/</small>
-        <span className='text-black/70 text-base lg:text-xl tracking-widest font-semibold'><Link className="inline" to='/Dashboard'>Dashboard</Link> / Job Offer</span>
-      </h1>
+   
       <div className="mt-5 w-full lg:w-[90%] bg-white shadow rounded p-4 ">
         <Formik
           enableReinitialize
@@ -119,11 +115,11 @@ const JopOffer = () => {
           <Form className="w-full flex flex-col justify-start items-start gap-2 space-y-3">
             <div className="w-full grid grid-cols-1 lg:grid-cols-2 justify-start items-start gap-4">
               <div className="w-full">
-                <Field className='outline-[#007bff] w-full p-3 rounded shadow' type='text' placeholder='Job Title' name="jobTitle" />
+                <Field className='outline-primaryColor w-full p-3 rounded shadow' type='text' placeholder='Job Title' name="jobTitle" />
                 <ErrorMessage className="text-red-500" component='div' name="jobTitle" />
               </div>
               <div className="w-full">
-                <Field className='outline-[#007bff] w-full p-3 rounded shadow' as='select' placeholder='Category' name="category">
+                <Field className='outline-primaryColor w-full p-3 rounded shadow' as='select' placeholder='Category' name="category">
                   <option value="">-select category--</option>
                   <option value="Technology and IT">Technology and IT</option>
                   <option value="Finance and Accounting">Finance and Accounting</option>
@@ -138,7 +134,7 @@ const JopOffer = () => {
                 <ErrorMessage className="text-red-500" component='div' name="category" />
               </div>
               <div className="w-full">
-                <Field className='outline-[#007bff] w-full p-3 rounded shadow' as='select' placeholder='Type Employement' name="typeEmployement">
+                <Field className='outline-primaryColor w-full p-3 rounded shadow' as='select' placeholder='Type Employement' name="typeEmployement">
                   <option value="">-Select Type Employement--</option>
                   <option value="Full Time">Full Time</option>
                   <option value="Part Time">Part Time</option>
@@ -148,10 +144,10 @@ const JopOffer = () => {
                 <ErrorMessage className="text-red-500" component='div' name="typeEmployement" />
               </div>
               <div className="w-full">
-                <input className='outline-[#007bff] w-full p-2 rounded shadow' type='file' placeholder='cover photo' onChange={(e) => setCoverFile(e.target.files[0])} />
+                <input className='outline-primaryColor w-full p-2 rounded shadow' type='file' placeholder='cover photo' onChange={(e) => setCoverFile(e.target.files[0])} />
               </div>
               <div className="w-full">
-                <Field className='outline-[#007bff] w-full p-3 rounded shadow' as='select' placeholder='Experience Level' name="experienceLevel">
+                <Field className='outline-primaryColor w-full p-3 rounded shadow' as='select' placeholder='Experience Level' name="experienceLevel">
                   <option value="">-Select Experience Level --</option>
                   <option value="Top Level">Top Level</option>
                   <option value="Mid Level">Mid Level</option>
@@ -160,7 +156,7 @@ const JopOffer = () => {
                 <ErrorMessage className="text-red-500" component='div' name="experienceLevel" />
               </div>
               <div className="w-full">
-                <Field className='outline-[#007bff] w-full p-3 rounded shadow' type='text' placeholder='Required Experience' name="requiredExperience" />
+                <Field className='outline-primaryColor w-full p-3 rounded shadow' type='text' placeholder='Required Experience' name="requiredExperience" />
                 <ErrorMessage className="text-red-500" component='div' name="requiredExperience" />
               </div>
             </div>
@@ -169,27 +165,27 @@ const JopOffer = () => {
             </div>
             <div className="w-full grid grid-cols-1 lg:grid-cols-2 justify-start items-start gap-4">
               <div className="w-full">
-                <Field className='outline-[#007bff] w-full p-3 rounded shadow' type='text' placeholder='External Url' name="externalUrl" />
+                <Field className='outline-primaryColor w-full p-3 rounded shadow' type='text' placeholder='External Url' name="externalUrl" />
                 <ErrorMessage className="text-red-500" component='div' name="externalUrl" />
               </div>
               <div className="w-full">
-                <Field className='outline-[#007bff] w-full p-3 rounded shadow' type='number' placeholder='Salary' name="salary" />
+                <Field className='outline-primaryColor w-full p-3 rounded shadow' type='number' placeholder='Salary' name="salary" />
                 <ErrorMessage className="text-red-500" component='div' name="salary" />
               </div>
               <div className="w-full">
-                <Field className='outline-[#007bff] w-full p-3 rounded shadow' type='date' placeholder='Deadline' name="deadline" />
+                <Field className='outline-primaryColor w-full p-3 rounded shadow' type='date' placeholder='Deadline' name="deadline" />
                 <ErrorMessage className="text-red-500" component='div' name="deadline" />
               </div>
               <div className="w-full">
-                <Field className='outline-[#007bff] w-full p-3 rounded shadow' type='text' placeholder='Branch' name="branch" />
+                <Field className='outline-primaryColor w-full p-3 rounded shadow' type='text' placeholder='Branch' name="branch" />
                 <ErrorMessage className="text-red-500" component='div' name="branch" />
               </div>
               <div className="w-full">
-                <Field className='outline-[#007bff] w-full p-3 rounded shadow' type='text' placeholder='Location' name="location" />
+                <Field className='outline-primaryColor w-full p-3 rounded shadow' type='text' placeholder='Location' name="location" />
                 <ErrorMessage className="text-red-500" component='div' name="location" />
               </div>
             </div>
-            <button type="submit" className="lg:w-[30%] bg-[#007bff] text-white hover:bg-blue-600 w-full p-3 rounded shadow">Save Job Offer</button>
+            <button type="submit" className="lg:w-[30%] bg-primaryColor text-white hover:bg-blue-600 w-full p-3 rounded shadow">Save Job Offer</button>
           </Form>
         </Formik>
       </div>

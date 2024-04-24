@@ -12,7 +12,7 @@ const Update_job_seeker_profile = () => {
 	const jobSeeker = jobSeekerAuth?.user || []
 	console.log('jobSeeker',jobSeeker);
 	const [files, setFiles] = useState(null);
-	const [selectedFiles, setSelectedFiles] = useState('');
+	const [ setSelectedFiles] = useState('');
 	const initialValues = {
 		fullName: jobSeeker?.fullName || '',
 		email: jobSeeker?.email || '',

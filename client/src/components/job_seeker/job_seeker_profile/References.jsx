@@ -5,6 +5,9 @@ import { MdOutlineClear, MdOutlineAdd, MdDeleteOutline, MdEdit } from "react-ico
 import { Link, useNavigate } from "react-router-dom";
 import { useAddJobSeekerReferenceMutation, useDeleteJobSeekerReferenceMutation, useGetCurrentJobSeekerReferencesQuery, useUpdateJobSeekerReferenceMutation } from "../../../redux/job_seeker_redux/slices/job_seeker_references.js";
 import { toast } from "react-toastify";
+
+
+
 const References = ({ update_res_state }) => {
 	const navigate = useNavigate();
 	const [ addJobSeekerReference ] = useAddJobSeekerReferenceMutation();
@@ -22,6 +25,8 @@ const References = ({ update_res_state }) => {
 		description: update_res_state?.description || '',
 
 	}
+
+	
 	const validationSchema = Yup.object({
 		fullName: Yup.string().required('Enter Full Name'),
 		company: Yup.string().required('Enter Company '),

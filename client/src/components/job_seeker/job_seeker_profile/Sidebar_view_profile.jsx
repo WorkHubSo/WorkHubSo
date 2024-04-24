@@ -12,7 +12,7 @@ const Sidebar_view_profile = () => {
 	const { data: language_data = {} } = useGetCurrentJobSeekerLanguageQuery();
 	const jobSeekerProfile = (
 		<div className="w-full flex flex-col  justify-center items-center gap-2 space-y-2">
-			<img className="w-[70%] h-40 object-cover bg-center rounded-[100%]" src={`../../../../public/uploads/${jobSeeker?.photo}`} alt="" />
+			<img className="w-40 h-40 object-cover bg-center rounded-full" src={`../../../../public/uploads/${jobSeeker?.photo}`} alt="" />
 			<div className="w-[90%] space-y-2 text-start">
 				<p className=" text-xl text-center tracking-widest font-semibold">{jobSeeker?.fullName}</p>
 				<p className=" text-center text-lg text-gray-700">{jobSeeker?.username}</p>
@@ -80,3 +80,4 @@ const Sidebar_view_profile = () => {
 }
 
 export default Sidebar_view_profile
+

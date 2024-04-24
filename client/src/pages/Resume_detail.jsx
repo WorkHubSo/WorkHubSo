@@ -48,17 +48,17 @@ const Resume_detail = () => {
 		return res.jobSeekerId == resumeId
 	})
 
-	console.log('jobSeeker', jobSeeker);
-	console.log('resumeskills', resumeskills);
-	console.log('resumeEducations', resumeEducations);
-	console.log('resumeExperiences', resumeExperiences);
-	console.log('resumeReferences', resumeReferences);
-	console.log('resumeLanguages', resumeLanguages);
-	console.log('resumeId', resumeId);
+	// console.log('jobSeeker', jobSeeker);
+	// console.log('resumeskills', resumeskills);
+	// console.log('resumeEducations', resumeEducations);
+	// console.log('resumeExperiences', resumeExperiences);
+	// console.log('resumeReferences', resumeReferences);
+	// console.log('resumeLanguages', resumeLanguages);
+	// console.log('resumeId', resumeId);
 
 
 	const jobSeekerBio = (
-		<div className="w-[90%] mx-auto flex flex-col  justify-start items-center gap-2 space-y-2">
+		<div className="w-[90%] mx-auto flex flex-col  justify-start items-center gap-2 space-y-2 mt-10 bg-white rounded-md mb-10">
 			<div className="w-full space-y-2 text-start">
 				<p className=" text-xl text-center tracking-widest">Hi,{jobSeeker?.fullName}</p>
 				<p className="text-justify md:text-start text-base text-gray-700">{jobSeeker?.aboutMe}</p>
@@ -163,9 +163,9 @@ const Resume_detail = () => {
 
 
 	const jobSeekerProfile = (
-		<div className="w-full flex flex-col  justify-center items-center gap-2 space-y-2">
-			{jobSeeker?.photo ? <img className="w-[70%] h-40 object-cover bg-center rounded-[100%]" src={`../../../../public/uploads/${jobSeeker?.photo}`} alt="" /> : 
-			<img className="w-[70%] h-40 object-cover bg-center rounded-[100%]" src='/images/avator.png' alt="" /> }
+		<div className="w-full flex flex-col  justify-center items-center gap-2 space-y-2  whitespace-normal ">
+			{jobSeeker?.photo ? <img className="w-40 h-40 object-cover bg-center rounded-full" src={`../../../../public/uploads/${jobSeeker?.photo}`} alt="" /> : 
+			<img className="w-40 h-40 object-cover bg-center rounded-full" src='/images/avator.png' alt="" /> }
 			<div className="w-[90%] space-y-2 text-start">
 				<p className=" text-xl text-center tracking-widest font-semibold">{jobSeeker?.fullName}</p>
 				<p className=" text-center text-lg text-gray-700">{jobSeeker?.username}</p>
@@ -223,12 +223,8 @@ const Resume_detail = () => {
 	return (
 		<>
 			<Header />
-			<div className='w-[90%] md:w-[80%] mx-auto p-4 mt-40 lg:mt-28'>
-				<h1 className="w-full ml-2 flex flex-row justify-start items-start gap-4">
-				<Link to='/' className="text-[#007bff] text-xl tracking-widest font-semibold">Home</Link>
-					<small>/</small>
-					<span className='text-black/70 text-xl tracking-widest font-semibold'>Resumes Detail</span>
-				</h1>
+			<div className='w-[90%] md:w-[80%] mx-auto p-4 mt-40 lg:mt-28  mb-10 rounded-md'>
+				
 				<div className="w-full mt-10  flex flex-col lg:flex-row gap-3 justify-start items-start">
 					<div className="w-full lg:w-[34%] bg-white p-5 rounded-md h-fit shadow-md">
 						<div className="w-full">

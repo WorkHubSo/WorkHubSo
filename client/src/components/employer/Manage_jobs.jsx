@@ -32,20 +32,16 @@ const Manage_jobs = () => {
 	}
 
 	return (
-		<div className="mt-16 lg:mt-32 w-full lg:w-[90%]  lg:ml-[30%]">
-			<h1 className="w-full ml-2 flex flex-row justify-start items-start gap-4">
-				<Link to='/' className="text-[#007bff] lg:text-xl tracking-widest font-semibold">Home</Link>
-				<small>/</small>
-				<span className='text-black/70 text-base lg:text-xl tracking-widest font-semibold'><Link className="inline" to='/Dashboard'>Dashboard</Link> / Manage Jobs</span>
-			</h1>
+		<div className=" mt-16 lg:mt-32 w-full lg:w-[70%]  lg:ml-[25%]">
+			
 			<div className="mt-10 w-full lg:w-[30%]">
-				<input className="w-full p-3 rounded shadow outline-[#007bff] " type="text" placeholder="search for job title"
+				<input className="w-full p-3 rounded shadow outline-primaryColor" type="text" placeholder="search for job title"
 					onChange={(e) => setSearchJobTitle(e.target.value)} />
 			</div>
-			<div className="w-full mt-7 overflow-auto bg-white shadow rounded p-2">
+			<div className="w-full mt-7 bg-white shadow rounded p-2">
 				<table className="w-full">
 					<thead>
-						<tr className="text-white text-base text-start space-x-2 bg-[#007bff]">
+						<tr className="text-white text-base text-start space-x-2 bg-primaryColor">
 							<td className="p-2">J_title</td>
 							<td className="p-2 hidden md:block">Category</td>
 							<td className="p-2">T_employement</td>
@@ -73,7 +69,7 @@ const Manage_jobs = () => {
 										<td className="p-2 text-base">{res?.salary}</td>
 										<td className="p-2 text-base flex flex-row justify-center items-center gap-2">
 											<Link to={`/Dashboard/view_job_detail/${res?._id}`} state={res}><GrFormView className="inline cursor-pointer" size={20} /></Link>
-											<Link to={`/Dashboard/job_offer/${res?._id}`} state={res}><BiSolidEditAlt className="text-[#007bff] cursor-pointer inline" size={20} /></Link>
+											<Link to={`/Dashboard/job_offer/${res?._id}`} state={res}><BiSolidEditAlt className="text-primaryColorcursor-pointer inline" size={20} /></Link>
 											<TiDelete className="inline text-red-500 cursor-pointer" size={20}
 												onClick={() => handleDelete(res?._id)} />
 										</td>
@@ -83,12 +79,12 @@ const Manage_jobs = () => {
 						}
 					</tbody>
 				</table>
-				<nav className="mt-20">
+				<nav className="mt-10">
 					<ul className="flex flex-row justify-start items-center gap-4">
 						<li>
 							<button
 								onClick={prePage}
-								className="bg-[#007bff] hover:bg-blue-600 px-3 py-2 text-[#F7F5F5] rounded  shadow-lg"
+								className="bg-primaryColor hover:bg-blue-600 px-3 py-2 text-[#F7F5F5] rounded  shadow-lg"
 							>
 								previous
 							</button>
@@ -98,7 +94,7 @@ const Manage_jobs = () => {
 								<li
 									key={index}
 									className={`${currentPage === page
-										? "bg-[#007bff] rounded px-3 py-1  text-[#F7F5F5] text-lg "
+										? "bg-primaryColor rounded px-3 py-1  text-[#F7F5F5] text-lg "
 										: ""
 										}`}
 								>
@@ -109,7 +105,7 @@ const Manage_jobs = () => {
 						<li>
 							<button
 								onClick={nextPage}
-								className="bg-[#007bff] hover:bg-blue-600 px-3 py-2  text-[#F7F5F5] rounded shadow-lg"
+								className="bg-primaryColor hover:bg-blue-600 px-3 py-2  text-[#F7F5F5] rounded shadow-lg"
 							>
 								Next
 							</button>

@@ -105,8 +105,8 @@ const Certificates = ({ update_res_state }) => {
 								</div>
 
 								<div className="flex flex-row justify-start items-center space-y-2 lg:space-y-0 lg:space-x-2">
-									<Link to={`/Job_seeker_manage_profile/${res?._id}`} state={res}><MdEdit size={25} className=" inline text-blue-500 cursor-pointer" /></Link>
-									<MdDeleteOutline onClick={() => handleDelete(res?._id)} size={25} className=" inline text-blue-500 cursor-pointer" />
+									<Link to={`/Job_seeker_manage_profile/${res?._id}`} state={res}><MdEdit size={25} className=" inline text-primaryColor cursor-pointer" /></Link>
+									<MdDeleteOutline onClick={() => handleDelete(res?._id)} size={25} className=" inline text-primaryColor cursor-pointer" />
 								</div>
 
 							</div>
@@ -135,28 +135,28 @@ const Certificates = ({ update_res_state }) => {
 						showForm ? <Form className="flex flex-col text-[#333333] justify-start items-start gap-2 space-y-2">
 							<div className="w-full gap-3 grid grid-cols-1 lg:grid-cols-2 justify-start items-start space-y-1">
 								<div className="w-full space-y-1">
-									<Field type='text' className=' w-full p-3 rounded shadow outline-[#007bff]' placeholder='Enter your CertificateName' name="certificateName" />
+									<Field type='text' className=' w-full p-3 rounded shadow outline-primaryColor' placeholder='Enter your CertificateName' name="certificateName" />
 									<ErrorMessage component='div' className="text-red-500" name="certificateName" />
 								</div>
 								<div className="w-full space-y-1">
-									<Field type='text' className=' w-full p-3 rounded shadow outline-[#007bff]' placeholder='Enter your Institution' name="institution" />
+									<Field type='text' className=' w-full p-3 rounded shadow outline-primaryColor' placeholder='Enter your Institution' name="institution" />
 									<ErrorMessage component='div' className="text-red-500" name="institution" />
 								</div>
 								<div className="w-full space-y-1">
-									<Field type='date' className=' w-full p-3 rounded shadow outline-[#007bff]' placeholder='Enter your StartDate' name="startDate" />
+									<Field type='date' className=' w-full p-3 rounded shadow outline-primaryColor' placeholder='Enter your StartDate' name="startDate" />
 									<ErrorMessage component='div' className="text-red-500" name="startDate" />
 								</div>
 								<div className="w-full space-y-1">
-									<Field type='date' className=' w-full p-3 rounded shadow outline-[#007bff]' placeholder='Enter your ExpireDate' name="expireDate" />
+									<Field type='date' className=' w-full p-3 rounded shadow outline-primaryColor' placeholder='Enter your ExpireDate' name="expireDate" />
 									<ErrorMessage component='div' className="text-red-500" name="expireDate" />
 								</div>
 								<div className="w-full space-y-1">
-									<Field type='text' className=' w-full p-3 rounded shadow outline-[#007bff]' placeholder='Enter your Description' name="description" />
+									<Field type='text' className=' w-full p-3 rounded shadow outline-primaryColor' placeholder='Enter your Description' name="description" />
 									<ErrorMessage component='div' className="text-red-500" name="description" />
 								</div>
 							</div>
-							<input type="file" className=' w-full p-3 rounded shadow outline-[#007bff]' placeholder="upload certificate image" />
-							<button type="submit" className="py-2 px-10 rounded shadow hover:bg-blue-600 bg-[#007bff] text-white">Save</button>
+							<input type="file" className=' w-full p-3 rounded shadow outline-primaryColor' placeholder="upload certificate image" />
+							<button type="submit" className="py-2 px-10 rounded shadow hover:bg-blue-600 bg-primaryColor text-white">Save</button>
 						</Form> : ''
 					}
 				</Formik>
@@ -164,8 +164,8 @@ const Certificates = ({ update_res_state }) => {
 
 			<div className="w-full mt-5">
 				{
-					showForm ? <span className=" cursor-pointer bg-[#007bff] text-white py-2 px-5 rounded shadow">< MdOutlineClear size={20} className="inline" onClick={() => setShowForm(!showForm)} /> <small className=" tracking-tighter text-lg" onClick={() => setShowForm(!showForm)} > Close Certificate</small></span> :
-						<span className=" cursor-pointer bg-[#007bff] text-white py-2 px-5 rounded shadow"><MdOutlineAdd size={20} className="inline" onClick={() => setShowForm(!showForm)} /> <small className=" tracking-tighter text-lg" onClick={() => setShowForm(!showForm)} > Add Certificate</small></span>
+					showForm ? <span className=" cursor-pointer bg-primaryColor text-white py-2 px-5 rounded shadow">< MdOutlineClear size={20} className="inline" onClick={() => setShowForm(!showForm)} /> <small className=" tracking-tighter text-lg" onClick={() => setShowForm(!showForm)} > Close Certificate</small></span> :
+						<span className=" cursor-pointer bg-primaryColor text-white py-2 px-5 rounded shadow"><MdOutlineAdd size={20} className="inline" onClick={() => setShowForm(!showForm)} /> <small className=" tracking-tighter text-lg" onClick={() => setShowForm(!showForm)} > Add Certificate</small></span>
 				}
 			</div>
 

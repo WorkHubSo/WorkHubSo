@@ -1,5 +1,4 @@
 import { ErrorMessage, Field, Form, Formik } from "formik"
-import { Link } from "react-router-dom"
 import { toast } from "react-toastify"
 import * as Yup from 'yup'
 import { useChangePasswordMutation, useGetCurrentEmployerAuthQuery } from "../../redux/employer_redux/slices/Employer_auth_slice"
@@ -45,31 +44,27 @@ const Change_password = () => {
 	} 
 	return (
 		<div className='mt-16 lg:mt-32 w-full lg:w-[90%]  lg:ml-[30%]'>
-			<h1 className="w-full ml-2 flex flex-row justify-start items-start gap-4">
-				<Link to='/' className="text-[#007bff] lg:text-xl tracking-widest font-semibold">Home</Link>
-				<small>/</small>
-				<span className='text-black/70 text-base lg:text-xl tracking-widest font-semibold'><Link className="inline" to='/Dashboard'>Dashboard</Link> / Change Password</span>
-			</h1>
+			<h1 className="text-2xl font-bold">Change Password</h1>
 			<Formik
 			initialValues={initialState}
 			validationSchema={validationSchema}
 			onSubmit={handleSubmit}>
 				<Form className="mt-10 p-2 w-full flex flex-col justify-start items-start gap-4 space-y-5">
 					<div className="w-full space-y-3">
-						<Field className='w-full p-3 rounded shadow outline-[#007bff]' type='password' placeholder='Current Password' name='currentPassword' />
+						<Field className='w-full p-3 rounded shadow outline-primaryColor' type='password' placeholder='Current Password' name='currentPassword' />
 						<ErrorMessage component='div' className="text-red-500" name="currentPassword" />
 					</div>
 					<div className="w-full grid grid-cols-1 md:grid-cols-2 justify-start items-start gap-2">
 						<div className="w-full space-y-3">
-							<Field className='w-full p-3 rounded shadow outline-[#007bff]' type='password' placeholder='New Password' name='NewPassword' />
+							<Field className='w-full p-3 rounded shadow outline-primaryColor' type='password' placeholder='New Password' name='NewPassword' />
 							<ErrorMessage component='div' className="text-red-500" name="NewPassword" />
 						</div>
 						<div className="w-full space-y-3">
-							<Field className='w-full p-3 rounded shadow outline-[#007bff]' type='password' placeholder='Confirm Password' name='ConfirmPassword' />
+							<Field className='w-full p-3 rounded shadow outline-primaryColor' type='password' placeholder='Confirm Password' name='ConfirmPassword' />
 							<ErrorMessage component='div' className="text-red-500" name="ConfirmPassword" />
 						</div>
 					</div>
-					<button type="submit" className="lg:w-[30%] bg-[#007bff] text-white hover:bg-blue-600 w-full p-3 rounded shadow"> Change Password </button>
+					<button type="submit" className="lg:w-[30%] bg-primaryColor text-white hover:bg-primaryColor w-full p-3 rounded shadow"> Change Password </button>
 				</Form>
 			</Formik>
 		</div>

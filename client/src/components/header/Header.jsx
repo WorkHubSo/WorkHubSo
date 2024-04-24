@@ -78,7 +78,7 @@ function Header() {
 	}
 
 	const jobSeekerDropdown = (
-		<select className="p-2 rounded-md border-none outline-[#007bff] text-black" value={selectJobSeeker}
+		<select className="p-2 rounded-md border-none outline-primaryColor text-HeadingColor" value={selectJobSeeker}
 			onChange={(e) => handleselectJobSeeker(e)}>
 			<option value="">
 				{
@@ -105,7 +105,7 @@ function Header() {
 		</select>
 	)
 	const employerDropdown = (
-		<select className="p-2 rounded-md border-none outline-[#007bff]" value={selectEmployer}
+		<select className="p-2 rounded-md border-none outline-primaryColor" value={selectEmployer}
 			onChange={(e) => handleselectEmployer(e)}>
 			<option value="">
 				{
@@ -127,32 +127,37 @@ function Header() {
 		</select>
 	)
 	return (
-		<div className={`w-full bg-[#f5f5f5] mx-auto fixed z-30 top-0 left-0 right-0 p-4${showScroll ? 'shadow-md bg-[#f5f5f5] p-4 z-30 border-2 ' : ''}`}>
+		<div className={`w-full bg-white mx-auto fixed z-30 top-0 left-0 right-0 p-4${showScroll ? 'shadow-md bg-[#f5f5f5] p-4 z-30 border-2  font-roboto ' : ''}`}>
 			<div className="w-[90%] lg:w-[80%] mx-auto flex flex-col relative lg:flex-row justify-between items-center gap-1">
 				<div className="w-full flex justify-start relative items-center gap-3">
-					<h1 className=" text-xl tracking-tighter text-black"><SiWorkplace size={40} className="inline text-[#007bff]" />ork<span>Hubso</span></h1>
+					<h1 className=" text-xl tracking-tighter text-HeadingColor"><SiWorkplace size={40} className="inline text-primaryColor " />ork<span>Hubso</span></h1>
 					{
 						showMenu ? <AiOutlineMenu size={25} className="lg:hidden block absolute right-5" onClick={() => setShowMenu(!showMenu)} />
 							: <AiOutlineClose size={25} className="lg:hidden block absolute right-5" onClick={() => setShowMenu(!showMenu)} />
 					}
 				</div>
-				<ul className={`font-medium capitalize text-lg flex flex-col lg:flex-row justify-start items-center gap-7
+				<ul className={` capitalize text-base text-HeadingColor flex flex-col lg:flex-row justify-start items-center gap-7  whitespace-normal font-roboto font-medium
 			${showMenu ? 'hidden lg:flex lg:flex-row' : 'block h-screen lg:h-fit'}`}>
 					<Link to='/' onClick={() => hideShowMenu()}>Home</Link>
 					<Link to='/Jobs' onClick={() => hideShowMenu()}>Jobs</Link>
 					<Link to='/Resumes' onClick={() => hideShowMenu()}>Resumes</Link>
 					<Link to='/Contact' onClick={() => hideShowMenu()}>Contact</Link>
 					<Link to='/About' onClick={() => hideShowMenu()}>About</Link>
-					<span className="lg:ml-5 flex flex-col lg:flex-row justify-evenly items-center gap-5">
-						{
-							employerToken == true  ? " " : jobSeekerDropdown
+					<span className="lg:ml-5 flex flex-col lg:flex-row justify-evenly items-center gap-5 bg-P ">
+						{   
+							employerToken == true  ? employerDropdown : jobSeekerDropdown
 						}
-						{
-							jobSeekerToken == true ? " " : employerDropdown
+						
+						{   
+							employerToken == true  ? employerDropdown : employerDropdown
 						}
+
+
+
+					
 					</span>
 					{
-						jobSeekerToken ? <BiLogOutCircle onClick={()=>handleLogout()} size={30} className=" cursor-pointer text-[#007bff] inline"/> : " "
+						jobSeekerToken ? <BiLogOutCircle onClick={()=>handleLogout()} size={30} className=" cursor-pointer text-primaryColor inline"/> : " "
 					}
 				</ul>
 			</div>

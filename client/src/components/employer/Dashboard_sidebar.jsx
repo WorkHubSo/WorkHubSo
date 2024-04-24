@@ -6,6 +6,7 @@ import { SiWorkplace } from "react-icons/si"
 import { Link, useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
 
+// eslint-disable-next-line react/prop-types
 const Dashboard_sidebar = ({ setShowMenu, showMenu }) => {
 	const navigate = useNavigate();
 	const handleLogout = () => {
@@ -14,12 +15,12 @@ const Dashboard_sidebar = ({ setShowMenu, showMenu }) => {
 		toast.success('Successfully Log out')
 	}
 	return (
-		<div className={`w-full lg:w-[22%] fixed left-0 lg:left-10 top-0 bottom-0 bg-[#f5f5f5] p-5 ${showMenu ? 'hidden lg:flex lg:flex-col' : 'flex flex-col w-full'}`}>
-			<div className="w-full lg:w-fit flex flex-row justify-between items-center gap-4">
-				<h1 className=" text-xl tracking-tighter mt-5"><SiWorkplace size={40} className="inline text-[#007bff]" />ork<span className="text-[#333333]">Hubso</span></h1>
+		<div className={`w-full lg:w-[22%] fixed left-0  top-0 bottom-0 bg-primaryColor p-5 space-x-11 ${showMenu ? 'hidden lg:flex lg:flex-col ' : 'flex flex-col w-full'}`}>
+			<div className="w-full lg:w-fit flex flex-row justify-between items-center gap-4 space-x-11">
+				<h1 className=" text-xl tracking-tighter mt-5"><SiWorkplace size={40} className="inline text-white space-x-11" /><span className="text-white">orkHubso</span></h1>
 				<AiOutlineClose size={25} className="lg:hidden block absolute right-5" onClick={() => setShowMenu(!showMenu)} />
 			</div>
-			<div className={`w-full p-1 flex flex-col justify-start items-start gap-3 space-y-4 text-lg tracking-tighter font-medium mt-16 ${showMenu ? 'hidden lg:block lg:w-full lg:flex' : 'block'}`} onClick={() => setShowMenu(!showMenu)}>
+			<div className={`w-full p-1 flex flex-col justify-start items-start gap-3 space-y-4 text-lg tracking-tighter font-medium mt-16 text-white  ${showMenu ? 'hidden lg:block lg:w-full lg:flex ' : 'block'}`} onClick={() => setShowMenu(!showMenu)}>
 				<Link className=" flex flex-row justify-start items-center gap-3" to='/Dashboard'><MdDashboard size={25} className="inline" /> <span>Dashboard</span></Link>
 				<Link className=" flex flex-row justify-start items-center gap-3" to='/Dashboard/job_offer'><BsFileTextFill size={25} className="inline" /> <span>New Job Offer</span></Link>
 				<Link className=" flex flex-row justify-start items-center gap-3" to='/Dashboard/edit_profile'><MdEdit /> <span>Edit Profile</span></Link>

@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import { useGetCurrentJobSeekerQuery, useGetJobSeekersQuery } from "../../../redux/job_seeker_redux/slices/job_seeker_slice";
 import { Link } from "react-router-dom";
 import { BsFacebook, BsGithub, BsLinkedin, BsTwitter, BsYoutube } from "react-icons/bs";
@@ -17,7 +18,7 @@ const Sidebar_manage_profile = () => {
 	const jobSeeker = jobSeekerAuth?.user || [];
 	const jobSeekerProfile = (
 		<div className="w-full flex flex-col  justify-center items-center gap-2 space-y-2">
-			<img className="w-[80%] h-40 object-cover bg-center rounded-[100%]" src={`../../../../public/uploads/${jobSeeker?.photo}`} alt="" />
+			<img className="w-40 h-40 object-cover bg-center rounded-full" src={`../../../../public/uploads/${jobSeeker?.photo}`} alt="" />
 			<div className="w-[90%] space-y-2 text-start">
 				<p className=" text-xl text-center tracking-widest font-semibold">{jobSeeker?.fullName}</p>
 				<p className=" text-center text-lg text-gray-700">{jobSeeker?.username}</p>

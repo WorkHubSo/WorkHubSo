@@ -46,15 +46,15 @@ const Job_candidates = ({ handleDelete, get_job_candidates }) => {
 	}
 	return (
 		<div className="w-full p-5 bg-white shadow-md rounded-md mt-5">
-			<h1 className=" text-lg tracking-widest text-[#007bff]">Job Candidates</h1>
+			<h1 className=" text-lg tracking-widest text-primaryColor">Job Candidates</h1>
 			<div className="mt-10 p-1 w-full grid grid-cols-1 md:grid-cols-2 justify-start items-center gap-4 space-y-4">
 				{
 					get_job_candidates?.map(res => {
 						return (
 							<div className="rounded-md shadow-md flex flex-col justify-start items-start p-3 space-y-3
-							 hover:bg-[#007bff] hover:text-white transition-all ease-in-out duration-500 cursor-pointer" key={res?._id}>
+							 hover:bg-primaryColor hover:text-white transition-all ease-in-out duration-500 cursor-pointer" key={res?._id}>
 								<div className="mt-3 flex flex-col md:flex-row justify-start items-center gap-3">
-									{res?.jobSeekerImage ? <img className="w-20 h-20 object-center bg-cover rounded-[100%]" src={`../../../public/uploads/${res?.jobSeekerImage}`} alt="" /> : " "}
+									{res?.jobSeekerImage ? <img className="w-20 h-20 object-center bg-cover rounded-full" src={`../../../public/uploads/${res?.jobSeekerImage}`} alt="" /> : " "}
 									{/* <img className="w-10 h-10 rounded-md" src={`../../../public/images/avator.png`}/> */}
 									<div>
 										<p className=" text-base tracking-tighter">{res?.jobSeekerName}</p>
@@ -85,17 +85,17 @@ const Job_candidates = ({ handleDelete, get_job_candidates }) => {
 					onSubmit={handleSubmit} className="mt-4 flex flex-col justify-start items-center gap-2 space-y-5">
 					<Form className="mt-10">
 						<div className="w-full relative space-y-3">
-							<Field className='outline-[#007bff] w-full p-3 rounded shadow' as='select' name="jobOfferStatus">
-								<option value="">-select Status--</option>
-								<option value="accept">accept</option>
-								<option value="reject">reject</option>
-								<option value="pending">pending</option>
+							<Field className='outline-primaryColor w-full p-3 rounded shadow' as='select' name="jobOfferStatus">
+								<option value="">-Select Status--</option>
+								<option value="accept">Accept</option>
+								<option value="reject">Reject</option>
+								<option value="pending">Pending</option>
 							</Field>
 							<ErrorMessage className="text-red-500" component='div' name="jobOfferStatus" />
 						</div>
 						<div className="mt-10 flex flex-row justify-center items-start gap-4">
-							<button className="text-xl text-white tracking-widest p-3 rounded shadow bg-slate-900 hover:bg-slate-700" onClick={handleClose}>Close</button>
-							<button type="submit" className="text-xl text-white tracking-widest p-3 rounded shadow bg-[#007bff] hover:bg-blue-600">Save</button>
+							<button className="text-xl text-white tracking-widest p-3 rounded shadow bg-HeadingColor hover:bg-slate-700" onClick={handleClose}>Close</button>
+							<button type="submit" className="text-xl text-white tracking-widest p-3 rounded shadow bg-primaryColor hover:bg-blue-600">Save</button>
 						</div>
 					</Form>
 				</Formik>

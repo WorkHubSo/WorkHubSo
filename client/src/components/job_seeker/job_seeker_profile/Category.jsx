@@ -112,8 +112,8 @@ const Category = ({ update_res_state }) => {
 					validationSchema={validationSchema}
 					onSubmit={onSubmit}>
 					{
-						showForm ? <Form className="flex flex-col text-[#333333] justify-start items-start gap-2 space-y-2">
-							<Field as='select' className=' w-full p-3 rounded shadow outline-[#007bff]' placeholder='Enter your Category like Web developer' name="category">
+						showForm ? <Form className="flex flex-col text-HeadingColor justify-start items-start gap-2 space-y-2">
+							<Field as='select' className=' w-full p-3 rounded shadow outline-primaryColor' placeholder='Enter your Category like Web developer' name="category">
 								<option value="">-select category--</option>
 								<option value="Technology and IT">Technology and IT</option>
 								<option value="Finance and Accounting">Finance and Accounting</option>
@@ -126,7 +126,7 @@ const Category = ({ update_res_state }) => {
 								<option value="Hospitality and Tourism">Hospitality and Tourism</option>
 							</Field>
 							<ErrorMessage component='div' className="text-red-500" name="category" />
-							<button type="submit" className="py-2 px-10 rounded shadow hover:bg-blue-600 bg-[#007bff] text-white">Save</button>
+							<button type="submit" className="py-2 px-10 rounded shadow hover:bg-primaryColor bg-primaryColor text-white">Save</button>
 						</Form> : ''
 					}
 				</Formik>
@@ -134,8 +134,8 @@ const Category = ({ update_res_state }) => {
 
 			<div className="w-full mt-5">
 				{
-					showForm ? <span className=" cursor-pointer bg-[#007bff] text-white py-2 px-5 rounded shadow">< MdOutlineClear size={20} className="inline" onClick={() => setShowForm(!showForm)} /> <small className=" tracking-tighter text-lg" onClick={() => setShowForm(!showForm)} > Close Category</small></span> :
-						<span className=" cursor-pointer bg-[#007bff] text-white py-2 px-5 rounded shadow"><MdOutlineAdd size={20} className="inline" onClick={() => setShowForm(!showForm)} /> <small className=" tracking-tighter text-lg" onClick={() => setShowForm(!showForm)} > Add Category</small></span>
+					showForm ? <span className=" cursor-pointer bg-primaryColor text-white py-2 px-5 rounded shadow">< MdOutlineClear size={20} className="inline" onClick={() => setShowForm(!showForm)} /> <small className=" tracking-tighter text-lg" onClick={() => setShowForm(!showForm)} > Close Category</small></span> :
+						<span className=" cursor-pointer bg-primaryColor text-white py-2 px-5 rounded shadow"><MdOutlineAdd size={20} className="inline" onClick={() => setShowForm(!showForm)} /> <small className=" tracking-tighter text-lg" onClick={() => setShowForm(!showForm)} > Add Category</small></span>
 				}
 			</div>
 
