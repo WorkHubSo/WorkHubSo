@@ -98,7 +98,7 @@ const Job_detail = () => {
 		}
 	}
 	const employerComponent = (
-		<div className="p-2 w-full bg-white shadow rounded">
+		<div className="p-2 w-full bg-white shadow rounded md ">
 			<div className="w-full p-1 flex flex-col justify-start  gap-3 space-y-3" key={res_employer?._id}>
 				{/* <div className="w-full relative flex flex-row justify-start items-center">
 					{res_employer?.cover ? <img className="w-full lg:h-96 object-center bg-cover " src={`/public/uploads/${res_employer?.cover}`} alt="" /> : " "}
@@ -155,7 +155,7 @@ const Job_detail = () => {
 
 
 	const jobComponent = (
-		<div className="p-2 w-full bg-white shadow rounded flex flex-col lg:flex-row justify-start items-start gap-5">
+		<div className="p-2 w-full bg-white shadow rounded flex flex-col lg:flex-row justify-start items-start gap-5 mb-14  ">
 			<div className="w-full p-2 lg:w-[75%]">
 				<h1 className="text-xl tracking-wider text-[#007bff]">Job description</h1>
 				<hr className="w-full border-[1px] mt-4 border-slate-300" />

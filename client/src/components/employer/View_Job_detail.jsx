@@ -26,7 +26,7 @@ const View_Job_detail = () => {
 		}
 	}
 	const jobComponent = (
-		<div className="p-2 w-full bg-white shadow rounded flex flex-col lg:flex-row justify-start items-start gap-5">
+		<div className="p-2 w-full bg-white shadow rounded flex flex-col lg:flex-row justify-start items-start gap-5  ">
 			<div className="w-full p-2 lg:w-[60%]">
 				<h1 className="text-xl tracking-wider text-primaryColor">Job description</h1>
 				<hr className="w-full border-[1px] mt-4 border-slate-300" />

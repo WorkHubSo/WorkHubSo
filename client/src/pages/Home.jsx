@@ -39,12 +39,10 @@ const Home = () => {
       <Header />
       <div>
         <Navbar />
-        <div className="w-full p-5 lg:p-10 mt-8 ">
-          <h1 className="mt-4 text-center text-xl tracking-wide md:text-3xl md:tracking-widest">
-            {" "}
-            Popular Job Categories{" "}
-          </h1>
-          <div className="mt-10 w-[90%] lg:w-[80%] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className='w-full p-5 lg:p-10 mt-14'>
+					<h1 className='mt-4 text-center text-xl tracking-wide md:text-3xl md:tracking-widest w-[80%] mx-auto  lg:text-4xl p-5 lg:p-10'> Popular Job Categories </h1>
+					<div className='mt-10 w-[90%] lg:w-[80%] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
+
             <div className="px-3 py-10 transition-all cursor-pointer ease-in-out hover:scale-105 duration-500 bg-white shadow-md rounded-md hover:text-HeadingColor flex flex-col justify-center items-center space-y-4">
               <GrTechnology
                 className="bg-primaryColor w-40 h-20 text-white rounded-md"
@@ -211,7 +209,7 @@ const Home = () => {
           Subscribe Our Newsletter!
         </h1>
         <div className="mt-10 w-[90%] lg:w-[80%] mx-auto">
-          <p className=" text-base text-justify md:text-lg font-roboto md:text-center leading-10">
+          <p className=" text-base text-justify md:text-lg md:text-center leading-10">
             Stay connected with us and never miss out on the latest updates,
             exclusive offers, and valuable insights. Subscribe to our newsletter
             and be the first to know about new job opportunities, industry

@@ -42,10 +42,13 @@ const Contact = () => {
 
 		try {
 			await emailjs.send(
-				'service_rvvy0zr',
-				'template_h2b84lt',
+				// service id
+				'service_izh4yys',
+				// template id
+				'template_equpvck',
 				templateParams,
-				'BOkCi15o_1Ynsz9L-'
+				// public key
+				'MvGwQUZLxFLjM2eC6'
 			);
 
 			console.log('Email sent successfully!');
@@ -60,7 +63,7 @@ const Contact = () => {
 	return (
 		<>
 		<Header/>
-			<div className='w-[90%] md:w-[80%] mx-auto p-4  lg:mt-28 font-roboto mt-20 mb-10 '>
+			<div className='w-[90%] md:w-[80%] mx-auto p-4  lg:mt-28 font-roboto mt-20 mb-14 '>
 				{/* <h1 className="w-full ml-2 flex flex-row justify-start items-start gap-4">
 					<span className="text-primaryColor text-xl tracking-widest font-semibold">Home</span>
 					<small>/</small>

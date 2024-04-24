@@ -16,7 +16,7 @@ const Resumes = () => {
   return (
     <>
       <Header />
-      <div className='w-[90%] md:w-[80%] mx-auto p-4 mt-40 lg:mt-28  bg-white rounded-md mb-10'>
+      <div className='w-[90%] md:w-[80%] mx-auto p-4 mt-40 lg:mt-28  bg-white rounded-md mb-14'>
         
         <div className='mt-5 p-5 bg-[#007bff] md:p-10 shadow rounded'>
           <p className=' text-white text-center text-xl lg:text-3xl tracking-widest font-semibold'>{jobSeeker?.user?.length} <span className='ml-4'>Resumes Found</span></p>

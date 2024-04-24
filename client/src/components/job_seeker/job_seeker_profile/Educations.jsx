@@ -141,11 +141,12 @@ const Educations = ({ update_res_state }) => {
 									<Field as='select' className=' w-full p-3 rounded shadow outline-[#007bff]' placeholder='Enter your Degree' name="degree">
 										<option value=" ">--Select Degree level--</option>
 										<option value="Bachelor Degree">Master Degree</option>
-										<option value="Bachelor Degree">Bachelor Degree</option>
 										<option value="Higher Diploma">Higher Diploma</option>
 										<option value="Diploma">Diploma</option>
 										<option value="Secondary School">Secondary School</option>
 										<option value="Primary School">Primary School</option>
+										<option value="Bachelor Degree">Bachelor Degree</option>
+
 									</Field>
 									<ErrorMessage component='div' className="text-red-500" name="degree" />
 								</div>

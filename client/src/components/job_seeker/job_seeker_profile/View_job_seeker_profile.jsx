@@ -14,7 +14,7 @@ const View_job_seeker_profile = () => {
 	const jobSeeker = jobSeekerAuth?.user || []
 
 	const jobSeekerBio = (
-		<div className="w-[90%] mx-auto flex flex-col  justify-start items-center gap-2 space-y-2">
+		<div className="w-[90%] mx-auto flex flex-col  justify-start items-center gap-2 space-y-2 mb-10">
 			<div className="w-full space-y-2 text-start">
 				<p className=" text-xl text-center tracking-widest">Hi,{jobSeeker?.fullName}</p>
 				<p className="text-justify md:text-start text-base text-gray-700">{jobSeeker?.aboutMe}</p>
@@ -122,11 +122,7 @@ const View_job_seeker_profile = () => {
 		<>
 		<Header/>
 			<div className="w-[90%] md:w-[80%] mx-auto p-4 mt-40 lg:mt-28">
-				<h1 className="w-full text-lg tracking-widest flex flex-row justify-start items-start gap-4">
-					<span className=" text-[#007bff]">Home</span>
-					<small>/</small>
-					<span>View Profile</span>
-				</h1>
+			
 				<div className="w-full mt-10  flex flex-col lg:flex-row gap-3 justify-start items-start">
 					<div className="w-full lg:w-[34%] bg-white p-5 rounded-md h-fit shadow-md">
 						<Sidebar_view_profile />

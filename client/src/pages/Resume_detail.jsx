@@ -223,7 +223,7 @@ const Resume_detail = () => {
 	return (
 		<>
 			<Header />
-			<div className='w-[90%] md:w-[80%] mx-auto p-4 mt-40 lg:mt-28  mb-10 rounded-md'>
+			<div className='w-[90%] md:w-[80%] mx-auto p-4 mt-40 lg:mt-28  mb-14 rounded-md'>
 				
 				<div className="w-full mt-10  flex flex-col lg:flex-row gap-3 justify-start items-start">
 					<div className="w-full lg:w-[34%] bg-white p-5 rounded-md h-fit shadow-md">

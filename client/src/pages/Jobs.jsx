@@ -78,7 +78,7 @@ const Jobs = () => {
   return (
     <>
       <Header />
-      <div className='w-[90%] md:w-[80%] mx-auto p-4 mt-40 lg:mt-28 mb-10 bg-white rounded-md'>
+      <div className='w-[90%] md:w-[80%] mx-auto p-4 mt-40 lg:mt-28 mb-14 bg-white rounded-md'>
        
         <div className='mt-5 p-5 bg-[#007bff] md:p-10 shadow rounded'>
           <p className=' text-white text-center text-xl lg:text-3xl tracking-widest font-semibold'>{job_lengths.length} <span className='ml-4'>Job offer Founds</span></p>
